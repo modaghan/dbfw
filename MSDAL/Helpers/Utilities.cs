@@ -237,7 +237,7 @@ namespace BLL
         {
             PropertyInfo property = entity.GetType().GetProperty("is_active");
             if (property != null)
-                property.SetValue(entity,true);
+                property.SetValue(entity, true);
             return entity;
         }
     }
