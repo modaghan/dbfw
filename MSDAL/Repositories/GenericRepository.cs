@@ -45,6 +45,10 @@ namespace DAL
         #endregion
 
         #region READ
+        public T GetOld(object id)
+        {
+            return _dbSet.Find(id);
+        }
         public T SingleSelectByQuery(System.Linq.Expressions.Expression<Func<T, bool>> query)
         {
             return Include(MultiSelectByQuery(query)).FirstOrDefault();
