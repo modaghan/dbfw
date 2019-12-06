@@ -218,7 +218,24 @@ namespace BLL
             str = System.Text.RegularExpressions.Regex.Replace(str, @"\s", spaceChar); // //Replace spaces by dashes
             return str;
         }
-
+        public static T CreatedBy<T>(this T entity, long created_by)
+        {
+            if (created_by == 0)
+                return entity;
+            PropertyInfo property = entity.GetType().GetProperty("created_by");
+            if (property != null)
+                property.SetValue(entity, created_by);
+            return entity.ModifiedBy(created_by);
+        }
+        public static T ModifiedBy<T>(this T entity, long modified_by)
+        {
+            if (modified_by == 0)
+                return entity;
+            PropertyInfo property = entity.GetType().GetProperty("modified_by");
+            if (property != null)
+                property.SetValue(entity, modified_by);
+            return entity;
+        }
         public static T CheckCreatedDate<T>(this T entity)
         {
             PropertyInfo property = entity.GetType().GetProperty("created_date");

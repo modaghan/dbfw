@@ -70,13 +70,22 @@ namespace BLL
         {
             get
             {
-                serverCredentials = ServerCredentials();
+                // TODO deploy ederken değiştir
+                //serverCredentials = ServerCredentials();
+                //SqlConnectionStringBuilder conn_string = new SqlConnectionStringBuilder();
+                //conn_string.DataSource = serverCredentials.DataSource;
+                //conn_string.InitialCatalog = serverCredentials.InitialCatalog;
+                //conn_string.UserID = serverCredentials.UserID;
+                //conn_string.Password = serverCredentials.Password;
+                //conn_string.ConnectTimeout = serverCredentials.ConnectTimeout;
+                //return conn_string.ToString();
+
                 SqlConnectionStringBuilder conn_string = new SqlConnectionStringBuilder();
-                conn_string.DataSource = serverCredentials.DataSource;
-                conn_string.InitialCatalog = serverCredentials.InitialCatalog;
-                conn_string.UserID = serverCredentials.UserID;
-                conn_string.Password = serverCredentials.Password;
-                conn_string.ConnectTimeout = serverCredentials.ConnectTimeout;
+                conn_string.DataSource = "MODSOFT\\SQLEXPRESS";
+                conn_string.InitialCatalog = "DocuMOD";
+                conn_string.UserID = "sa";
+                conn_string.Password = "Mu43zo93";
+                conn_string.ConnectTimeout = 360;
                 return conn_string.ToString();
             }
         }

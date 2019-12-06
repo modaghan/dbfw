@@ -21,7 +21,7 @@ namespace DAL
         }
 
         #region IUnitOfWork Members
-        public IRepository<T> GetRepository<T>() where T : class
+        public IRepository<T> GetRepository<T>() where T:class
         {
             return new GenericRepository<T>(_dbContext);
         }
