@@ -32,7 +32,7 @@ namespace BLL
         }
         public virtual T Inserted(T entity)
         {
-            Inserting(entity);
+            this.Inserting(entity);
             return entity;
         }
         public virtual void Deleting(T entity)

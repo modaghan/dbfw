@@ -77,6 +77,7 @@ namespace BLL
                 conn_string.UserID = serverCredentials.UserID;
                 conn_string.Password = serverCredentials.Password;
                 conn_string.ConnectTimeout = serverCredentials.ConnectTimeout;
+                conn_string.MultipleActiveResultSets = true;
                 return conn_string.ToString();
             }
         }
