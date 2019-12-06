@@ -134,5 +134,9 @@ namespace BLL
             return IRepo.RunQuery(query, parameters);
         }
 
+        public virtual T GetOld(object id)
+        {
+            return IRepo.GetOld(id);
+        }
     }
 }

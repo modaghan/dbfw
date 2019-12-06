@@ -13,6 +13,7 @@ namespace DAL
         void Include(params string[] includes);
         void Inserting(T entity);
         T Inserted(T entity);
+        T GetOld(object id);
         T SingleSelectByQuery(System.Linq.Expressions.Expression<Func<T, bool>> query);
         IQueryable<T> MultiSelectByQuery(System.Linq.Expressions.Expression<Func<T, bool>> query);
         IQueryable<T> SelectByAll();
