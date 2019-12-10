@@ -58,7 +58,23 @@ namespace BLL
                 Expression.Constant(value));
             return Expression.Lambda<Func<TItem, bool>>(body, param);
         }
-
+        public static bool CanAdd(params string[] strs)
+        {
+            foreach (string str in strs)
+            {
+                if (string.IsNullOrEmpty(str) || string.IsNullOrWhiteSpace(str))
+                    return false;
+            }
+            return true;
+        }
+        public static bool CanAdd(this string str)
+        {
+            return !string.IsNullOrEmpty(str) && !string.IsNullOrWhiteSpace(str);
+        }
+        public static string ToStr(this string str)
+        {
+            return str != null ? str : "";
+        }
         public static bool ToBool(this bool? b)
         {
             if (b == null)
