@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MYDAL", "MYDAL\MYDAL.csproj", "{22DC1433-D2ED-444E-9AA7-16761ECF3435}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sazxz", "MYDAL\sazxz.csproj", "{22DC1433-D2ED-444E-9AA7-16761ECF3435}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDAL", "MSDAL\MSDAL.csproj", "{9ABDFA2E-3CA4-4628-B204-388A59CE1ED0}"
 EndProject

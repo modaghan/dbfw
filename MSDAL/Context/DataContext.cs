@@ -7,8 +7,8 @@
 
     public partial class DataContext : DbContext
     {
-        public DataContext()
-            : base(Credentials.ConnectionString)
+        public DataContext(string conStr = null)
+            : base(conStr)
         {
             Configuration.LazyLoadingEnabled = false;
         }

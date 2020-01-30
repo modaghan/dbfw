@@ -21,7 +21,11 @@ namespace BLL
             /// <summary>
             /// Program Sürüm Kodu
             /// </summary>
-            public static string ProgramVersionCode { get; set; }
+            public static string VersionCode { get; set; }
+            /// <summary>
+            /// Sürüm Notları
+            /// </summary>
+            public static string VersionDetails { get; set; }
             /// <summary>
             /// Yönetici mi yoksa Teknisyen modunda mı çalıştığı 
             /// </summary>
@@ -65,7 +69,16 @@ namespace BLL
         private static CustomerCredentials customerCredentials { get; set; }
         private static MailCredentials mailCredentials { get; set; }
 
-
+        public static string ToConnectionString(this ServerCredentials serverCredentials)
+        {
+            SqlConnectionStringBuilder conn_string = new SqlConnectionStringBuilder();
+            conn_string.DataSource = serverCredentials.DataSource;
+            conn_string.InitialCatalog = serverCredentials.InitialCatalog;
+            conn_string.UserID = serverCredentials.UserID;
+            conn_string.Password = serverCredentials.Password;
+            conn_string.ConnectTimeout = serverCredentials.ConnectTimeout;
+            return conn_string.ToString();
+        }
         public static string ConnectionString
         {
             get

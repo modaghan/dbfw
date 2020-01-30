@@ -21,21 +21,27 @@ namespace BLL
         {
             get
             {
-                using (var l_oConnection = new SqlConnection(Credentials.ConnectionString))
+                return IsConnectionStringValid(Credentials.ServerCredentials().ToConnectionString());
+            }
+        }
+
+        public static bool IsConnectionStringValid(string connString)
+        {
+            using (var l_oConnection = new SqlConnection(connString))
+            {
+                try
                 {
-                    try
-                    {
-                        l_oConnection.Open();
-                        l_oConnection.Close();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        return false;
-                    }
+                    l_oConnection.Open();
+                    l_oConnection.Close();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
                 }
             }
         }
+
         public static string ToJson(this object entity)
         {
             try
