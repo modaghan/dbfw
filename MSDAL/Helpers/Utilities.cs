@@ -5,11 +5,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Mail;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -24,7 +27,15 @@ namespace BLL
                 return IsConnectionStringValid(Credentials.ServerCredentials().ToConnectionString());
             }
         }
-
+        public static T Clone<T>(this object source)
+        {
+            T result = Activator.CreateInstance<T>();
+            foreach (PropertyInfo property in source.GetType().GetProperties())
+            {
+                property.SetValue(result, property.GetValue(source));
+            }
+            return result;
+        }
         public static bool IsConnectionStringValid(string connString)
         {
             using (var l_oConnection = new SqlConnection(connString))

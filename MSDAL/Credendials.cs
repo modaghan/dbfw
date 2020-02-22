@@ -39,6 +39,10 @@ namespace BLL
             /// </summary>
             public static DateTime LoginTime { get; set; }
             /// <summary>
+            /// Logout zamanı
+            /// </summary>
+            public static DateTime LogoutTime { get; set; }
+            /// <summary>
             /// İşlemin Başlangıç Zamanı
             /// </summary>
             public static DateTime ProcessStartTime { get; set; }
@@ -59,9 +63,9 @@ namespace BLL
             /// </summary>
             public static string FolderPath { get; set; }
             /// <summary>
-            /// Network Bilgileri
+            /// Sistem Bilgileri
             /// </summary>
-            public static IList<string> NetworkAdapter { get; set; }
+            public static Dictionary<string,IList<string>> Configuration { get; set; }
 
         }
         private static SystemCredentials systemCredentials { get; set; }
@@ -95,7 +99,7 @@ namespace BLL
 
                 //SqlConnectionStringBuilder conn_string = new SqlConnectionStringBuilder();
                 //conn_string.DataSource = "MODSOFT\\SQLEXPRESS";
-                //conn_string.InitialCatalog = "DocuMOD";
+                //conn_string.InitialCatalog = "DMS";
                 //conn_string.UserID = "sa";
                 //conn_string.Password = "Mu43zo93";
                 //conn_string.ConnectTimeout = 360;

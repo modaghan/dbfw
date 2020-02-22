@@ -13,21 +13,46 @@ namespace BLL.Helpers
 
     public static class Mailer
     {
-        public static async Task SendAsync(string To, string Subject, string Body, bool isHtml = false)
+        public static async Task<bool> SendAsync(string To, string Subject, string Body, bool isHtml = false)
         {
-            await Task.Run(() =>
+            return await Task.Run(() =>
             {
                 return SendMail(To, Subject, Body, isHtml);
             });
         }
-        public static async Task SendAsync(string Subject, string Body, bool isHtml = false)
+        public static async Task<bool> SendAsync(string Subject, string Body, bool isHtml = false)
         {
-            await Task.Run(() =>
+            return await Task.Run(() =>
             {
                 return SendMail(Credentials.MailCredentials().DefaultAddress, Subject, Body, isHtml);
             });
         }
-
+        public static bool TestSend(string host, string username, string password, int port, string To, string Subject, string Body, bool isHtml = false)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(username);
+                SmtpClient client = new SmtpClient();
+                client.Port = port;
+                client.EnableSsl = true;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Host = host;
+                client.Credentials = new NetworkCredential(username, password);
+                mail.Subject = Subject;
+                mail.IsBodyHtml = isHtml;
+                mail.To.Add(To);
+                mail.Body = Body;
+                client.Send(mail);
+                return true;
+            }
+            catch (Exception)
+            {
+                //Logger.Add(ex, Logger.LogPriority.Important, Logger.LogType.NetworkMistake, "E-Posta gönderilemedi.");
+                return false;
+            }
+        }
         public static bool Send(string To, string Subject, string Body, bool isHtml = false)
         {
             return SendMail(To, Subject, Body, isHtml);
@@ -44,7 +69,7 @@ namespace BLL.Helpers
             {
                 To = To == "" ? Credentials.MailCredentials().DefaultAddress : To;
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress(Credentials.CustomerCredentials().ShortName);
+                mail.From = new MailAddress(Credentials.MailCredentials().Username);//new MailAddress(Credentials.CustomerCredentials().ShortName);
                 SmtpClient client = new SmtpClient();
                 client.Port = Credentials.MailCredentials().Port;
                 client.EnableSsl = true;
@@ -59,7 +84,7 @@ namespace BLL.Helpers
                 client.Send(mail);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //Logger.Add(ex, Logger.LogPriority.Important, Logger.LogType.NetworkMistake, "E-Posta gönderilemedi.");
                 return false;
