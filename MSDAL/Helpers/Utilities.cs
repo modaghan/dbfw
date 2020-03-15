@@ -4,17 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Net;
-using System.Net.Mail;
 using System.Reflection;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -33,6 +24,18 @@ namespace BLL
             foreach (PropertyInfo property in source.GetType().GetProperties())
             {
                 property.SetValue(result, property.GetValue(source));
+            }
+            return result;
+        }
+        public static T Copy<T>(this object source)
+        {
+            T result = Activator.CreateInstance<T>();
+            foreach (PropertyInfo property in source.GetType().GetProperties())
+            {
+                if (property.Name.Equals("id"))
+                    property.SetValue(result, 0);
+                else
+                    property.SetValue(result, property.GetValue(source));
             }
             return result;
         }
@@ -249,6 +252,13 @@ namespace BLL
             str = System.Text.RegularExpressions.Regex.Replace(str, @"[^a-z0-9\s-]", ""); // Remove all non valid chars          
             str = System.Text.RegularExpressions.Regex.Replace(str, @"\s+", " ").Trim(); // convert multiple spaces into one space  
             str = System.Text.RegularExpressions.Regex.Replace(str, @"\s", spaceChar); // //Replace spaces by dashes
+            return str;
+        }
+
+        public static string Stringfy(this string phrase)
+        {
+            string str = phrase.RemoveAccent();
+            str = System.Text.RegularExpressions.Regex.Replace(str, @"'", "\""); // Remove all non valid chars          
             return str;
         }
         public static T CreatedBy<T>(this T entity, long created_by)

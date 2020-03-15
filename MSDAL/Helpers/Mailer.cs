@@ -27,7 +27,7 @@ namespace BLL.Helpers
                 return SendMail(Credentials.MailCredentials().DefaultAddress, Subject, Body, isHtml);
             });
         }
-        public static bool TestSend(string host, string username, string password, int port, string To, string Subject, string Body, bool isHtml = false)
+        public static bool TestSend(string host, string username, string password, int port, string To, string Subject, string Body, ref string result, bool isHtml = false)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace BLL.Helpers
                 mail.From = new MailAddress(username);
                 SmtpClient client = new SmtpClient();
                 client.Port = port;
-                client.EnableSsl = true;
+                client.EnableSsl =port==465;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
                 client.Host = host;
@@ -45,10 +45,12 @@ namespace BLL.Helpers
                 mail.To.Add(To);
                 mail.Body = Body;
                 client.Send(mail);
+                result = "BAŞARILI";
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                result = ex.Message;
                 //Logger.Add(ex, Logger.LogPriority.Important, Logger.LogType.NetworkMistake, "E-Posta gönderilemedi.");
                 return false;
             }
