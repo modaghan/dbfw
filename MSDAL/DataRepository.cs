@@ -82,8 +82,14 @@ namespace BLL
 
         public virtual IQueryable<T> MultiSelectByQuery(System.Linq.Expressions.Expression<Func<T, bool>> query)
         {
-
-            return IRepo.MultiSelectByQuery(query);
+            try
+            {
+                return IRepo.MultiSelectByQuery(query);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public virtual IQueryable<T> SelectByAll()
