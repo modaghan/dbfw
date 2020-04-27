@@ -15,7 +15,14 @@ namespace BLL
         {
             get
             {
-                return IsConnectionStringValid(Credentials.ServerCredentials().ToConnectionString());
+                ServerCredentials sc = Credentials.ServerCredentials().Clone<ServerCredentials>();
+                sc.ConnectTimeout = 10;
+                if (string.IsNullOrEmpty(sc.DataSource) ||
+                    string.IsNullOrEmpty(sc.InitialCatalog) ||
+                    string.IsNullOrEmpty(sc.UserID) ||
+                    string.IsNullOrEmpty(sc.Password))
+                    return false;
+                return IsConnectionStringValid(sc.ToConnectionString());
             }
         }
         public static T Clone<T>(this object source)

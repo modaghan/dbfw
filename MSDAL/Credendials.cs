@@ -135,24 +135,31 @@ namespace BLL
         {
             if (serverCredentials == null || serverCredentials.DataSource == null || serverCredentials.DataSource == "")
             {
-                string section = "ServerCredentials";
-                IniFile iniFile;
-                iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                string crypto = iniFile.IniReadValue(section, "Crypto");
-                serverCredentials = new ServerCredentials();
-                serverCredentials.DataSource = iniFile.IniReadValue(section, "DataSource");
-                serverCredentials.UserID = iniFile.IniReadValue(section, "UserID");
-                serverCredentials.Password = iniFile.IniReadValue(section, "Password");
-                serverCredentials.InitialCatalog = iniFile.IniReadValue(section, "InitialCatalog");
-                serverCredentials.ConnectTimeout = iniFile.IniReadValue(section, "ConnectTimeout").ToInteger();
-                if (crypto == "E")
+                try
                 {
-                    HashCode hashCode = new HashCode();
-                    serverCredentials.DataSource = hashCode.DecryptionConfig(serverCredentials.DataSource);
-                    serverCredentials.UserID = hashCode.DecryptionConfig(serverCredentials.UserID);
-                    serverCredentials.Password = hashCode.DecryptionConfig(serverCredentials.Password);
-                    serverCredentials.InitialCatalog = hashCode.DecryptionConfig(serverCredentials.InitialCatalog);
-                    serverCredentials.ConnectTimeout = (hashCode.DecryptionConfig(iniFile.IniReadValue(section, "ConnectTimeout"))).ToInteger();
+                    string section = "ServerCredentials";
+                    IniFile iniFile;
+                    iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    string crypto = iniFile.IniReadValue(section, "Crypto");
+                    serverCredentials = new ServerCredentials();
+                    serverCredentials.DataSource = iniFile.IniReadValue(section, "DataSource");
+                    serverCredentials.UserID = iniFile.IniReadValue(section, "UserID");
+                    serverCredentials.Password = iniFile.IniReadValue(section, "Password");
+                    serverCredentials.InitialCatalog = iniFile.IniReadValue(section, "InitialCatalog");
+                    serverCredentials.ConnectTimeout = iniFile.IniReadValue(section, "ConnectTimeout").ToInteger();
+                    if (crypto == "E")
+                    {
+                        HashCode hashCode = new HashCode();
+                        serverCredentials.DataSource = hashCode.DecryptionConfig(serverCredentials.DataSource);
+                        serverCredentials.UserID = hashCode.DecryptionConfig(serverCredentials.UserID);
+                        serverCredentials.Password = hashCode.DecryptionConfig(serverCredentials.Password);
+                        serverCredentials.InitialCatalog = hashCode.DecryptionConfig(serverCredentials.InitialCatalog);
+                        serverCredentials.ConnectTimeout = (hashCode.DecryptionConfig(iniFile.IniReadValue(section, "ConnectTimeout"))).ToInteger();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ServerCredentials();
                 }
             }
             return serverCredentials;
