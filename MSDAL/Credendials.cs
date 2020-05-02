@@ -68,6 +68,7 @@ namespace BLL
             public static Dictionary<string,IList<string>> Configuration { get; set; }
 
         }
+        public static string ConfigFile { get { return AppDomain.CurrentDomain.BaseDirectory + "Config.ini"; } }
         private static SystemCredentials systemCredentials { get; set; }
         private static ServerCredentials serverCredentials { get; set; }
         private static CustomerCredentials customerCredentials { get; set; }
@@ -111,7 +112,7 @@ namespace BLL
         {
             string section = "SystemCredentials";
             IniFile iniFile;
-            iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+            iniFile = new IniFile(ConfigFile);
             string crypto = iniFile.IniReadValue(section, "Crypto");
             systemCredentials = new SystemCredentials();
             systemCredentials.AppName = iniFile.IniReadValue(section, "AppName");
@@ -139,7 +140,7 @@ namespace BLL
                 {
                     string section = "ServerCredentials";
                     IniFile iniFile;
-                    iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+                    iniFile = new IniFile(ConfigFile);
                     string crypto = iniFile.IniReadValue(section, "Crypto");
                     serverCredentials = new ServerCredentials();
                     serverCredentials.DataSource = iniFile.IniReadValue(section, "DataSource");
@@ -167,7 +168,7 @@ namespace BLL
         public static CustomerCredentials CustomerCredentials()
         {
             IniFile iniFile;
-            iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+            iniFile = new IniFile(ConfigFile);
             string section = "CustomerCredentials";
             string crypto = iniFile.IniReadValue(section, "Crypto");
             customerCredentials = new CustomerCredentials()
@@ -208,7 +209,7 @@ namespace BLL
         public static MailCredentials MailCredentials()
         {
             IniFile iniFile;
-            iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
+            iniFile = new IniFile(ConfigFile);
             string section = "MailCredentials";
             string crypto = iniFile.IniReadValue(section, "Crypto");
             mailCredentials = new MailCredentials()

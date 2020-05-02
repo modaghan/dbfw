@@ -2,16 +2,19 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq.Expressions;
+using System.Net;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace BLL
 {
     public static class Utilities
     {
-        public static bool IsServerConnected
+        public static ConnectionState ConnectionState
         {
             get
             {
@@ -21,8 +24,8 @@ namespace BLL
                     string.IsNullOrEmpty(sc.InitialCatalog) ||
                     string.IsNullOrEmpty(sc.UserID) ||
                     string.IsNullOrEmpty(sc.Password))
-                    return false;
-                return IsConnectionStringValid(sc.ToConnectionString());
+                    return ConnectionState.Broken;
+                return IsConnectionStringValid(sc.ToConnectionString())?ConnectionState.Open:ConnectionState.Closed;
             }
         }
         public static T Clone<T>(this object source)
@@ -56,13 +59,35 @@ namespace BLL
                     l_oConnection.Close();
                     return true;
                 }
+                catch (SqlException sEx)
+                {
+                    return false;
+                }
                 catch (Exception ex)
                 {
                     return false;
                 }
             }
         }
-
+        public static Task<bool> HasNetworkConnection
+        {
+            get
+            {
+                return Task.Run(() =>
+                {
+                    try
+                    {
+                        using (var client = new WebClient())
+                        using (client.OpenRead("http://google.com/generate_204"))
+                            return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                });
+            }
+        }
         public static string ToJson(this object entity)
         {
             try
