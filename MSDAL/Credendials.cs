@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL
 {
@@ -65,7 +60,7 @@ namespace BLL
             /// <summary>
             /// Sistem Bilgileri
             /// </summary>
-            public static Dictionary<string,IList<string>> Configuration { get; set; }
+            public static Dictionary<string, IList<string>> Configuration { get; set; }
 
         }
         public static string ConfigFile { get { return AppDomain.CurrentDomain.BaseDirectory + "Config.ini"; } }
@@ -110,24 +105,33 @@ namespace BLL
 
         public static SystemCredentials SystemCredentials()
         {
-            string section = "SystemCredentials";
-            IniFile iniFile;
-            iniFile = new IniFile(ConfigFile);
-            string crypto = iniFile.IniReadValue(section, "Crypto");
             systemCredentials = new SystemCredentials();
-            systemCredentials.AppName = iniFile.IniReadValue(section, "AppName");
-            systemCredentials.AppVersion = iniFile.IniReadValue(section, "AppVersion");
-            systemCredentials.SetupDate = iniFile.IniReadValue(section, "SetupDate");
-            systemCredentials.RootUrl = iniFile.IniReadValue(section, "RootUrl");
-            systemCredentials.Language = iniFile.IniReadValue(section, "Language");
-            if (crypto == "E")
+            try
             {
-                HashCode hashCode = new HashCode();
-                systemCredentials.AppName = hashCode.DecryptionConfig(systemCredentials.AppName);
-                systemCredentials.AppVersion = hashCode.DecryptionConfig(systemCredentials.AppVersion);
-                systemCredentials.SetupDate = hashCode.DecryptionConfig(systemCredentials.SetupDate);
-                systemCredentials.RootUrl = hashCode.DecryptionConfig(systemCredentials.RootUrl);
-                systemCredentials.Language = hashCode.DecryptionConfig(systemCredentials.Language);
+                string section = "SystemCredentials";
+                IniFile iniFile;
+                iniFile = new IniFile(ConfigFile);
+                string crypto = iniFile.IniReadValue(section, "Crypto");
+                systemCredentials.AppName = iniFile.IniReadValue(section, "AppName");
+                systemCredentials.AppVersion = iniFile.IniReadValue(section, "AppVersion");
+                systemCredentials.SetupDate = iniFile.IniReadValue(section, "SetupDate");
+                systemCredentials.RootUrl = iniFile.IniReadValue(section, "RootUrl");
+                systemCredentials.Language = iniFile.IniReadValue(section, "Language");
+                systemCredentials.Licence = iniFile.IniReadValue(section, "Licence");
+                if (crypto == "E")
+                {
+                    HashCode hashCode = new HashCode();
+                    systemCredentials.AppName = hashCode.DecryptionConfig(systemCredentials.AppName);
+                    systemCredentials.AppVersion = hashCode.DecryptionConfig(systemCredentials.AppVersion);
+                    systemCredentials.SetupDate = hashCode.DecryptionConfig(systemCredentials.SetupDate);
+                    systemCredentials.RootUrl = hashCode.DecryptionConfig(systemCredentials.RootUrl);
+                    systemCredentials.Language = hashCode.DecryptionConfig(systemCredentials.Language);
+                    systemCredentials.Licence = hashCode.DecryptionConfig(systemCredentials.Licence);
+                }
+            }
+            catch (Exception e)
+            {
+                return new SystemCredentials();
             }
             return systemCredentials;
         }
@@ -167,67 +171,77 @@ namespace BLL
         }
         public static CustomerCredentials CustomerCredentials()
         {
-            IniFile iniFile;
-            iniFile = new IniFile(ConfigFile);
-            string section = "CustomerCredentials";
-            string crypto = iniFile.IniReadValue(section, "Crypto");
-            customerCredentials = new CustomerCredentials()
+            customerCredentials = new CustomerCredentials();
+            try
             {
-                Logo = iniFile.IniReadValue(section, "Logo"),
-                FullName = iniFile.IniReadValue(section, "FullName"),
-                ShortName = iniFile.IniReadValue(section, "ShortName"),
-                Address = iniFile.IniReadValue(section, "Address"),
-                Region = iniFile.IniReadValue(section, "Region"),
-                Province = iniFile.IniReadValue(section, "Province"),
-                Country = iniFile.IniReadValue(section, "Country"),
-                Phone = iniFile.IniReadValue(section, "Phone"),
-                Mersis = iniFile.IniReadValue(section, "Mersis"),
-                TaxNo = iniFile.IniReadValue(section, "TaxNo"),
-                TaxRegion = iniFile.IniReadValue(section, "TaxRegion"),
-                Mail = iniFile.IniReadValue(section, "Mail"),
-                Web = iniFile.IniReadValue(section, "Web")
-            };
-            if (crypto == "E")
+                IniFile iniFile;
+                iniFile = new IniFile(ConfigFile);
+                string section = "CustomerCredentials";
+                string crypto = iniFile.IniReadValue(section, "Crypto");
+                customerCredentials.Logo = iniFile.IniReadValue(section, "Logo");
+                customerCredentials.FullName = iniFile.IniReadValue(section, "FullName");
+                customerCredentials.ShortName = iniFile.IniReadValue(section, "ShortName");
+                customerCredentials.Address = iniFile.IniReadValue(section, "Address");
+                customerCredentials.Region = iniFile.IniReadValue(section, "Region");
+                customerCredentials.Province = iniFile.IniReadValue(section, "Province");
+                customerCredentials.Country = iniFile.IniReadValue(section, "Country");
+                customerCredentials.Phone = iniFile.IniReadValue(section, "Phone");
+                customerCredentials.Mersis = iniFile.IniReadValue(section, "Mersis");
+                customerCredentials.TaxNo = iniFile.IniReadValue(section, "TaxNo");
+                customerCredentials.TaxRegion = iniFile.IniReadValue(section, "TaxRegion");
+                customerCredentials.Mail = iniFile.IniReadValue(section, "Mail");
+                customerCredentials.Web = iniFile.IniReadValue(section, "Web");
+                if (crypto == "E")
+                {
+                    HashCode hashCode = new HashCode();
+                    customerCredentials.Logo = hashCode.DecryptionConfig(customerCredentials.Logo);
+                    customerCredentials.FullName = hashCode.DecryptionConfig(customerCredentials.FullName);
+                    customerCredentials.ShortName = hashCode.DecryptionConfig(customerCredentials.ShortName);
+                    customerCredentials.Address = hashCode.DecryptionConfig(customerCredentials.Address);
+                    customerCredentials.Region = hashCode.DecryptionConfig(customerCredentials.Region);
+                    customerCredentials.Province = hashCode.DecryptionConfig(customerCredentials.Province);
+                    customerCredentials.Country = hashCode.DecryptionConfig(customerCredentials.Country);
+                    customerCredentials.Phone = hashCode.DecryptionConfig(customerCredentials.Phone);
+                    customerCredentials.Mersis = hashCode.DecryptionConfig(customerCredentials.Mersis);
+                    customerCredentials.TaxNo = hashCode.DecryptionConfig(customerCredentials.TaxNo);
+                    customerCredentials.TaxRegion = hashCode.DecryptionConfig(customerCredentials.TaxRegion);
+                    customerCredentials.Mail = hashCode.DecryptionConfig(customerCredentials.Mail);
+                    customerCredentials.Web = hashCode.DecryptionConfig(customerCredentials.Web);
+                }
+            }
+            catch (Exception e)
             {
-                HashCode hashCode = new HashCode();
-                customerCredentials.Logo = hashCode.DecryptionConfig(customerCredentials.Logo);
-                customerCredentials.FullName = hashCode.DecryptionConfig(customerCredentials.FullName);
-                customerCredentials.ShortName = hashCode.DecryptionConfig(customerCredentials.ShortName);
-                customerCredentials.Address = hashCode.DecryptionConfig(customerCredentials.Address);
-                customerCredentials.Region = hashCode.DecryptionConfig(customerCredentials.Region);
-                customerCredentials.Province = hashCode.DecryptionConfig(customerCredentials.Province);
-                customerCredentials.Country = hashCode.DecryptionConfig(customerCredentials.Country);
-                customerCredentials.Phone = hashCode.DecryptionConfig(customerCredentials.Phone);
-                customerCredentials.Mersis = hashCode.DecryptionConfig(customerCredentials.Mersis);
-                customerCredentials.TaxNo = hashCode.DecryptionConfig(customerCredentials.TaxNo);
-                customerCredentials.TaxRegion = hashCode.DecryptionConfig(customerCredentials.TaxRegion);
-                customerCredentials.Mail = hashCode.DecryptionConfig(customerCredentials.Mail);
-                customerCredentials.Web = hashCode.DecryptionConfig(customerCredentials.Web);
+                return new CustomerCredentials();
             }
             return customerCredentials;
         }
         public static MailCredentials MailCredentials()
         {
-            IniFile iniFile;
-            iniFile = new IniFile(ConfigFile);
-            string section = "MailCredentials";
-            string crypto = iniFile.IniReadValue(section, "Crypto");
-            mailCredentials = new MailCredentials()
+            mailCredentials = new MailCredentials();
+            try
             {
-                Host = iniFile.IniReadValue(section, "Host"),
-                Username = iniFile.IniReadValue(section, "Username"),
-                Password = iniFile.IniReadValue(section, "Password"),
-                Port = (iniFile.IniReadValue(section, "Port")).ToInteger(),
-                DefaultAddress = iniFile.IniReadValue(section, "DefaultAddress")
-            };
-            if (crypto == "E")
+                IniFile iniFile;
+                iniFile = new IniFile(ConfigFile);
+                string section = "MailCredentials";
+                string crypto = iniFile.IniReadValue(section, "Crypto");
+                mailCredentials.Host = iniFile.IniReadValue(section, "Host");
+                mailCredentials.Username = iniFile.IniReadValue(section, "Username");
+                mailCredentials.Password = iniFile.IniReadValue(section, "Password");
+                mailCredentials.Port = (iniFile.IniReadValue(section, "Port")).ToInteger();
+                mailCredentials.DefaultAddress = iniFile.IniReadValue(section, "DefaultAddress");
+                if (crypto == "E")
+                {
+                    HashCode hashCode = new HashCode();
+                    mailCredentials.Host = hashCode.DecryptionConfig(mailCredentials.Host);
+                    mailCredentials.Username = hashCode.DecryptionConfig(mailCredentials.Username);
+                    mailCredentials.Password = hashCode.DecryptionConfig(mailCredentials.Password);
+                    mailCredentials.Port = (hashCode.DecryptionConfig(iniFile.IniReadValue(section, "Port"))).ToInteger();
+                    mailCredentials.DefaultAddress = hashCode.DecryptionConfig(mailCredentials.DefaultAddress);
+                }
+            }
+            catch (Exception e)
             {
-                HashCode hashCode = new HashCode();
-                mailCredentials.Host = hashCode.DecryptionConfig(mailCredentials.Host);
-                mailCredentials.Username = hashCode.DecryptionConfig(mailCredentials.Username);
-                mailCredentials.Password = hashCode.DecryptionConfig(mailCredentials.Password);
-                mailCredentials.Port = (hashCode.DecryptionConfig(iniFile.IniReadValue(section, "Port"))).ToInteger();
-                mailCredentials.DefaultAddress = hashCode.DecryptionConfig(mailCredentials.DefaultAddress);
+                return new MailCredentials();
             }
             return mailCredentials;
         }

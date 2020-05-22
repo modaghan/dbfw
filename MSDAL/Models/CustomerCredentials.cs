@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BLL
 {
     public class CustomerCredentials
-    {
+    { 
         public string Logo { get; set; }
         public string FullName { get; set; }
         public string ShortName { get; set; }

@@ -94,7 +94,8 @@ namespace BLL
             {
                 var v = JsonConvert.SerializeObject(entity, Formatting.Indented, new JsonSerializerSettings
                 {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    
                 });
                 return v;
             }

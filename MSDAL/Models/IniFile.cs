@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using System.Text;
 
 namespace BLL
@@ -26,7 +23,16 @@ namespace BLL
 
         public void IniWriteValue(string Section, string Key, string Value)
         {
-            WritePrivateProfileString(Section, Key, Value, this.path);
+            if (!Key.Equals("Crypto"))
+            {
+                var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(Value);
+                WritePrivateProfileString(Section, Key, System.Convert.ToBase64String(plainTextBytes), this.path);
+            }
+            else
+            {
+                WritePrivateProfileString(Section, Key, Value, this.path);
+            }
+
         }
 
 
@@ -35,7 +41,16 @@ namespace BLL
             StringBuilder temp = new StringBuilder(4000);
             int i = GetPrivateProfileString(Section, Key, "", temp,
                                             4000, this.path);
-            return temp.ToString();
+            if (!Key.Equals("Crypto"))
+            {
+                var base64EncodedBytes = System.Convert.FromBase64String(temp.ToString());
+                return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            }
+            else
+            {
+                return temp.ToString();
+            }
+           
         }
     }
 }

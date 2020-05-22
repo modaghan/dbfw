@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BLL
 {
     public class ServerCredentials
-    {
+    { 
         public string DataSource { get; set; }
         public string UserID { get; set; }
         public string Password { get; set; }
