@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace BLL
+namespace MS.BLL
 {
     public static class Credentials
     {

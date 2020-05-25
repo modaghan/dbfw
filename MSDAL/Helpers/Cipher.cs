@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace BLL
+namespace MS.BLL
 {
     public static class Cipher
     {

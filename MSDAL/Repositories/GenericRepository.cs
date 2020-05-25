@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace MS.DAL
 {
     public class GenericRepository<T> : IRepository<T> where T : class
     {

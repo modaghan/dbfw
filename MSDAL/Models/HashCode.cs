@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 
-namespace BLL
+namespace MS.BLL
 {
     public class HashCode
     {

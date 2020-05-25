@@ -1,10 +1,10 @@
-﻿using DAL;
+﻿using MS.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace BLL
+namespace MS.BLL
 {
     public class DataRepository<T> : IDisposable, IRepository<T> where T : class
     {

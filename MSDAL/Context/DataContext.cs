@@ -1,9 +1,9 @@
-﻿namespace DAL
+﻿namespace MS.DAL
 {
     using System;
     using System.Data.Entity;
     using System.Data.SqlClient;
-    using BLL;
+    using MS.BLL;
 
     public partial class DataContext : DbContext
     {

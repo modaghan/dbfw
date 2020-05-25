@@ -10,7 +10,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace MS.BLL
 {
     public static class Utilities
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace BLL
+namespace MS.BLL
 {
     public class Setup
     {
