@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MS.BLL
@@ -88,6 +89,19 @@ namespace MS.BLL
                 });
             }
         }
+
+        #region Json Conversions
+        public static T FromJson<T>(this string json)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(json);
+            }
+            catch (Exception ex)
+            {
+                return default(T);
+            }
+        }
         public static string ToJson(this object entity)
         {
             try
@@ -95,7 +109,7 @@ namespace MS.BLL
                 var v = JsonConvert.SerializeObject(entity, Formatting.Indented, new JsonSerializerSettings
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    
+
                 });
                 return v;
             }
@@ -103,7 +117,60 @@ namespace MS.BLL
             {
                 return "";
             }
+        } 
+        #endregion
+
+        #region Base64 Conversions
+        public static string FromBase64(this string base64)
+        {
+            try
+            {
+                return Encoding.UTF8.GetString(Convert.FromBase64String(base64));
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
         }
+
+        public static string ToBase64(this string str)
+        {
+            try
+            {
+                return Convert.ToBase64String(Encoding.UTF8.GetBytes(str));
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
+        #endregion
+
+        #region Base64 Json Conversions
+        public static T FromBase64Json<T>(this string json)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(json.FromBase64());
+            }
+            catch (Exception ex)
+            {
+                return default(T);
+            }
+        }
+        public static string ToBase64Json(this object entity)
+        {
+            try
+            {
+                return entity.ToJson().ToBase64();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }  
+        #endregion
+
         public static Expression<Func<TItem, bool>> PropertyEquals<TItem>(PropertyInfo property, object value)
         {
             var param = Expression.Parameter(typeof(TItem));
