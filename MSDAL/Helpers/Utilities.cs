@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -34,6 +35,8 @@ namespace MS.BLL
             T result = Activator.CreateInstance<T>();
             foreach (PropertyInfo property in source.GetType().GetProperties())
             {
+                if (property.GetCustomAttribute(typeof(NotMappedAttribute)) != null)
+                    continue;
                 property.SetValue(result, property.GetValue(source));
             }
             return result;
