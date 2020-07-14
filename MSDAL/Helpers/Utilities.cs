@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MS.BLL
@@ -357,7 +358,18 @@ namespace MS.BLL
             str = System.Text.RegularExpressions.Regex.Replace(str, @"\s", spaceChar); // //Replace spaces by dashes
             return str;
         }
-
+        public static string ToAcceptable(this string strIn)
+        {
+            try
+            {
+                return Regex.Replace(strIn, @"[^\w\.@-]", "",
+                                     RegexOptions.None, TimeSpan.FromSeconds(1.5));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return strIn.Slugify();
+            }
+        }
         public static string Stringfy(this string phrase)
         {
             string str = phrase.RemoveAccent();
