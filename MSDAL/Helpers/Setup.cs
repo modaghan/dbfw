@@ -1,13 +1,23 @@
 ﻿using IniParser;
 using IniParser.Model;
 using System;
+using System.IO;
 using System.Reflection;
 
 namespace MS.BLL
 {
     public class Setup
     {
-        public static string ConfigFile { get { return AppDomain.CurrentDomain.BaseDirectory + "Config.ini"; } }
+        public static string ConfigFile
+        {
+            get
+            {
+                string file = AppDomain.CurrentDomain.BaseDirectory + "Config.ini";
+                if (!File.Exists(file))
+                    File.Create(file);
+                return file;
+            }
+        }
         public static bool SaveSystemCredentials(SystemCredentials systemCredentials, bool isCrypted = true)
         {
             try

@@ -3,6 +3,7 @@ using IniParser.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace MS.BLL
 {
@@ -65,7 +66,16 @@ namespace MS.BLL
             public static Dictionary<string, IList<string>> Configuration { get; set; }
 
         }
-        public static string ConfigFile { get { return AppDomain.CurrentDomain.BaseDirectory + "Config.ini"; } }
+        public static string ConfigFile
+        {
+            get
+            {
+                string file = AppDomain.CurrentDomain.BaseDirectory + "Config.ini";
+                if (!File.Exists(file))
+                    File.Create(file);
+                return file;
+            }
+        }
         private static SystemCredentials systemCredentials { get; set; }
         private static ServerCredentials serverCredentials { get; set; }
         private static CustomerCredentials customerCredentials { get; set; }
@@ -180,19 +190,19 @@ namespace MS.BLL
                 var parser = new FileIniDataParser();
                 IniData data = parser.ReadFile(ConfigFile);
                 string crypto = data[section]["Crypto"];
-                customerCredentials.Logo = data[section]["Logo"]; 
-                customerCredentials.FullName = data[section]["FullName"]; 
-                customerCredentials.ShortName = data[section]["ShortName"]; 
-                customerCredentials.Address = data[section]["Address"]; 
-                customerCredentials.Region = data[section]["Region"]; 
-                customerCredentials.Province = data[section]["Province"]; 
-                customerCredentials.Country = data[section]["Country"]; 
-                customerCredentials.Phone = data[section]["Phone"]; 
-                customerCredentials.Mersis = data[section]["Mersis"]; 
-                customerCredentials.TaxNo = data[section]["TaxNo"]; 
-                customerCredentials.TaxRegion = data[section]["TaxRegion"]; 
-                customerCredentials.Mail = data[section]["Mail"]; 
-                customerCredentials.Web = data[section]["Web"]; 
+                customerCredentials.Logo = data[section]["Logo"];
+                customerCredentials.FullName = data[section]["FullName"];
+                customerCredentials.ShortName = data[section]["ShortName"];
+                customerCredentials.Address = data[section]["Address"];
+                customerCredentials.Region = data[section]["Region"];
+                customerCredentials.Province = data[section]["Province"];
+                customerCredentials.Country = data[section]["Country"];
+                customerCredentials.Phone = data[section]["Phone"];
+                customerCredentials.Mersis = data[section]["Mersis"];
+                customerCredentials.TaxNo = data[section]["TaxNo"];
+                customerCredentials.TaxRegion = data[section]["TaxRegion"];
+                customerCredentials.Mail = data[section]["Mail"];
+                customerCredentials.Web = data[section]["Web"];
                 if (crypto == "E")
                 {
                     HashCode hashCode = new HashCode();
@@ -226,11 +236,11 @@ namespace MS.BLL
                 var parser = new FileIniDataParser();
                 IniData data = parser.ReadFile(ConfigFile);
                 string crypto = data[section]["Crypto"];
-                mailCredentials.Host = data[section]["Host"]; 
-                mailCredentials.Username = data[section]["Username"]; 
-                mailCredentials.Password = data[section]["Password"]; 
+                mailCredentials.Host = data[section]["Host"];
+                mailCredentials.Username = data[section]["Username"];
+                mailCredentials.Password = data[section]["Password"];
                 mailCredentials.Port = (data[section]["Port"]).ToInteger();
-                mailCredentials.DefaultAddress = data[section]["DefaultAddress"]; 
+                mailCredentials.DefaultAddress = data[section]["DefaultAddress"];
                 if (crypto == "E")
                 {
                     HashCode hashCode = new HashCode();
