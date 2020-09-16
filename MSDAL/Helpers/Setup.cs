@@ -1,25 +1,29 @@
-﻿using System;
+﻿using IniParser;
+using IniParser.Model;
+using System;
 using System.Reflection;
 
 namespace MS.BLL
 {
     public class Setup
     {
+        public static string ConfigFile { get { return AppDomain.CurrentDomain.BaseDirectory + "Config.ini"; } }
         public static bool SaveSystemCredentials(SystemCredentials systemCredentials, bool isCrypted = true)
         {
             try
             {
                 string target = "SystemCredentials";
-                IniFile iniFile;
                 HashCode hashCode = new HashCode();
-                iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                iniFile.IniWriteValue(target, "Crypto", isCrypted ? "E" : "H");
-                iniFile.IniWriteValue(target, "AppName", isCrypted ? hashCode.EncryptionConfig(systemCredentials.AppName ?? "") : systemCredentials.AppName ?? "");
-                iniFile.IniWriteValue(target, "AppVersion", isCrypted ? hashCode.EncryptionConfig(systemCredentials.AppVersion ?? "") : systemCredentials.AppVersion ?? "");
-                iniFile.IniWriteValue(target, "SetupDate", isCrypted ? hashCode.EncryptionConfig(systemCredentials.SetupDate ?? "") : systemCredentials.SetupDate ?? "");
-                iniFile.IniWriteValue(target, "RootUrl", isCrypted ? hashCode.EncryptionConfig(systemCredentials.RootUrl ?? "") : systemCredentials.RootUrl ?? "");
-                iniFile.IniWriteValue(target, "Language", isCrypted ? hashCode.EncryptionConfig(systemCredentials.Language ?? "") : systemCredentials.Language ?? "");
-                iniFile.IniWriteValue(target, "Licence", isCrypted ? hashCode.EncryptionConfig(systemCredentials.Licence ?? "") : systemCredentials.Licence ?? "");
+                var parser = new FileIniDataParser();
+                IniData data = new IniData();
+                data[target]["Crypto"] = isCrypted ? "E" : "H";
+                data[target]["AppName"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.AppName ?? "") : systemCredentials.AppName ?? "";
+                data[target]["AppVersion"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.AppVersion ?? "") : systemCredentials.AppVersion ?? "";
+                data[target]["SetupDate"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.SetupDate ?? "") : systemCredentials.SetupDate ?? "";
+                data[target]["RootUrl"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.RootUrl ?? "") : systemCredentials.RootUrl ?? "";
+                data[target]["Language"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.Language ?? "") : systemCredentials.Language ?? "";
+                data[target]["Licence"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.Licence ?? "") : systemCredentials.Licence ?? "";
+                parser.WriteFile(ConfigFile, data);
             }
             catch (Exception e)
             {
@@ -32,15 +36,16 @@ namespace MS.BLL
             try
             {
                 string target = "ServerCredentials";
-                IniFile iniFile;
-                HashCode hashCode = new HashCode();
-                iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                iniFile.IniWriteValue(target, "Crypto", isCrypted ? "E" : "H");
-                iniFile.IniWriteValue(target, "DataSource", isCrypted ? hashCode.EncryptionConfig(serverCredentials.DataSource ?? "") : serverCredentials.DataSource ?? "");
-                iniFile.IniWriteValue(target, "UserID", isCrypted ? hashCode.EncryptionConfig(serverCredentials.UserID ?? "") : serverCredentials.UserID ?? "");
-                iniFile.IniWriteValue(target, "Password", isCrypted ? hashCode.EncryptionConfig(serverCredentials.Password ?? "") : serverCredentials.Password ?? "");
-                iniFile.IniWriteValue(target, "InitialCatalog", isCrypted ? hashCode.EncryptionConfig(serverCredentials.InitialCatalog ?? "") : serverCredentials.InitialCatalog ?? "");
-                iniFile.IniWriteValue(target, "ConnectTimeout", isCrypted ? hashCode.EncryptionConfig(serverCredentials.ConnectTimeout.ToString()) : serverCredentials.ConnectTimeout.ToString());
+                var parser = new FileIniDataParser();
+                IniData data = new IniData();
+                HashCode hashCode = new HashCode();                
+                data[target]["Crypto"]= isCrypted ? "E" : "H";
+                data[target]["DataSource"]= isCrypted ? hashCode.EncryptionConfig(serverCredentials.DataSource ?? "") : serverCredentials.DataSource ?? "";
+                data[target]["UserID"]= isCrypted ? hashCode.EncryptionConfig(serverCredentials.UserID ?? "") : serverCredentials.UserID ?? "";
+                data[target]["Password"]= isCrypted ? hashCode.EncryptionConfig(serverCredentials.Password ?? "") : serverCredentials.Password ?? "";
+                data[target]["InitialCatalog"]= isCrypted ? hashCode.EncryptionConfig(serverCredentials.InitialCatalog ?? "") : serverCredentials.InitialCatalog ?? "";
+                data[target]["ConnectTimeout"]= isCrypted ? hashCode.EncryptionConfig(serverCredentials.ConnectTimeout.ToString()) : serverCredentials.ConnectTimeout.ToString();
+                parser.WriteFile(ConfigFile, data);
             }
             catch (Exception e)
             {
@@ -53,16 +58,18 @@ namespace MS.BLL
             try
             {
                 string target = "CustomerCredentials";
-                IniFile iniFile;
+
+                var parser = new FileIniDataParser();
+                IniData data = new IniData();
                 HashCode hashCode = new HashCode();
-                iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                iniFile.IniWriteValue(target, "Crypto", isCrypted ? "E" : "H");
+                data[target]["Crypto"]= isCrypted ? "E" : "H";
                 foreach (PropertyInfo property in customerCredentials.GetType().GetProperties())
                 {
                     var value = property.GetValue(customerCredentials);
                     string val = (value ?? "").ToString();
-                    iniFile.IniWriteValue(target, property.Name, isCrypted ? hashCode.EncryptionConfig(val) : val);
+                    data[target][property.Name]= isCrypted ? hashCode.EncryptionConfig(val) : val;
                 }
+                parser.WriteFile(ConfigFile, data);
             }
             catch (Exception e)
             {
@@ -76,15 +83,17 @@ namespace MS.BLL
             try
             {
                 string target = "MailCredentials";
-                IniFile iniFile;
+
+                var parser = new FileIniDataParser();
+                IniData data = new IniData();
                 HashCode hashCode = new HashCode();
-                iniFile = new IniFile(AppDomain.CurrentDomain.BaseDirectory + "Config.ini");
-                iniFile.IniWriteValue(target, "Crypto", isCrypted ? "E" : "H");
-                iniFile.IniWriteValue(target, "Host", isCrypted ? hashCode.EncryptionConfig(mailCredentials.Host ?? "") : mailCredentials.Host ?? "");
-                iniFile.IniWriteValue(target, "Username", isCrypted ? hashCode.EncryptionConfig(mailCredentials.Username ?? "") : mailCredentials.Username ?? "");
-                iniFile.IniWriteValue(target, "Password", isCrypted ? hashCode.EncryptionConfig(mailCredentials.Password ?? "") : mailCredentials.Password ?? "");
-                iniFile.IniWriteValue(target, "DefaultAddress", isCrypted ? hashCode.EncryptionConfig(mailCredentials.DefaultAddress ?? "") : mailCredentials.DefaultAddress ?? "");
-                iniFile.IniWriteValue(target, "Port", isCrypted ? hashCode.EncryptionConfig(mailCredentials.Port.ToString()) : mailCredentials.Port.ToString());
+                data[target]["Crypto"] = isCrypted ? "E" : "H";
+                data[target]["Host"] = isCrypted ? hashCode.EncryptionConfig(mailCredentials.Host ?? "") : mailCredentials.Host ?? "";
+                data[target]["Username"] = isCrypted ? hashCode.EncryptionConfig(mailCredentials.Username ?? "") : mailCredentials.Username ?? "";
+                data[target]["Password"] = isCrypted ? hashCode.EncryptionConfig(mailCredentials.Password ?? "") : mailCredentials.Password ?? "";
+                data[target]["DefaultAddress"] = isCrypted ? hashCode.EncryptionConfig(mailCredentials.DefaultAddress ?? "") : mailCredentials.DefaultAddress ?? "";
+                data[target]["Port"] = isCrypted ? hashCode.EncryptionConfig(mailCredentials.Port.ToString()) : mailCredentials.Port.ToString();
+                parser.WriteFile(ConfigFile, data);
             }
             catch (Exception e)
             {

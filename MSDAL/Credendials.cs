@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IniParser;
+using IniParser.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -68,7 +70,6 @@ namespace MS.BLL
         private static ServerCredentials serverCredentials { get; set; }
         private static CustomerCredentials customerCredentials { get; set; }
         private static MailCredentials mailCredentials { get; set; }
-
         public static string ToConnectionString(this ServerCredentials serverCredentials)
         {
             SqlConnectionStringBuilder conn_string = new SqlConnectionStringBuilder();
@@ -109,15 +110,15 @@ namespace MS.BLL
             try
             {
                 string section = "SystemCredentials";
-                IniFile iniFile;
-                iniFile = new IniFile(ConfigFile);
-                string crypto = iniFile.IniReadValue(section, "Crypto");
-                systemCredentials.AppName = iniFile.IniReadValue(section, "AppName");
-                systemCredentials.AppVersion = iniFile.IniReadValue(section, "AppVersion");
-                systemCredentials.SetupDate = iniFile.IniReadValue(section, "SetupDate");
-                systemCredentials.RootUrl = iniFile.IniReadValue(section, "RootUrl");
-                systemCredentials.Language = iniFile.IniReadValue(section, "Language");
-                systemCredentials.Licence = iniFile.IniReadValue(section, "Licence");
+                var parser = new FileIniDataParser();
+                IniData data = parser.ReadFile(ConfigFile);
+                string crypto = data[section]["Crypto"];
+                systemCredentials.AppName = data[section]["AppName"];
+                systemCredentials.AppVersion = data[section]["AppVersion"];
+                systemCredentials.SetupDate = data[section]["SetupDate"];
+                systemCredentials.RootUrl = data[section]["RootUrl"];
+                systemCredentials.Language = data[section]["Language"];
+                systemCredentials.Licence = data[section]["Licence"];
                 if (crypto == "E")
                 {
                     HashCode hashCode = new HashCode();
@@ -143,15 +144,16 @@ namespace MS.BLL
                 try
                 {
                     string section = "ServerCredentials";
-                    IniFile iniFile;
-                    iniFile = new IniFile(ConfigFile);
-                    string crypto = iniFile.IniReadValue(section, "Crypto");
+
+                    var parser = new FileIniDataParser();
+                    IniData data = parser.ReadFile(ConfigFile);
+                    string crypto = data[section]["Crypto"];
                     serverCredentials = new ServerCredentials();
-                    serverCredentials.DataSource = iniFile.IniReadValue(section, "DataSource");
-                    serverCredentials.UserID = iniFile.IniReadValue(section, "UserID");
-                    serverCredentials.Password = iniFile.IniReadValue(section, "Password");
-                    serverCredentials.InitialCatalog = iniFile.IniReadValue(section, "InitialCatalog");
-                    serverCredentials.ConnectTimeout = iniFile.IniReadValue(section, "ConnectTimeout").ToInteger();
+                    serverCredentials.DataSource = data[section]["DataSource"];
+                    serverCredentials.UserID = data[section]["UserID"];
+                    serverCredentials.Password = data[section]["Password"];
+                    serverCredentials.InitialCatalog = data[section]["InitialCatalog"];
+                    serverCredentials.ConnectTimeout = data[section]["ConnectTimeout"].ToInteger();
                     if (crypto == "E")
                     {
                         HashCode hashCode = new HashCode();
@@ -159,7 +161,7 @@ namespace MS.BLL
                         serverCredentials.UserID = hashCode.DecryptionConfig(serverCredentials.UserID);
                         serverCredentials.Password = hashCode.DecryptionConfig(serverCredentials.Password);
                         serverCredentials.InitialCatalog = hashCode.DecryptionConfig(serverCredentials.InitialCatalog);
-                        serverCredentials.ConnectTimeout = (hashCode.DecryptionConfig(iniFile.IniReadValue(section, "ConnectTimeout"))).ToInteger();
+                        serverCredentials.ConnectTimeout = (hashCode.DecryptionConfig(data[section]["ConnectTimeout"])).ToInteger();
                     }
                 }
                 catch (Exception ex)
@@ -174,23 +176,23 @@ namespace MS.BLL
             customerCredentials = new CustomerCredentials();
             try
             {
-                IniFile iniFile;
-                iniFile = new IniFile(ConfigFile);
                 string section = "CustomerCredentials";
-                string crypto = iniFile.IniReadValue(section, "Crypto");
-                customerCredentials.Logo = iniFile.IniReadValue(section, "Logo");
-                customerCredentials.FullName = iniFile.IniReadValue(section, "FullName");
-                customerCredentials.ShortName = iniFile.IniReadValue(section, "ShortName");
-                customerCredentials.Address = iniFile.IniReadValue(section, "Address");
-                customerCredentials.Region = iniFile.IniReadValue(section, "Region");
-                customerCredentials.Province = iniFile.IniReadValue(section, "Province");
-                customerCredentials.Country = iniFile.IniReadValue(section, "Country");
-                customerCredentials.Phone = iniFile.IniReadValue(section, "Phone");
-                customerCredentials.Mersis = iniFile.IniReadValue(section, "Mersis");
-                customerCredentials.TaxNo = iniFile.IniReadValue(section, "TaxNo");
-                customerCredentials.TaxRegion = iniFile.IniReadValue(section, "TaxRegion");
-                customerCredentials.Mail = iniFile.IniReadValue(section, "Mail");
-                customerCredentials.Web = iniFile.IniReadValue(section, "Web");
+                var parser = new FileIniDataParser();
+                IniData data = parser.ReadFile(ConfigFile);
+                string crypto = data[section]["Crypto"];
+                customerCredentials.Logo = data[section]["Logo"]; 
+                customerCredentials.FullName = data[section]["FullName"]; 
+                customerCredentials.ShortName = data[section]["ShortName"]; 
+                customerCredentials.Address = data[section]["Address"]; 
+                customerCredentials.Region = data[section]["Region"]; 
+                customerCredentials.Province = data[section]["Province"]; 
+                customerCredentials.Country = data[section]["Country"]; 
+                customerCredentials.Phone = data[section]["Phone"]; 
+                customerCredentials.Mersis = data[section]["Mersis"]; 
+                customerCredentials.TaxNo = data[section]["TaxNo"]; 
+                customerCredentials.TaxRegion = data[section]["TaxRegion"]; 
+                customerCredentials.Mail = data[section]["Mail"]; 
+                customerCredentials.Web = data[section]["Web"]; 
                 if (crypto == "E")
                 {
                     HashCode hashCode = new HashCode();
@@ -220,22 +222,22 @@ namespace MS.BLL
             mailCredentials = new MailCredentials();
             try
             {
-                IniFile iniFile;
-                iniFile = new IniFile(ConfigFile);
                 string section = "MailCredentials";
-                string crypto = iniFile.IniReadValue(section, "Crypto");
-                mailCredentials.Host = iniFile.IniReadValue(section, "Host");
-                mailCredentials.Username = iniFile.IniReadValue(section, "Username");
-                mailCredentials.Password = iniFile.IniReadValue(section, "Password");
-                mailCredentials.Port = (iniFile.IniReadValue(section, "Port")).ToInteger();
-                mailCredentials.DefaultAddress = iniFile.IniReadValue(section, "DefaultAddress");
+                var parser = new FileIniDataParser();
+                IniData data = parser.ReadFile(ConfigFile);
+                string crypto = data[section]["Crypto"];
+                mailCredentials.Host = data[section]["Host"]; 
+                mailCredentials.Username = data[section]["Username"]; 
+                mailCredentials.Password = data[section]["Password"]; 
+                mailCredentials.Port = (data[section]["Port"]).ToInteger();
+                mailCredentials.DefaultAddress = data[section]["DefaultAddress"]; 
                 if (crypto == "E")
                 {
                     HashCode hashCode = new HashCode();
                     mailCredentials.Host = hashCode.DecryptionConfig(mailCredentials.Host);
                     mailCredentials.Username = hashCode.DecryptionConfig(mailCredentials.Username);
                     mailCredentials.Password = hashCode.DecryptionConfig(mailCredentials.Password);
-                    mailCredentials.Port = (hashCode.DecryptionConfig(iniFile.IniReadValue(section, "Port"))).ToInteger();
+                    mailCredentials.Port = (hashCode.DecryptionConfig(data[section]["Port"])).ToInteger();
                     mailCredentials.DefaultAddress = hashCode.DecryptionConfig(mailCredentials.DefaultAddress);
                 }
             }
