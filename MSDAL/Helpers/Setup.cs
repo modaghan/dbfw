@@ -18,14 +18,18 @@ namespace MS.BLL
                 return file;
             }
         }
+        private static FileIniDataParser parser = new FileIniDataParser();
+        private static IniData data = parser.ReadFile(ConfigFile);
+        public static void Complete()
+        {
+            parser.WriteFile(ConfigFile, data);
+        }
         public static bool SaveSystemCredentials(SystemCredentials systemCredentials, bool isCrypted = true)
         {
             try
             {
                 string target = "SystemCredentials";
-                HashCode hashCode = new HashCode();
-                var parser = new FileIniDataParser();
-                IniData data = new IniData();
+                HashCode hashCode = new HashCode();               
                 data[target]["Crypto"] = isCrypted ? "E" : "H";
                 data[target]["AppName"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.AppName ?? "") : systemCredentials.AppName ?? "";
                 data[target]["AppVersion"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.AppVersion ?? "") : systemCredentials.AppVersion ?? "";
@@ -33,7 +37,7 @@ namespace MS.BLL
                 data[target]["RootUrl"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.RootUrl ?? "") : systemCredentials.RootUrl ?? "";
                 data[target]["Language"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.Language ?? "") : systemCredentials.Language ?? "";
                 data[target]["Licence"]= isCrypted ? hashCode.EncryptionConfig(systemCredentials.Licence ?? "") : systemCredentials.Licence ?? "";
-                parser.WriteFile(ConfigFile, data);
+                
             }
             catch (Exception e)
             {
@@ -46,8 +50,6 @@ namespace MS.BLL
             try
             {
                 string target = "ServerCredentials";
-                var parser = new FileIniDataParser();
-                IniData data = new IniData();
                 HashCode hashCode = new HashCode();                
                 data[target]["Crypto"]= isCrypted ? "E" : "H";
                 data[target]["DataSource"]= isCrypted ? hashCode.EncryptionConfig(serverCredentials.DataSource ?? "") : serverCredentials.DataSource ?? "";
@@ -55,8 +57,7 @@ namespace MS.BLL
                 data[target]["Password"]= isCrypted ? hashCode.EncryptionConfig(serverCredentials.Password ?? "") : serverCredentials.Password ?? "";
                 data[target]["InitialCatalog"]= isCrypted ? hashCode.EncryptionConfig(serverCredentials.InitialCatalog ?? "") : serverCredentials.InitialCatalog ?? "";
                 data[target]["ConnectTimeout"]= isCrypted ? hashCode.EncryptionConfig(serverCredentials.ConnectTimeout.ToString()) : serverCredentials.ConnectTimeout.ToString();
-                parser.WriteFile(ConfigFile, data);
-            }
+                            }
             catch (Exception e)
             {
                 return false;
@@ -68,9 +69,6 @@ namespace MS.BLL
             try
             {
                 string target = "CustomerCredentials";
-
-                var parser = new FileIniDataParser();
-                IniData data = new IniData();
                 HashCode hashCode = new HashCode();
                 data[target]["Crypto"]= isCrypted ? "E" : "H";
                 foreach (PropertyInfo property in customerCredentials.GetType().GetProperties())
@@ -79,7 +77,6 @@ namespace MS.BLL
                     string val = (value ?? "").ToString();
                     data[target][property.Name]= isCrypted ? hashCode.EncryptionConfig(val) : val;
                 }
-                parser.WriteFile(ConfigFile, data);
             }
             catch (Exception e)
             {
@@ -93,9 +90,6 @@ namespace MS.BLL
             try
             {
                 string target = "MailCredentials";
-
-                var parser = new FileIniDataParser();
-                IniData data = new IniData();
                 HashCode hashCode = new HashCode();
                 data[target]["Crypto"] = isCrypted ? "E" : "H";
                 data[target]["Host"] = isCrypted ? hashCode.EncryptionConfig(mailCredentials.Host ?? "") : mailCredentials.Host ?? "";
@@ -103,7 +97,6 @@ namespace MS.BLL
                 data[target]["Password"] = isCrypted ? hashCode.EncryptionConfig(mailCredentials.Password ?? "") : mailCredentials.Password ?? "";
                 data[target]["DefaultAddress"] = isCrypted ? hashCode.EncryptionConfig(mailCredentials.DefaultAddress ?? "") : mailCredentials.DefaultAddress ?? "";
                 data[target]["Port"] = isCrypted ? hashCode.EncryptionConfig(mailCredentials.Port.ToString()) : mailCredentials.Port.ToString();
-                parser.WriteFile(ConfigFile, data);
             }
             catch (Exception e)
             {

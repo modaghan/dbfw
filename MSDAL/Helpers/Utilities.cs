@@ -255,6 +255,8 @@ namespace MS.BLL
         {
             try
             {
+                if (sayi == null)
+                    return 0;
                 int i = 0;
                 int.TryParse(sayi.ToString(), out i);
                 return i;
