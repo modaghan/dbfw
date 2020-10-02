@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
@@ -291,10 +292,10 @@ namespace MS.BLL
         public static string GetAttributeDisplayName(this PropertyInfo property)
         {
             var atts = property.GetCustomAttributes(
-                typeof(DisplayNameAttribute), true);
+                typeof(DisplayAttribute), true);
             if (atts.Length == 0)
                 return property.Name;
-            return (atts[0] as DisplayNameAttribute).DisplayName;
+            return (atts[0] as DisplayAttribute).Name;
         }
         public static string GetMetaDisplayName(this PropertyInfo property)
         {
@@ -416,6 +417,19 @@ namespace MS.BLL
             if (property != null)
                 property.SetValue(entity, true);
             return entity;
+        }
+        public static void WriteLog(string msg)
+        {
+            string folderPath = Path.Combine(System.IO.Path
+                .GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                + "\\Logs\\");
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+            using (var sw = File.AppendText(Path.Combine(folderPath, "log_" + DateTime.Now.ToString("yyyyMMdd_HHmm") + ".txt")))
+            {
+                string log = $"{Zaman.Simdi.ToString("yyyy-MM-dd HH:mm:ss,FFF")}\t{msg}";
+                sw.WriteLine(log);
+            }
         }
     }
 }

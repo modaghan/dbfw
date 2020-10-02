@@ -80,15 +80,23 @@ namespace MS.BLL
         private static ServerCredentials serverCredentials { get; set; }
         private static CustomerCredentials customerCredentials { get; set; }
         private static MailCredentials mailCredentials { get; set; }
-        public static string ToConnectionString(this ServerCredentials serverCredentials)
+        public static string ToConnectionString(this ServerCredentials serverCredentials, string name = "")
         {
-            SqlConnectionStringBuilder conn_string = new SqlConnectionStringBuilder();
-            conn_string.DataSource = serverCredentials.DataSource;
-            conn_string.InitialCatalog = serverCredentials.InitialCatalog;
-            conn_string.UserID = serverCredentials.UserID;
-            conn_string.Password = serverCredentials.Password;
-            conn_string.ConnectTimeout = serverCredentials.ConnectTimeout;
-            return conn_string.ToString();
+            try
+            {
+                SqlConnectionStringBuilder conn_string = new SqlConnectionStringBuilder();
+                conn_string.DataSource = serverCredentials.DataSource;
+                conn_string.InitialCatalog = serverCredentials.InitialCatalog;
+                conn_string.UserID = serverCredentials.UserID;
+                conn_string.Password = serverCredentials.Password;
+                conn_string.ConnectTimeout = serverCredentials.ConnectTimeout;
+                return conn_string.ToString();
+            }
+            catch (Exception ex)
+            {
+                Utilities.WriteLog(ex.ToJson());
+                return $"name={name}";
+            }
         }
         public static string ConnectionString
         {
