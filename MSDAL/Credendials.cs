@@ -155,37 +155,32 @@ namespace MS.BLL
             return systemCredentials;
         }
 
-        public static ServerCredentials ServerCredentials()
+        public static ServerCredentials ServerCredentials(string section = "ServerCredentials")
         {
-            if (serverCredentials == null || serverCredentials.DataSource == null || serverCredentials.DataSource == "")
+            try
             {
-                try
+                var parser = new FileIniDataParser();
+                IniData data = parser.ReadFile(ConfigFile);
+                string crypto = data[section]["Crypto"];
+                serverCredentials = new ServerCredentials();
+                serverCredentials.DataSource = data[section]["DataSource"];
+                serverCredentials.UserID = data[section]["UserID"];
+                serverCredentials.Password = data[section]["Password"];
+                serverCredentials.InitialCatalog = data[section]["InitialCatalog"];
+                serverCredentials.ConnectTimeout = data[section]["ConnectTimeout"].ToInteger();
+                if (crypto == "E")
                 {
-                    string section = "ServerCredentials";
-
-                    var parser = new FileIniDataParser();
-                    IniData data = parser.ReadFile(ConfigFile);
-                    string crypto = data[section]["Crypto"];
-                    serverCredentials = new ServerCredentials();
-                    serverCredentials.DataSource = data[section]["DataSource"];
-                    serverCredentials.UserID = data[section]["UserID"];
-                    serverCredentials.Password = data[section]["Password"];
-                    serverCredentials.InitialCatalog = data[section]["InitialCatalog"];
-                    serverCredentials.ConnectTimeout = data[section]["ConnectTimeout"].ToInteger();
-                    if (crypto == "E")
-                    {
-                        HashCode hashCode = new HashCode();
-                        serverCredentials.DataSource = hashCode.DecryptionConfig(serverCredentials.DataSource);
-                        serverCredentials.UserID = hashCode.DecryptionConfig(serverCredentials.UserID);
-                        serverCredentials.Password = hashCode.DecryptionConfig(serverCredentials.Password);
-                        serverCredentials.InitialCatalog = hashCode.DecryptionConfig(serverCredentials.InitialCatalog);
-                        serverCredentials.ConnectTimeout = (hashCode.DecryptionConfig(data[section]["ConnectTimeout"])).ToInteger();
-                    }
+                    HashCode hashCode = new HashCode();
+                    serverCredentials.DataSource = hashCode.DecryptionConfig(serverCredentials.DataSource);
+                    serverCredentials.UserID = hashCode.DecryptionConfig(serverCredentials.UserID);
+                    serverCredentials.Password = hashCode.DecryptionConfig(serverCredentials.Password);
+                    serverCredentials.InitialCatalog = hashCode.DecryptionConfig(serverCredentials.InitialCatalog);
+                    serverCredentials.ConnectTimeout = (hashCode.DecryptionConfig(data[section]["ConnectTimeout"])).ToInteger();
                 }
-                catch (Exception ex)
-                {
-                    return new ServerCredentials();
-                }
+            }
+            catch (Exception ex)
+            {
+                return new ServerCredentials();
             }
             return serverCredentials;
         }

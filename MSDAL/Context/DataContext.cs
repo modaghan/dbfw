@@ -7,7 +7,7 @@
 
     public partial class DataContext : DbContext
     {
-        public DataContext(string conStr = null)
+        public DataContext(string conStr = "")
             : base(conStr)
         {
             Configuration.LazyLoadingEnabled = false;

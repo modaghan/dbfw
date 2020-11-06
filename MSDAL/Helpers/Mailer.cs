@@ -64,7 +64,28 @@ namespace MS.BLL.Helpers
         {
             return SendMail(Credentials.MailCredentials().DefaultAddress, Subject, Body, isHtml);
         }
-
+        public static async Task<string> SendMail(MailMessage mail, MailCredentials credentials)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    SmtpClient client = new SmtpClient();
+                    client.Port = credentials.Port;
+                    client.EnableSsl = true;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.Host = credentials.Host;
+                    client.Credentials = new NetworkCredential(credentials.Username, credentials.Password);
+                   client.Send(mail);
+                });
+                return "Başarılı";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
         private static bool SendMail(string To, string Subject, string Body, bool isHtml)
         {
             try
