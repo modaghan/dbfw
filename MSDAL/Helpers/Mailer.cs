@@ -13,6 +13,14 @@ namespace MS.BLL.Helpers
 
     public static class Mailer
     {
+        /// <summary>
+        /// Mail sender
+        /// </summary>
+        /// <param name="To">Receiver. Put ',' for multiple receivers.</param>
+        /// <param name="Subject">Subject of mail</param>
+        /// <param name="Body">Body of mail</param>
+        /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
+        /// <returns>Returns true if mail has been successfuly sent.</returns>
         public static async Task<bool> SendAsync(string To, string Subject, string Body, bool isHtml = false)
         {
             return await Task.Run(() =>
@@ -20,6 +28,13 @@ namespace MS.BLL.Helpers
                 return SendMail(To, Subject, Body, isHtml);
             });
         }
+        /// <summary>
+        /// Mail sender to default user
+        /// </summary>
+        /// <param name="Subject">Subject of mail</param>
+        /// <param name="Body">Body of mail</param>
+        /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
+        /// <returns>Returns true if mail has been successfuly sent.</returns>
         public static async Task<bool> SendAsync(string Subject, string Body, bool isHtml = false)
         {
             return await Task.Run(() =>
@@ -27,6 +42,21 @@ namespace MS.BLL.Helpers
                 return SendMail(Credentials.MailCredentials().DefaultAddress, Subject, Body, isHtml);
             });
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="host">Mail Server</param>
+        /// <param name="username">Mail Username</param>
+        /// <param name="password">Mail Password</param>
+        /// <param name="port">Mail Port (465, 587 ..etc)</param>
+        /// <param name="To">Receiver. Put ',' for multiple receivers.</param>
+        /// <param name="Subject">Subject of mail</param>
+        /// <param name="Body">Body of mail</param>
+        /// <param name="result">Return 'BAŞARILI' for successfuly mailing.</param>
+        /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
+        /// <returns></returns>
+
         public static bool TestSend(string host, string username, string password, int port, string To, string Subject, string Body, ref string result, bool isHtml = false)
         {
             try
@@ -42,7 +72,8 @@ namespace MS.BLL.Helpers
                 client.Credentials = new NetworkCredential(username, password);
                 mail.Subject = Subject;
                 mail.IsBodyHtml = isHtml;
-                mail.To.Add(To);
+                foreach (string receiver in To.Split(','))
+                    mail.To.Add(receiver.Trim());
                 mail.Body = Body;
                 client.Send(mail);
                 result = "BAŞARILI";
@@ -55,11 +86,26 @@ namespace MS.BLL.Helpers
                 return false;
             }
         }
+        /// <summary>
+        /// Mail sender
+        /// </summary>
+        /// <param name="To">Receiver. Put ',' for multiple receivers.</param>
+        /// <param name="Subject">Subject of mail</param>
+        /// <param name="Body">Body of mail</param>
+        /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
+        /// <returns>Returns true if mail has been successfuly sent.</returns>
         public static bool Send(string To, string Subject, string Body, bool isHtml = false)
         {
             return SendMail(To, Subject, Body, isHtml);
         }
 
+        /// <summary>
+        /// Mail sender to default user
+        /// </summary>
+        /// <param name="Subject">Subject of mail</param>
+        /// <param name="Body">Body of mail</param>
+        /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
+        /// <returns>Returns true if mail has been successfuly sent.</returns>
         public static bool Send(string Subject, string Body, bool isHtml = false)
         {
             return SendMail(Credentials.MailCredentials().DefaultAddress, Subject, Body, isHtml);
@@ -102,7 +148,8 @@ namespace MS.BLL.Helpers
                 client.Credentials = new NetworkCredential(Credentials.MailCredentials().Username, Credentials.MailCredentials().Password);
                 mail.Subject = Subject;
                 mail.IsBodyHtml = isHtml;
-                mail.To.Add(To);
+                foreach (string receiver in To.Split(','))
+                    mail.To.Add(receiver.Trim());
                 mail.Body = Body;
                 client.Send(mail);
                 return true;
