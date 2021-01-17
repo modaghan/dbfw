@@ -267,11 +267,15 @@ namespace MS.BLL
                 return 0;
             }
         }
-        public static long ToLong(this string longStr)
+        public static long ToLong(this object sayi)
         {
             try
             {
-                return Convert.ToInt64(longStr);
+                if (sayi == null)
+                    return 0;
+                long i = 0;
+                long.TryParse(sayi.ToString(), out i);
+                return i;
             }
             catch (Exception)
             {

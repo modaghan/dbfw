@@ -103,7 +103,8 @@ namespace MS.BLL
             get
             {
                 // TODO deploy ederken değiştir
-                serverCredentials = ServerCredentials();
+                if (serverCredentials == null)
+                    serverCredentials = ServerCredentials();
                 SqlConnectionStringBuilder conn_string = new SqlConnectionStringBuilder();
                 conn_string.DataSource = serverCredentials.DataSource;
                 conn_string.InitialCatalog = serverCredentials.InitialCatalog;
@@ -124,6 +125,8 @@ namespace MS.BLL
 
         public static SystemCredentials SystemCredentials()
         {
+            if (systemCredentials != null)
+                return systemCredentials;
             systemCredentials = new SystemCredentials();
             try
             {
@@ -157,6 +160,8 @@ namespace MS.BLL
 
         public static ServerCredentials ServerCredentials(string section = "ServerCredentials")
         {
+            if (serverCredentials != null)
+                return serverCredentials;
             try
             {
                 var parser = new FileIniDataParser();
@@ -186,6 +191,8 @@ namespace MS.BLL
         }
         public static CustomerCredentials CustomerCredentials()
         {
+            if (customerCredentials != null)
+                return customerCredentials;
             customerCredentials = new CustomerCredentials();
             try
             {
@@ -232,6 +239,8 @@ namespace MS.BLL
         }
         public static MailCredentials MailCredentials()
         {
+            if (mailCredentials != null)
+                return mailCredentials;
             mailCredentials = new MailCredentials();
             try
             {

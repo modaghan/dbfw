@@ -12,7 +12,7 @@ namespace MS.BLL
         /// </summary>
         /// <param name="plainText">String to be encrypted</param>
         /// <param name="password">Password</param>
-        public static string Encrypt(string plainText, string password)
+        public static string Encrypt(this string plainText, string password)
         {
             if (plainText == null)
             {
@@ -36,7 +36,7 @@ namespace MS.BLL
             return Convert.ToBase64String(bytesEncrypted);
         }
 
-        public static string Encrypt(string plainText)
+        public static string Encrypt(this string plainText)
         {
             if (plainText == null)
             {
@@ -61,7 +61,7 @@ namespace MS.BLL
         /// <param name="encryptedText">String to be decrypted</param>
         /// <param name="password">Password used during encryption</param>
         /// <exception cref="FormatException"></exception>
-        public static string Decrypt(string encryptedText, string password)
+        public static string Decrypt(this string encryptedText, string password)
         {
             if (encryptedText == null)
             {
@@ -83,7 +83,7 @@ namespace MS.BLL
 
             return Encoding.UTF8.GetString(bytesDecrypted);
         }
-        public static string Decrypt(string encryptedText)
+        public static string Decrypt(this string encryptedText)
         {
             try
             {
