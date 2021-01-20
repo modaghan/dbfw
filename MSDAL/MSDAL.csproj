@@ -81,6 +81,7 @@
     <Compile Include="Credendials.cs" />
     <Compile Include="DataRepository.cs" />
     <Compile Include="Helpers\Cipher.cs" />
+    <Compile Include="Helpers\CustomAttributes.cs" />
     <Compile Include="Helpers\Mailer.cs" />
     <Compile Include="Helpers\Setup.cs" />
     <Compile Include="Helpers\Utilities.cs" />

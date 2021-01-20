@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MS.BLL;
+using MSDAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
@@ -31,15 +33,16 @@ namespace MS.DAL
         #region CREATE
         public void Inserting(T entity)
         {
-            entity = _dbSet.Add(entity);
+            entity = _dbSet.Add(Encrypt(entity));
         }
+
         public void InsertAsync(T entity)
         {
-            entity = _dbSet.Add(entity);
+            entity = _dbSet.Add(Encrypt(entity));
         }
         public T Inserted(T entity)
         {
-            Inserting(entity);
+            Inserting(Encrypt(entity));
             return entity;
         }
         #endregion
@@ -47,11 +50,11 @@ namespace MS.DAL
         #region READ
         public T GetOld(object id)
         {
-            return _dbSet.Find(id);
+            return Decrypt(_dbSet.Find(id));
         }
         public T SingleSelectByQuery(System.Linq.Expressions.Expression<Func<T, bool>> query)
         {
-            return Include(MultiSelectByQuery(query)).FirstOrDefault();
+            return Decrypt(Include(MultiSelectByQuery(query)).FirstOrDefault());
         }
 
         public IQueryable<T> MultiSelectByQuery(System.Linq.Expressions.Expression<Func<T, bool>> query)
@@ -61,11 +64,11 @@ namespace MS.DAL
 
         public IQueryable<T> SelectByAll()
         {
-            return _dbSet;
+            return Decrypt(_dbSet);
         }
         public IQueryable<T> Include(IQueryable<T> list)
         {
-            if (_includes!=null &&_includes.Length > 0)
+            if (_includes != null && _includes.Length > 0)
                 foreach (string inc in _includes)
                 {
                     list = list.Include(inc);
@@ -77,18 +80,20 @@ namespace MS.DAL
         {
             var list = _dbSet.ToList();
             Random Rnd = new Random(DateTime.Now.Millisecond);
-            return list[Rnd.Next(list.Count)];
+            return Decrypt(list[Rnd.Next(list.Count)]);
         }
         #endregion
 
         #region UPDATE
         public void Updating(T entity)
         {
+            entity = Encrypt(entity);
             _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
         public void UpdateAsync(T entity)
         {
+            entity = Encrypt(entity);
             _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
@@ -178,6 +183,33 @@ namespace MS.DAL
         }
         #endregion
 
+
+        private T Encrypt(T entity)
+        {
+            if (entity == null)
+                return null;
+            foreach (PropertyInfo pi in entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(EncDec))))
+                pi.SetValue(entity, pi.GetValue(entity).Encrypt());
+            return entity;
+        }
+
+        private T Decrypt(T entity)
+        {
+            if (entity == null)
+                return null;
+            foreach (PropertyInfo pi in entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(EncDec))))
+                pi.SetValue(entity, pi.GetValue(entity).Decrypt());
+            return entity;
+        }
+        private IQueryable<T> Decrypt(IQueryable<T> entities)
+        {
+            if (entities == null)
+                return null;
+            foreach (T entity in entities)
+                foreach (PropertyInfo pi in entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(EncDec))))
+                    pi.SetValue(entity, pi.GetValue(entity).Decrypt());
+            return entities;
+        }
 
     }
 }

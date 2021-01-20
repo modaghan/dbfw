@@ -36,15 +36,17 @@ namespace MS.BLL
             return Convert.ToBase64String(bytesEncrypted);
         }
 
-        public static string Encrypt(this string plainText)
+        public static object Encrypt(this object plainText)
         {
+            if (plainText == null)
+                return plainText;
             if (plainText == null)
             {
                 return null;
             }
 
             // Get the bytes of the string
-            var bytesToBeEncrypted = Encoding.UTF8.GetBytes(plainText);
+            var bytesToBeEncrypted = Encoding.UTF8.GetBytes(plainText.ToString());
             var passwordBytes = Encoding.UTF8.GetBytes(Credentials.Password);
 
             // Hash the password with SHA256
@@ -83,17 +85,20 @@ namespace MS.BLL
 
             return Encoding.UTF8.GetString(bytesDecrypted);
         }
-        public static string Decrypt(this string encryptedText)
+        public static object Decrypt(this object
+            encryptedText)
         {
+            if (encryptedText == null)
+                return encryptedText;
             try
             {
-                if (string.IsNullOrEmpty(encryptedText))
+                if (string.IsNullOrEmpty(encryptedText.ToString()))
                 {
                     return null;
                 }
 
                 // Get the bytes of the string
-                var bytesToBeDecrypted = Convert.FromBase64String(encryptedText);
+                var bytesToBeDecrypted = Convert.FromBase64String(encryptedText.ToString());
                 var passwordBytes = Encoding.UTF8.GetBytes(Credentials.Password);
 
                 passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
