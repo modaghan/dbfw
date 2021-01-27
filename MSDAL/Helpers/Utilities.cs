@@ -29,7 +29,7 @@ namespace MS.BLL
                     string.IsNullOrEmpty(sc.UserID) ||
                     string.IsNullOrEmpty(sc.Password))
                     return ConnectionState.Broken;
-                return IsConnectionStringValid(sc.ToConnectionString())?ConnectionState.Open:ConnectionState.Closed;
+                return IsConnectionStringValid(sc.ToConnectionString()) == null?ConnectionState.Open:ConnectionState.Closed;
             }
         }
         public static T Clone<T>(this object source)
@@ -55,7 +55,7 @@ namespace MS.BLL
             }
             return result;
         }
-        public static bool IsConnectionStringValid(string connString)
+        public static string IsConnectionStringValid(string connString)
         {
             using (var l_oConnection = new SqlConnection(connString))
             {
@@ -63,15 +63,15 @@ namespace MS.BLL
                 {
                     l_oConnection.Open();
                     l_oConnection.Close();
-                    return true;
+                    return null;
                 }
                 catch (SqlException sEx)
                 {
-                    return false;
+                    return sEx.Message;
                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    return ex.Message;
                 }
             }
         }
