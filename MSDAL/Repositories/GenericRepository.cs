@@ -33,16 +33,16 @@ namespace MS.DAL
         #region CREATE
         public void Inserting(T entity)
         {
-            entity = _dbSet.Add(Encrypt(entity));
+            entity = _dbSet.Add(entity);
         }
 
         public void InsertAsync(T entity)
         {
-            entity = _dbSet.Add(Encrypt(entity));
+            entity = _dbSet.Add(entity);
         }
         public T Inserted(T entity)
         {
-            Inserting(Encrypt(entity));
+            Inserting(entity);
             return entity;
         }
         #endregion
@@ -50,11 +50,11 @@ namespace MS.DAL
         #region READ
         public T GetOld(object id)
         {
-            return Decrypt(_dbSet.Find(id));
+            return _dbSet.Find(id);
         }
         public T SingleSelectByQuery(System.Linq.Expressions.Expression<Func<T, bool>> query)
         {
-            return Decrypt(Include(MultiSelectByQuery(query)).FirstOrDefault());
+            return Include(MultiSelectByQuery(query)).FirstOrDefault();
         }
 
         public IQueryable<T> MultiSelectByQuery(System.Linq.Expressions.Expression<Func<T, bool>> query)
@@ -64,7 +64,7 @@ namespace MS.DAL
 
         public IQueryable<T> SelectByAll()
         {
-            return Decrypt(_dbSet);
+            return _dbSet;
         }
         public IQueryable<T> Include(IQueryable<T> list)
         {
@@ -80,20 +80,18 @@ namespace MS.DAL
         {
             var list = _dbSet.ToList();
             Random Rnd = new Random(DateTime.Now.Millisecond);
-            return Decrypt(list[Rnd.Next(list.Count)]);
+            return list[Rnd.Next(list.Count)];
         }
         #endregion
 
         #region UPDATE
         public void Updating(T entity)
         {
-            entity = Encrypt(entity);
             _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
         public void UpdateAsync(T entity)
         {
-            entity = Encrypt(entity);
             _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
@@ -184,32 +182,32 @@ namespace MS.DAL
         #endregion
 
 
-        private T Encrypt(T entity)
-        {
-            if (entity == null)
-                return null;
-            foreach (PropertyInfo pi in entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(EncDec))))
-                pi.SetValue(entity, pi.GetValue(entity).Encrypt());
-            return entity;
-        }
+        //private T Encrypt(T entity)
+        //{
+        //    if (entity == null)
+        //        return null;
+        //    foreach (PropertyInfo pi in entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(EncDec))))
+        //        pi.SetValue(entity, pi.GetValue(entity).Encrypt());
+        //    return entity;
+        //}
 
-        private T Decrypt(T entity)
-        {
-            if (entity == null)
-                return null;
-            foreach (PropertyInfo pi in entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(EncDec))))
-                pi.SetValue(entity, pi.GetValue(entity).Decrypt());
-            return entity;
-        }
-        private IQueryable<T> Decrypt(IQueryable<T> entities)
-        {
-            if (entities == null)
-                return null;
-            foreach (T entity in entities)
-                foreach (PropertyInfo pi in entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(EncDec))))
-                    pi.SetValue(entity, pi.GetValue(entity).Decrypt());
-            return entities;
-        }
+        //private T Decrypt(T entity)
+        //{
+        //    if (entity == null)
+        //        return null;
+        //    foreach (PropertyInfo pi in entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(EncDec))))
+        //        pi.SetValue(entity, pi.GetValue(entity).Decrypt());
+        //    return entity;
+        //}
+        //private IQueryable<T> Decrypt(IQueryable<T> entities)
+        //{
+        //    if (entities == null)
+        //        return null;
+        //    foreach (T entity in entities)
+        //        foreach (PropertyInfo pi in entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(EncDec))))
+        //            pi.SetValue(entity, pi.GetValue(entity).Decrypt());
+        //    return entities;
+        //}
 
     }
 }
