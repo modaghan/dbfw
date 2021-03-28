@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AskForDublicate" xml:space="preserve">
+    <value>Bu değer zaten mevcut. Güncellemek mi istiyorsunuz?</value>
+  </data>
+  <data name="CantDeleteSelf" xml:space="preserve">
+    <value>Kendi hesabınızı silemezsiniz!</value>
+  </data>
+  <data name="ChooseRoleWarning" xml:space="preserve">
+    <value>Lütfen en az bir yetki seçiniz!</value>
+  </data>
+  <data name="ConfirmLogout" xml:space="preserve">
+    <value>Sistemden çıkış yapmak istiyor musunuz? (Kullanıcı giriş bilgileri silinecek ve bir sonraki açılışta tekrar giriş yapmanız gerekecektir.)</value>
+  </data>
+  <data name="DatabaseHasBeenSaved" xml:space="preserve">
+    <value>Veritabanı başarıyla kaydedildi.</value>
+  </data>
+  <data name="DeleteAllWarning" xml:space="preserve">
+    <value>Tümünü silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="DialogTitle" xml:space="preserve">
+    <value>UYARI</value>
+  </data>
+  <data name="FieldRequired" xml:space="preserve">
+    <value>{0} alanı gereklidir.</value>
+  </data>
+  <data name="InvalidMail" xml:space="preserve">
+    <value>E-Posta adresi bulunamadı.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Parola geçersiz.</value>
+  </data>
+  <data name="InvalidPort" xml:space="preserve">
+    <value>Geçersiz port numarası.</value>
+  </data>
+  <data name="InvalidServer" xml:space="preserve">
+    <value>Sunucu adresi geçersiz.</value>
+  </data>
+  <data name="InvalidUsername" xml:space="preserve">
+    <value>Kullanıcı adı geçersiz.</value>
+  </data>
+  <data name="MailExist" xml:space="preserve">
+    <value>Aynı e-posta ile kayıtlı farklı bir kullanıcı mevcuttur. Lütfen değiştiriniz.</value>
+  </data>
+  <data name="MailTestFailed" xml:space="preserve">
+    <value>E-Posta testi başarısız oldu.</value>
+  </data>
+  <data name="MaxLength" xml:space="preserve">
+    <value>{0} alanı en fazla {1} karakter olabilir.</value>
+  </data>
+  <data name="MinLength" xml:space="preserve">
+    <value>{0} alanı en az {1} karakter olabilir.</value>
+  </data>
+  <data name="MissingField" xml:space="preserve">
+    <value>{0} özelliği girilmediğinden kayıt gerçekleşemez!</value>
+  </data>
+  <data name="PasswordConfirmWarning" xml:space="preserve">
+    <value>Girilen parolalar birbiri ile eşleşmiyor!</value>
+  </data>
+  <data name="PasswordEmpty" xml:space="preserve">
+    <value>Parola boş bırakılamaz</value>
+  </data>
+  <data name="PasswordNotSent" xml:space="preserve">
+    <value>Parola gönderilemedi.</value>
+  </data>
+  <data name="PasswordSent" xml:space="preserve">
+    <value>Parolanız gönderildi.</value>
+  </data>
+  <data name="PasswordsNotMatch" xml:space="preserve">
+    <value>Girilen iki parola birbiri ile eşleşmemektedir.</value>
+  </data>
+  <data name="PhoneExist" xml:space="preserve">
+    <value>Aynı telefon numarası ile kayıtlı farklı bir kullanıcı mevcuttur. Lütfen değiştiriniz.</value>
+  </data>
+  <data name="PropertyExistInRecords" xml:space="preserve">
+    <value>Bu işlem yapılamaz. Çünkü {0} değerinde bir kayıt mevcuttur. Lütfen {0} değerini değiştirin.</value>
+  </data>
+  <data name="RevertWarning" xml:space="preserve">
+    <value>Tüm değişiklikleri geri almak istiyor musunuz?</value>
+  </data>
+  <data name="SameCodeError" xml:space="preserve">
+    <value>Aynı koda ait başka bir kayıt mevcuttur. Lütfen kodu değiştiriniz.</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Sunucu bağlantısında sorun oluştu. Lütfen daha sonra tekrar deneyiniz.</value>
+  </data>
+  <data name="StringLength" xml:space="preserve">
+    <value>{0} alanı en fazla {1} karakter olabilir.</value>
+  </data>
+  <data name="UsernameEmpty" xml:space="preserve">
+    <value>Kullanıcı adı boş bırakılamaz</value>
+  </data>
+  <data name="UsernameExist" xml:space="preserve">
+    <value>Bu isimde bir kullanıcı adı mevcuttur. Aynı kullanıcı adına sahip iki kullanıcı olamaz. Lütfen düzeltiniz.</value>
+  </data>
+  <data name="UserNotAllowed" xml:space="preserve">
+    <value>Kullanıcının girişine izin verilmiyor.</value>
+  </data>
+  <data name="UserNotConfirmed" xml:space="preserve">
+    <value>Kullanıcı onaylı değil.</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Kullanıcı sistemde kayıtlı değildir.</value>
+  </data>
+  <data name="DeleteWarning" xml:space="preserve">
+    <value>Kaydı silmek mi istiyorsunuz? Bu işlem geri alınamayabilir!</value>
+  </data>
+  <data name="InvalidDatabase" xml:space="preserve">
+    <value>Veritabanı geçersiz.</value>
+  </data>
+  <data name="ConfirmStatusUpdate" xml:space="preserve">
+    <value>Ölçüm formunun durum değişikliğini yapmak istiyor musunuz?</value>
+  </data>
+  <data name="RecordNotFound" xml:space="preserve">
+    <value>Kayıt sistemde bulunamadı.</value>
+  </data>
+  <data name="RecordMustBeUnique" xml:space="preserve">
+    <value>{0} parametresine ait {1} değerinde başka bir kayıt mevcuttur. Bu parametreye ait kayıt eşsiz olmalıdır.</value>
+  </data>
+  <data name="SaveWarning" xml:space="preserve">
+    <value>Değişiklikleri kaydetmek istiyor musunuz!</value>
+  </data>
+  <data name="ConnectionBroken" xml:space="preserve">
+    <value>Bağlantı bilgilerinde sorun var. Lütfen düzeltiniz.</value>
+  </data>
+  <data name="ConnectionNotEstablish" xml:space="preserve">
+    <value>Sunucu ile bağlantı kurulamadı!</value>
+  </data>
+  <data name="NetworkError" xml:space="preserve">
+    <value>Ağ bağlantısı yok!</value>
+  </data>
+  <data name="ConfigFileNotFound" xml:space="preserve">
+    <value>Yapılandırma dosyası bulunamadı!</value>
+  </data>
+  <data name="TransferWarning" xml:space="preserve">
+    <value>İçeriği ana ekrana sekme olarak göndermek istiyor musunuz?</value>
+  </data>
+  <data name="InvalidDefaultMail" xml:space="preserve">
+    <value>Varsayılan e-posta adresi geçersiz</value>
+  </data>
+  <data name="InvalidLicence" xml:space="preserve">
+    <value>Lisans anahtarı geçersiz. Lütfen kontrol ederek tekrar deneyiniz.</value>
+  </data>
+  <data name="AskForClose" xml:space="preserve">
+    <value>Kurulumu sonlandırarak çıkmak istiyor musunuz?</value>
+  </data>
+  <data name="SureToRemoveItem" xml:space="preserve">
+    <value>Bu seçeneği hızlı menüden kaldırmak istiyor musunuz?</value>
+  </data>
+  <data name="PleaseChooseARecord" xml:space="preserve">
+    <value>Lütfen bir kayıt seçiniz!</value>
+  </data>
+  <data name="ReportDesignerNoRecord" xml:space="preserve">
+    <value>Rapor tasarımcısını kullanabilmek için {0} formuna ait en az bir kayıt bulunmalıdır.</value>
+  </data>
+  <data name="LicenceError" xml:space="preserve">
+    <value>Lisans sorunu. Uygulama, bu cihaz için lisanslanmamıştır.</value>
+  </data>
+  <data name="DocumentHasNotBeenSavedCauseOfDifferences" xml:space="preserve">
+    <value>Onaylanmamış değişiklikler olduğundan doküman kaydedilemedi.</value>
+  </data>
+  <data name="MailSettingsAreEmpty" xml:space="preserve">
+    <value>Kişisel e-posta ayarları yapılandırılmadı. Uygulama üzerinden gönderilecek e-postalar, "{0}" kullanıcı adı ile gönderilecek. E-Posta yapılandırmanızı yapmak için tıklayın.</value>
+  </data>
+  <data name="RecordHasNotBeenSaved" xml:space="preserve">
+    <value>Giriş kaydedilemedi!</value>
+  </data>
+  <data name="SearchPhraseCodingError" xml:space="preserve">
+    <value>Arama ifadesinde &lt;b&gt;{0}&lt;/b&gt; ve &lt;b&gt;{1}&lt;/b&gt; operatörleri birlikte kullanılamaz!</value>
+  </data>
+  <data name="SearchMissingField" xml:space="preserve">
+    <value>&lt;b&gt;{0}&lt;/b&gt; alanı girilmeli/seçilmelidir.</value>
+  </data>
+  <data name="SearchSyntaxErrorQuotationMarks" xml:space="preserve">
+    <value>Arama ifadesinde &lt;b&gt;{0}&lt;/b&gt; kısmında söz dizimi hatası mevcut! Açılan tırnak kapatılmalıdır.</value>
+  </data>
+  <data name="TemplateChoosing" xml:space="preserve">
+    <value>Dikkat! Şablon seçimi tüm içeriği temizler. Devam etmek istiyor musunuz?</value>
+  </data>
+  <data name="ClearList" xml:space="preserve">
+    <value>Seçenek listesini temizlemek istiyor musunuz?</value>
+  </data>
+  <data name="MissingParameters" xml:space="preserve">
+    <value>Eşleşme parametrelerinden biri eksik olduğu için bu işlem yapılamaz!</value>
+  </data>
+  <data name="KeyParametersCannotConnect" xml:space="preserve">
+    <value>Anahtar parametereler ilişkisel veri alamaz. Elle girilmeli ya da seçilmelidir.</value>
+  </data>
+  <data name="ParametersCannotConnected" xml:space="preserve">
+    <value>İlişkilendirilmek istenen parametre veri türleri aynı değil. İki parametre türü de aynı olmalıdır.</value>
+  </data>
+  <data name="InvalidRegex" xml:space="preserve">
+    <value>Söz diziminde hata var.</value>
+  </data>
+  <data name="SmartCodeDoesNotContainKey" xml:space="preserve">
+    <value>Akıllı kod anahtar parametre içermiyor. Bu nedenle yeni giriş oluşturulamıyor.</value>
+  </data>
+  <data name="InvalidPrimaryParameter" xml:space="preserve">
+    <value>Birincil anahtar parametre ID'si geçersiz.</value>
+  </data>
+  <data name="NoSmartCodeType" xml:space="preserve">
+    <value>Akıllı kod türünü seçiniz.</value>
+  </data>
+  <data name="SomeValuesCannotBeRecorded" xml:space="preserve">
+    <value>Bazı veriler kaydedilemedi.</value>
+  </data>
+  <data name="ExpressionEmpty" xml:space="preserve">
+    <value>Formül ifadesi mevcut değil!</value>
+  </data>
+  <data name="ParameterMustBeSavedForExpression" xml:space="preserve">
+    <value>Formül oluşturulabilmesi için parametrenin kaydedilmiş olması gerekmektedir.</value>
+  </data>
+  <data name="NotPermitted" xml:space="preserve">
+    <value>{0} yetkiniz bulunmamaktadır.</value>
+  </data>
+  <data name="ReportedRecords" xml:space="preserve">
+    <value>{0} numaralı ölçüm/ölçümler daha önce raporlanmış. Buna rağmen bu ölçümlerin yeniden raporlanmasını istiyorsanız "EVET" düğmesine basınız. Bu ölçümlerin olmadığı raporu almak için "HAYIR" düğmesine basınız.</value>
+  </data>
+  <data name="ChooseDatatypeFirst" xml:space="preserve">
+    <value>Önce veri türünü seçmelisiniz!</value>
+  </data>
+  <data name="TableCreationNotSuccessful" xml:space="preserve">
+    <value>Tablo oluşturulamadı!&lt;br&gt;{0}</value>
+  </data>
+  <data name="TableCannotBeCreated" xml:space="preserve">
+    <value>Tablo oluşturmada sorun yaşandı.</value>
+  </data>
+  <data name="CheckColumns" xml:space="preserve">
+    <value>Sütun yapılandırması uygun değil. Lütfen kontrol ediniz.</value>
+  </data>
+  <data name="EmptyColumn" xml:space="preserve">
+    <value>{0} sütunu için seçili bir özellik yok!</value>
+  </data>
+  <data name="ExistingColumn" xml:space="preserve">
+    <value>{0} özelliği birden fazla sütun için kullanılmış. Her sütun için ayrı bir özellik seçilmelidir.</value>
+  </data>
+  <data name="RequiredColumnsAreMissing" xml:space="preserve">
+    <value>{0} özellikleri zorunlu olmasına rağmen seçilmemiş. </value>
+  </data>
+  <data name="TableInsertionNotSuccessful" xml:space="preserve">
+    <value>Veriler tabloya aktarılamadı!</value>
+  </data>
+  <data name="ChooseAProperty" xml:space="preserve">
+    <value>Lütfen bir özellik seçiniz!</value>
+  </data>
+  <data name="DeleteSelectedWarning" xml:space="preserve">
+    <value>Seçili olanları silmek istiyor musunuz?</value>
+  </data>
+  <data name="ExistingParameter" xml:space="preserve">
+    <value>{0} adında bir parametre tabloda mevcut. Bunu güncellemek istiyor musunuz?</value>
+  </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>Lütfen {0} seçiniz.</value>
+  </data>
+  <data name="PleaseSelectOrCreateSmartCodePart" xml:space="preserve">
+    <value>Lütfen akıllı kod parçasını seçiniz ya da oluşturunuz.</value>
+  </data>
+  <data name="SelectedTableInUsage" xml:space="preserve">
+    <value>Silinmek istenen tablo kullanımdadır. Bu nedenle silinemez. Tabloyu silmek istiyorsanız, tablo ile ilişkili parametreleri düzenlemelisiniz. </value>
+  </data>
+  <data name="FileIsInBeingEdittedBy" xml:space="preserve">
+    <value>Düzenlemek istediğiniz bu dosya şu an "{0}" tarafından düzenlenmektedir. Bir yanlış olduğunu düşünüyorsanız, kendisi ile irtibata geçiniz.</value>
+  </data>
+  <data name="PreviousProgressHasBeenContinued" xml:space="preserve">
+    <value>Önceki işlem devam ediyor...</value>
+  </data>
+  <data name="CouldNot" xml:space="preserve">
+    <value>Bu işlem gerçekleştirilemez.</value>
+  </data>
+</root>

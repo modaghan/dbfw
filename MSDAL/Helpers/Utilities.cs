@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
@@ -54,6 +55,27 @@ namespace MS.BLL
                     property.SetValue(result, property.GetValue(source));
             }
             return result;
+        }
+        public static T Transfer<T>(this T source, T target)
+        {
+            if (target == null)
+                target = Activator.CreateInstance<T>();
+            Type type = typeof(T);
+            foreach (PropertyInfo property in type.GetProperties())
+            {
+                try
+                {
+                    if (property.GetCustomAttribute(typeof(NotMappedAttribute)) != null)
+                        continue;
+                    var value = property.GetValue(source);
+                    property.SetValue(target, value);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            return target;
         }
         public static string IsConnectionStringValid(string connString)
         {
@@ -122,7 +144,19 @@ namespace MS.BLL
             {
                 return "";
             }
-        } 
+        }
+        public static string ToFormatted(this double entity, int precision = 2, string unit = "sn")
+        {
+            try
+            {
+                string str = string.Format("{0:N" + precision + "}", entity);
+                return str;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
         #endregion
 
         #region Base64 Conversions
