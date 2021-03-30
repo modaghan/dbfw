@@ -61,7 +61,7 @@ namespace MS.BLL
         /// <returns></returns>
         public static DateTime CombineDates(DateTime date, DateTime time)
         {
-            if (date ==null || time == null)
+            if (date == null || time == null)
                 return Zaman.Simdi;
             return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, time.Second);
         }
@@ -115,5 +115,7 @@ namespace MS.BLL
 
             return businessDays;
         }
+
+        public static string Stamp =>Simdi.ToString("yyyy_MM_dd_hh_mm_ss");
     }
 }

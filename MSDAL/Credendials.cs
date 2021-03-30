@@ -10,6 +10,7 @@ namespace MS.BLL
     public static class Credentials
     {
         public static string Password { get { return "97yZ6hN2jk6r4YYh2xzHJe7n"; } }
+        public static string Config { get; set; }
         public static class Session
         {
             /// <summary>
@@ -70,7 +71,9 @@ namespace MS.BLL
         {
             get
             {
-                string file = AppDomain.CurrentDomain.BaseDirectory + "Config.ini";
+                if(Config == null)
+                    Config = "Config.ini";
+                string file = AppDomain.CurrentDomain.BaseDirectory + Config;
                 if (!File.Exists(file))
                     File.Create(file);
                 return file;
