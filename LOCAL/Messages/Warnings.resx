@@ -384,4 +384,16 @@
   <data name="CouldNot" xml:space="preserve">
     <value>Bu işlem gerçekleştirilemez.</value>
   </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Dosya beliritlen adreste bulunamadı.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Giriş yapılamadı. Lütfen bilgileri ve internet bağlantınızı kontrol ediniz.</value>
+  </data>
+  <data name="WillYouAgree" xml:space="preserve">
+    <value>Üyelik koşullarını kabul ediyor musunuz?</value>
+  </data>
+  <data name="PinDoesNotMatch" xml:space="preserve">
+    <value>Girilen pin doğru değildir!</value>
+  </data>
 </root>

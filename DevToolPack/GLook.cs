@@ -76,7 +76,7 @@ namespace DevToolPack
                     Name = $"col_{Entity.GetType().Name}_{ForeignType.Name}_{col}",
                     Caption = new ResourceManager(columnsRM).GetString(col),
                     Visible = true,
-                    GroupIndex = col == grouped?1:-1,
+                    GroupIndex = col == grouped ? 1 : -1,
                     VisibleIndex = index++
                 });
             cmb.EditValue = EditValue = Entity.GetType().GetProperty(ForeignKey).GetValue(Entity);

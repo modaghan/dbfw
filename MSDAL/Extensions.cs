@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Resources;
+using System.Data.Entity;
 
 namespace MSDAL
 {
@@ -33,6 +34,13 @@ namespace MSDAL
         /// <param name="id">Primary Key of <typeparam name="T"/></param>
         /// <returns><typeparam name="T"/></returns>
         public static T GetById<T>(this List<T> list, long? id)
+        {
+            if (list == null || id == null || id == 0)
+                return default(T);
+            T obj = list.FirstOrDefault(t => t.GetType().GetProperty("id").GetValue(t).ToString().Equals(id.ToString()));
+            return obj;
+        }
+        public static T GetById<T>(this DbSet<T> list, long? id) where T : class
         {
             if (list == null || id == null || id == 0)
                 return default(T);
@@ -108,7 +116,7 @@ namespace MSDAL
             T obj = list.FirstOrDefault(t => t.GetType().GetProperty(foreign_key).GetValue(t).ToString().Equals(id.ToString()));
             return obj;
         }
-        public static string GetForeignString<T>(this List<T> list, string foreign_key, object id)
+        public static string GetForeignString<T>(this List<T> list, object id)
         {
             if (id == null)
                 return "-";
@@ -117,6 +125,25 @@ namespace MSDAL
             T foreign = list.GetById(foreign_id);
             if (foreign == null)
                 return "-";
+            return foreign.ToString();
+        }
+        public static string GetForeignString<T>(this List<T> list, object id, string display_property = null)
+        {
+            if (id == null)
+                return "-";
+            long foreign_id = 0;
+            long.TryParse(id.ToString(), out foreign_id);
+            T foreign = list.GetById(foreign_id);
+            if (foreign == null)
+                return "-";
+            if(display_property != null)
+            {
+                object display_text = typeof(T).GetProperty(display_property).GetValue(foreign);
+                if (display_text == null)
+                    return foreign.ToString();
+                else
+                    return display_text.ToString();
+            }
             return foreign.ToString();
         }
         public static List<T> GetMultiByForeignId<T>(this List<T> list, string foreign_key, long? id)

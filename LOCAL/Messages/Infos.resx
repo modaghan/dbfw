@@ -270,4 +270,31 @@
   <data name="DependencyInfoNoChange" xml:space="preserve">
     <value>&lt;b&gt;{0}&lt;/b&gt; bu parametrenin değeri &lt;b&gt;{1}&lt;/b&gt; &lt;b&gt;{2}&lt;/b&gt; ise &lt;b&gt;{3}&lt;/b&gt;.</value>
   </data>
+  <data name="CredentialsHaveNotBeenSent" xml:space="preserve">
+    <value>Giriş bilgileriniz gönderilemedi. Lütfen bilgileri ve internet bağlantınızı kontrol ediniz.</value>
+  </data>
+  <data name="CrendentialsHaveBeenSent" xml:space="preserve">
+    <value>Giriş bilgileriniz e-posta adresinize gönderilmiştir.</value>
+  </data>
+  <data name="Logining" xml:space="preserve">
+    <value>Giriş yapılıyor...</value>
+  </data>
+  <data name="LoginSuccessfulSessionIsCreating1" xml:space="preserve">
+    <value>Giriş başarılı. Oturum açılıyor...</value>
+  </data>
+  <data name="PasswordNotSent1" xml:space="preserve">
+    <value>Parola gönderilemedi.</value>
+  </data>
+  <data name="PasswordSent1" xml:space="preserve">
+    <value>Parolanız gönderildi.</value>
+  </data>
+  <data name="RegisterFailed" xml:space="preserve">
+    <value>Kayıt yapılamadı. Lütfen bilgileri ve internet bağlantınızı kontrol ediniz.</value>
+  </data>
+  <data name="Registering" xml:space="preserve">
+    <value>Kayıt yapılıyor...</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Gönderiliyor...</value>
+  </data>
 </root>

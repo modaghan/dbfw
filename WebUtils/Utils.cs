@@ -5,19 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
-using System.Drawing;
-using BLL;
 using System.IO;
 using System.ComponentModel;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
-using SalonApp.Web.Models;
-using SalonApp.DATA;
-using SalonApp.BLL;
-using System.Net;
-using System.Text;
 using System.Web.Helpers;
 using ImageResizer;
+using MS.BLL;
 
 namespace WebUtils
 {
@@ -291,6 +285,8 @@ namespace WebUtils
             {
                 string fname = Zaman.Simdi.Ticks + "-" + model.filename.RemoveAccent();
                 var path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/Files/" + model.folder), fname);
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
                 Byte[] fileBytes = Convert.FromBase64String(model.file);
                 if (model.folder.Contains("Images"))
                     CreateSmalls(model, fname);
@@ -302,7 +298,6 @@ namespace WebUtils
             }
             catch (Exception ex)
             {
-                Logger.Save("FileUpload Error","",ex);
                 return "";
             }
         }

@@ -115,6 +115,24 @@ namespace LOCAL.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Giriş bilgileriniz gönderilemedi. Lütfen bilgileri ve internet bağlantınızı kontrol ediniz..
+        /// </summary>
+        public static string CredentialsHaveNotBeenSent {
+            get {
+                return ResourceManager.GetString("CredentialsHaveNotBeenSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giriş bilgileriniz e-posta adresinize gönderilmiştir..
+        /// </summary>
+        public static string CrendentialsHaveBeenSent {
+            get {
+                return ResourceManager.GetString("CrendentialsHaveBeenSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Veritabanı başarıyla kaydedildi..
         /// </summary>
         public static string DatabaseHasBeenSaved {
@@ -232,11 +250,29 @@ namespace LOCAL.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Giriş yapılıyor....
+        /// </summary>
+        public static string Logining {
+            get {
+                return ResourceManager.GetString("Logining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Giriş başarılı. Oturum açılıyor....
         /// </summary>
         public static string LoginSuccessfulSessionIsCreating {
             get {
                 return ResourceManager.GetString("LoginSuccessfulSessionIsCreating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giriş başarılı. Oturum açılıyor....
+        /// </summary>
+        public static string LoginSuccessfulSessionIsCreating1 {
+            get {
+                return ResourceManager.GetString("LoginSuccessfulSessionIsCreating1", resourceCulture);
             }
         }
         
@@ -331,11 +367,29 @@ namespace LOCAL.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parola gönderilemedi..
+        /// </summary>
+        public static string PasswordNotSent1 {
+            get {
+                return ResourceManager.GetString("PasswordNotSent1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parolanız gönderildi..
         /// </summary>
         public static string PasswordSent {
             get {
                 return ResourceManager.GetString("PasswordSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parolanız gönderildi..
+        /// </summary>
+        public static string PasswordSent1 {
+            get {
+                return ResourceManager.GetString("PasswordSent1", resourceCulture);
             }
         }
         
@@ -394,6 +448,24 @@ namespace LOCAL.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kayıt yapılamadı. Lütfen bilgileri ve internet bağlantınızı kontrol ediniz..
+        /// </summary>
+        public static string RegisterFailed {
+            get {
+                return ResourceManager.GetString("RegisterFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kayıt yapılıyor....
+        /// </summary>
+        public static string Registering {
+            get {
+                return ResourceManager.GetString("Registering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Değişiklikleri kaydetmek istiyor musunuz!.
         /// </summary>
         public static string SaveWarning {
@@ -408,6 +480,15 @@ namespace LOCAL.Messages {
         public static string SavingSession {
             get {
                 return ResourceManager.GetString("SavingSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gönderiliyor....
+        /// </summary>
+        public static string Sending {
+            get {
+                return ResourceManager.GetString("Sending", resourceCulture);
             }
         }
         

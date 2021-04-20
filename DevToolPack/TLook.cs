@@ -38,7 +38,7 @@ namespace DevToolPack
 
         public TLook()
         {
-            InitializeComponent();
+                InitializeComponent();
             if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
             {
                 DataBindingSource = new System.Windows.Forms.BindingSource();
@@ -137,7 +137,7 @@ namespace DevToolPack
             try
             {
                 if (e.Column.FieldName.Equals(ParentValueMember))
-                    e.DisplayText = DataList.GetForeignString(e.Column.FieldName, e.Value);
+                    e.DisplayText = DataList.GetForeignString(e.Value);
             }
             catch (Exception ex)
             {

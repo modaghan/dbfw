@@ -93,6 +93,9 @@ namespace MS.BLL
                 conn_string.UserID = serverCredentials.UserID;
                 conn_string.Password = serverCredentials.Password;
                 conn_string.ConnectTimeout = serverCredentials.ConnectTimeout;
+                //conn_string.MultipleActiveResultSets = true;
+                //conn_string.ApplicationName = "EntityFramework";
+
                 return conn_string.ToString();
             }
             catch (Exception ex)
@@ -114,6 +117,8 @@ namespace MS.BLL
                 conn_string.UserID = serverCredentials.UserID;
                 conn_string.Password = serverCredentials.Password;
                 conn_string.ConnectTimeout = serverCredentials.ConnectTimeout;
+                //conn_string.MultipleActiveResultSets = true;
+                //conn_string.ApplicationName = "EntityFramework";
                 return conn_string.ToString();
 
                 //SqlConnectionStringBuilder conn_string = new SqlConnectionStringBuilder();
@@ -163,8 +168,6 @@ namespace MS.BLL
 
         public static ServerCredentials ServerCredentials(string section = "ServerCredentials")
         {
-            if (serverCredentials != null)
-                return serverCredentials;
             try
             {
                 var parser = new FileIniDataParser();

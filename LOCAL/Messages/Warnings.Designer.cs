@@ -295,6 +295,15 @@ namespace LOCAL.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dosya beliritlen adreste bulunamadı..
+        /// </summary>
+        public static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Veritabanı geçersiz..
         /// </summary>
         public static string InvalidDatabase {
@@ -399,6 +408,15 @@ namespace LOCAL.Messages {
         public static string LicenceError {
             get {
                 return ResourceManager.GetString("LicenceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giriş yapılamadı. Lütfen bilgileri ve internet bağlantınızı kontrol ediniz..
+        /// </summary>
+        public static string LoginFailed {
+            get {
+                return ResourceManager.GetString("LoginFailed", resourceCulture);
             }
         }
         
@@ -561,6 +579,15 @@ namespace LOCAL.Messages {
         public static string PhoneExist {
             get {
                 return ResourceManager.GetString("PhoneExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Girilen pin doğru değildir!.
+        /// </summary>
+        public static string PinDoesNotMatch {
+            get {
+                return ResourceManager.GetString("PinDoesNotMatch", resourceCulture);
             }
         }
         
@@ -858,6 +885,15 @@ namespace LOCAL.Messages {
         public static string UserNotFound {
             get {
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Üyelik koşullarını kabul ediyor musunuz?.
+        /// </summary>
+        public static string WillYouAgree {
+            get {
+                return ResourceManager.GetString("WillYouAgree", resourceCulture);
             }
         }
     }

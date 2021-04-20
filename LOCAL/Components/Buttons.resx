@@ -120,6 +120,9 @@
   <data name="Add" xml:space="preserve">
     <value>Ekle</value>
   </data>
+  <data name="AddBulk" xml:space="preserve">
+    <value>Toplu Ekle</value>
+  </data>
   <data name="AddFromCamera" xml:space="preserve">
     <value>Kameradan Ekle</value>
   </data>
@@ -128,6 +131,12 @@
   </data>
   <data name="Approve" xml:space="preserve">
     <value>Onayla</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Geri</value>
+  </data>
+  <data name="Barcode" xml:space="preserve">
+    <value>Barkod</value>
   </data>
   <data name="BestFitColumns" xml:space="preserve">
     <value>Sütunları Dağıt</value>
@@ -174,6 +183,9 @@
   <data name="CreateCopy" xml:space="preserve">
     <value>Kopyasını Oluştur</value>
   </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Yeni Ekle</value>
+  </data>
   <data name="CreateParameter" xml:space="preserve">
     <value>Parametre Oluştur</value>
   </data>
@@ -194,6 +206,9 @@
   </data>
   <data name="DocumentOpen" xml:space="preserve">
     <value>Doküman Aç</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>İndir</value>
   </data>
   <data name="DownloadAsExcel" xml:space="preserve">
     <value>Excel Olarak İndir</value>
@@ -270,6 +285,9 @@
   <data name="NextPage" xml:space="preserve">
     <value>Sonraki Sayfa</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Hayır</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>Tamam</value>
   </data>
@@ -333,6 +351,9 @@
   <data name="ResetLayout" xml:space="preserve">
     <value>Görünümü Sıfırla</value>
   </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Geri Yükle</value>
+  </data>
   <data name="RevisionOpen" xml:space="preserve">
     <value>Revizyon Aç</value>
   </data>
@@ -372,6 +393,9 @@
   <data name="Send" xml:space="preserve">
     <value>Gönder</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
   <data name="ShowAll" xml:space="preserve">
     <value>Tümünü Göster</value>
   </data>
@@ -387,6 +411,12 @@
   <data name="ShowSmartCodes" xml:space="preserve">
     <value>Akıllı Kodları Göster</value>
   </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Çıkış Yap</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Kayıt Ol</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Başla</value>
   </data>
@@ -401,5 +431,8 @@
   </data>
   <data name="Upload" xml:space="preserve">
     <value>Yükle</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Evet</value>
   </data>
 </root>

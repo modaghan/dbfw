@@ -7,10 +7,10 @@
 
     public partial class DataContext : DbContext
     {
-        public DataContext(string conStr = "")
+        public DataContext(string conStr = "", bool lazy_loading = false)
             : base(conStr)
         {
-            Configuration.LazyLoadingEnabled = false;
+            Configuration.LazyLoadingEnabled = lazy_loading;
         }
     }
 }

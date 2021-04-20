@@ -117,46 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DarkMode" xml:space="preserve">
-    <value>Koyu Tema</value>
+  <data name="ForgetPasswordMail" xml:space="preserve">
+    <value>&lt;p&gt;Sayın &lt;em&gt;{{NAME}}&lt;/em&gt;,&lt;/p&gt;
+&lt;p&gt;{{APPLICATION}} giriş bilgileriniz alttaki gibidir :&lt;/p&gt;
+&lt;table style="height: 79px; width: 345px;"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="width: 134px;"&gt;&lt;strong&gt;Kullanıcı Adı&lt;/strong&gt;&lt;/td&gt;
+&lt;td style="width: 18px;"&gt;&lt;strong&gt;:&lt;/strong&gt;&lt;/td&gt;
+&lt;td style="width: 171px;"&gt;{{USERNAME}}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="width: 134px;"&gt;&lt;strong&gt;Parola&lt;/strong&gt;&lt;/td&gt;
+&lt;td style="width: 18px;"&gt;&lt;strong&gt;:&lt;/strong&gt;&lt;/td&gt;
+&lt;td style="width: 171px;"&gt;{{PASSWORD}}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;&lt;small&gt;Bu isteği siz yapmadıysanız lütfen  &lt;a href="mailto:{{RELATEDMAIL}}" target="_blank" rel="noopener"&gt;buraya tıklayınız.&lt;/a&gt;&lt;/small&gt;&lt;/em&gt;&lt;/p&gt;</value>
   </data>
-  <data name="DisplaySettings" xml:space="preserve">
-    <value>Görünüm Ayarları</value>
+  <data name="ForgetPasswordMailSubject" xml:space="preserve">
+    <value>{{APPLICATION}} Şifre Sıfırlama</value>
   </data>
-  <data name="DontHaveAnAccountRegister" xml:space="preserve">
-    <value>Hesabınız yoksa kayıt olmak için tıklayın.</value>
+  <data name="RegisterMail" xml:space="preserve">
+    <value>&lt;p&gt;Sayın Kullanıcı,&lt;/p&gt;
+&lt;p&gt;{{APPLICATION}}na kayıt olduğunuz için teşekkür ederiz. Uygulama giriş bilgileriniz alttaki gibidir :&lt;/p&gt;
+&lt;table style="height: 79px; width: 345px;"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="width: 134px;"&gt;&lt;strong&gt;Kullanıcı Adı&lt;/strong&gt;&lt;/td&gt;
+&lt;td style="width: 18px;"&gt;&lt;strong&gt;:&lt;/strong&gt;&lt;/td&gt;
+&lt;td style="width: 171px;"&gt;{{USERNAME}}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="width: 134px;"&gt;&lt;strong&gt;Parola&lt;/strong&gt;&lt;/td&gt;
+&lt;td style="width: 18px;"&gt;&lt;strong&gt;:&lt;/strong&gt;&lt;/td&gt;
+&lt;td style="width: 171px;"&gt;{{PASSWORD}}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;&lt;small&gt;Bu kaydı siz yapmadıysanız lütfen  &lt;a href="mailto:{{RELATEDMAIL}}" target="_blank" rel="noopener"&gt;buraya tıklayınız.&lt;/a&gt;&lt;/small&gt;&lt;/em&gt;&lt;/p&gt;</value>
   </data>
-  <data name="EnterOrGetBarcode" xml:space="preserve">
-    <value>Barkodu Girin/Okutun</value>
+  <data name="RegisterMailSubject" xml:space="preserve">
+    <value>{{APPLICATION}} Kullanıcı Kaydı</value>
   </data>
-  <data name="ForgotCredentials" xml:space="preserve">
-    <value>Giriş bilgilerimi unuttum</value>
-  </data>
-  <data name="GeneralSettings" xml:space="preserve">
-    <value>Genel Ayarlar</value>
-  </data>
-  <data name="LoginTitle" xml:space="preserve">
-    <value>GİRİŞ EKRANI</value>
-  </data>
-  <data name="Mail" xml:space="preserve">
-    <value>E-Posta</value>
-  </data>
-  <data name="PleaseChoose" xml:space="preserve">
-    <value>Lütfen Seçiniz</value>
-  </data>
-  <data name="RegisterTitle" xml:space="preserve">
-    <value>KAYIT EKRANI</value>
-  </data>
-  <data name="SendCredentials" xml:space="preserve">
-    <value>Giriş Bilgilerimi Gönder</value>
-  </data>
-  <data name="Server" xml:space="preserve">
-    <value>Sunucu</value>
-  </data>
-  <data name="ShowLoginScreen" xml:space="preserve">
-    <value>Giriş ekranını göster</value>
-  </data>
-  <data name="ShowLoginScreen1" xml:space="preserve">
-    <value>Giriş ekranını göster</value>
+  <data name="SupportMail" xml:space="preserve">
+    <value>&lt;p&gt;Sayın Yetkili,&lt;/p&gt;
+&lt;p&gt;Sütölçer uygulamasından gönderilen destek mesajı attaki gibidir :&lt;/p&gt;
+&lt;p&gt;
+&lt;strong&gt;
+İsim
+&lt;/strong&gt;
+&lt;/p&gt;
+&lt;p&gt;
+{{NAME}}
+&lt;/p&gt;
+&lt;p&gt;
+&lt;strong&gt;
+Telefon
+&lt;/strong&gt;
+&lt;/p&gt;
+&lt;p&gt;
+{{PHONE}}
+&lt;/p&gt;
+&lt;p&gt;
+&lt;strong&gt;
+Mesaj
+&lt;/strong&gt;
+&lt;/p&gt;
+&lt;p&gt;
+{{MESSAGE}}
+&lt;/p&gt;</value>
   </data>
 </root>

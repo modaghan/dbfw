@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LOCAL.Messages {
+namespace LOCAL.Objects {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace LOCAL.Messages {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Questions {
+    public class Langs {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Questions() {
+        internal Langs() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace LOCAL.Messages {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LOCAL.Messages.Questions", typeof(Questions).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LOCAL.Objects.Langs", typeof(Langs).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,20 @@ namespace LOCAL.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Onay Ekranı.
+        ///   Looks up a localized string similar to English.
         /// </summary>
-        public static string ApproveTitle {
+        public static string en {
             get {
-                return ResourceManager.GetString("ApproveTitle", resourceCulture);
+                return ResourceManager.GetString("en", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oturumu kapatmak istiyor musunuz?.
+        ///   Looks up a localized string similar to Türkçe.
         /// </summary>
-        public static string AskForLogout {
+        public static string tr {
             get {
-                return ResourceManager.GetString("AskForLogout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tüm görseller temizlensin mi?.
-        /// </summary>
-        public static string ClearAllImages {
-            get {
-                return ResourceManager.GetString("ClearAllImages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bu veriler ile yeni tablo oluşturmak istiyor musunuz?.
-        /// </summary>
-        public static string CreateNewTable {
-            get {
-                return ResourceManager.GetString("CreateNewTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Seçiniz.
-        /// </summary>
-        public static string DialogTitle {
-            get {
-                return ResourceManager.GetString("DialogTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Formu temizlemek istiyor musunuz?.
-        /// </summary>
-        public static string SureToClearForm {
-            get {
-                return ResourceManager.GetString("SureToClearForm", resourceCulture);
+                return ResourceManager.GetString("tr", resourceCulture);
             }
         }
     }

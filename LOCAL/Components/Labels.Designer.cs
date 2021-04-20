@@ -61,11 +61,128 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Koyu Tema.
+        /// </summary>
+        public static string DarkMode {
+            get {
+                return ResourceManager.GetString("DarkMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Görünüm Ayarları.
+        /// </summary>
+        public static string DisplaySettings {
+            get {
+                return ResourceManager.GetString("DisplaySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hesabınız yoksa kayıt olmak için tıklayın..
+        /// </summary>
+        public static string DontHaveAnAccountRegister {
+            get {
+                return ResourceManager.GetString("DontHaveAnAccountRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barkodu Girin/Okutun.
+        /// </summary>
+        public static string EnterOrGetBarcode {
+            get {
+                return ResourceManager.GetString("EnterOrGetBarcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giriş bilgilerimi unuttum.
+        /// </summary>
+        public static string ForgotCredentials {
+            get {
+                return ResourceManager.GetString("ForgotCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genel Ayarlar.
+        /// </summary>
+        public static string GeneralSettings {
+            get {
+                return ResourceManager.GetString("GeneralSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GİRİŞ EKRANI.
+        /// </summary>
+        public static string LoginTitle {
+            get {
+                return ResourceManager.GetString("LoginTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-Posta.
+        /// </summary>
+        public static string Mail {
+            get {
+                return ResourceManager.GetString("Mail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lütfen Seçiniz.
         /// </summary>
         public static string PleaseChoose {
             get {
                 return ResourceManager.GetString("PleaseChoose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KAYIT EKRANI.
+        /// </summary>
+        public static string RegisterTitle {
+            get {
+                return ResourceManager.GetString("RegisterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giriş Bilgilerimi Gönder.
+        /// </summary>
+        public static string SendCredentials {
+            get {
+                return ResourceManager.GetString("SendCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sunucu.
+        /// </summary>
+        public static string Server {
+            get {
+                return ResourceManager.GetString("Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giriş ekranını göster.
+        /// </summary>
+        public static string ShowLoginScreen {
+            get {
+                return ResourceManager.GetString("ShowLoginScreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giriş ekranını göster.
+        /// </summary>
+        public static string ShowLoginScreen1 {
+            get {
+                return ResourceManager.GetString("ShowLoginScreen1", resourceCulture);
             }
         }
     }

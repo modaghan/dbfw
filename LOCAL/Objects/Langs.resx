@@ -117,46 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DarkMode" xml:space="preserve">
-    <value>Koyu Tema</value>
+  <data name="en" xml:space="preserve">
+    <value>English</value>
   </data>
-  <data name="DisplaySettings" xml:space="preserve">
-    <value>Görünüm Ayarları</value>
-  </data>
-  <data name="DontHaveAnAccountRegister" xml:space="preserve">
-    <value>Hesabınız yoksa kayıt olmak için tıklayın.</value>
-  </data>
-  <data name="EnterOrGetBarcode" xml:space="preserve">
-    <value>Barkodu Girin/Okutun</value>
-  </data>
-  <data name="ForgotCredentials" xml:space="preserve">
-    <value>Giriş bilgilerimi unuttum</value>
-  </data>
-  <data name="GeneralSettings" xml:space="preserve">
-    <value>Genel Ayarlar</value>
-  </data>
-  <data name="LoginTitle" xml:space="preserve">
-    <value>GİRİŞ EKRANI</value>
-  </data>
-  <data name="Mail" xml:space="preserve">
-    <value>E-Posta</value>
-  </data>
-  <data name="PleaseChoose" xml:space="preserve">
-    <value>Lütfen Seçiniz</value>
-  </data>
-  <data name="RegisterTitle" xml:space="preserve">
-    <value>KAYIT EKRANI</value>
-  </data>
-  <data name="SendCredentials" xml:space="preserve">
-    <value>Giriş Bilgilerimi Gönder</value>
-  </data>
-  <data name="Server" xml:space="preserve">
-    <value>Sunucu</value>
-  </data>
-  <data name="ShowLoginScreen" xml:space="preserve">
-    <value>Giriş ekranını göster</value>
-  </data>
-  <data name="ShowLoginScreen1" xml:space="preserve">
-    <value>Giriş ekranını göster</value>
+  <data name="tr" xml:space="preserve">
+    <value>Türkçe</value>
   </data>
 </root>

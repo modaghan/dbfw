@@ -70,6 +70,15 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toplu Ekle.
+        /// </summary>
+        public static string AddBulk {
+            get {
+                return ResourceManager.GetString("AddBulk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kameradan Ekle.
         /// </summary>
         public static string AddFromCamera {
@@ -93,6 +102,24 @@ namespace LOCAL.Components {
         public static string Approve {
             get {
                 return ResourceManager.GetString("Approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geri.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barkod.
+        /// </summary>
+        public static string Barcode {
+            get {
+                return ResourceManager.GetString("Barcode", resourceCulture);
             }
         }
         
@@ -232,6 +259,15 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yeni Ekle.
+        /// </summary>
+        public static string CreateNew {
+            get {
+                return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parametre Oluştur.
         /// </summary>
         public static string CreateParameter {
@@ -291,6 +327,15 @@ namespace LOCAL.Components {
         public static string DocumentOpen {
             get {
                 return ResourceManager.GetString("DocumentOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to İndir.
+        /// </summary>
+        public static string Download {
+            get {
+                return ResourceManager.GetString("Download", resourceCulture);
             }
         }
         
@@ -520,6 +565,15 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hayır.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tamam.
         /// </summary>
         public static string Ok {
@@ -709,6 +763,15 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geri Yükle.
+        /// </summary>
+        public static string Restore {
+            get {
+                return ResourceManager.GetString("Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Revizyon Aç.
         /// </summary>
         public static string RevisionOpen {
@@ -826,6 +889,15 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ayarlar.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tümünü Göster.
         /// </summary>
         public static string ShowAll {
@@ -871,6 +943,24 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Çıkış Yap.
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kayıt Ol.
+        /// </summary>
+        public static string SignUp {
+            get {
+                return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Başla.
         /// </summary>
         public static string Start {
@@ -912,6 +1002,15 @@ namespace LOCAL.Components {
         public static string Upload {
             get {
                 return ResourceManager.GetString("Upload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evet.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
