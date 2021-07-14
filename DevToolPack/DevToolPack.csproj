@@ -94,12 +94,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MSDAL\MSDAL.csproj">
-      <Project>{9abdfa2e-3ca4-4628-b204-388a59ce1ed0}</Project>
-      <Name>MSDAL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Handlers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
