@@ -49,6 +49,7 @@ namespace MS.BLL
         {
             try
             {
+                Credentials.serverCredentials = null;
                 string target = "ServerCredentials";
                 HashCode hashCode = new HashCode();                
                 data[target]["Crypto"]= isCrypted ? "E" : "H";

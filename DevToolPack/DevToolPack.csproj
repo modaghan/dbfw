@@ -65,6 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateEventHandler.cs" />
+    <Compile Include="LookBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="TLook.cs">
       <SubType>UserControl</SubType>
     </Compile>

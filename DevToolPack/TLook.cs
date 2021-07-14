@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace DevToolPack
 {
-    public partial class TLook : DevExpress.XtraEditors.XtraUserControl
+    public partial class TLook : LookBase
     {
         public Type ForeignType { get; private set; }
         public object Entity { get; set; }
@@ -38,7 +38,7 @@ namespace DevToolPack
 
         public TLook()
         {
-                InitializeComponent();
+            InitializeComponent();
             if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
             {
                 DataBindingSource = new System.Windows.Forms.BindingSource();
@@ -48,11 +48,11 @@ namespace DevToolPack
             }
         }
 
-        public void BindData<T>(object Entity, IEntityView dialog, string foreign_key, Type columnsRM, params string[] cols)
+        public void BindData<T>(object Entity, IEntityView dialog, string foreign_key, string parentValueMember, Type columnsRM = null, params string[] cols)
         {
             ForeignType = typeof(T);
             this.ValueMember = ValueMember ?? "id";
-            this.ParentValueMember = ParentValueMember ?? "parent_id";
+            this.ParentValueMember = parentValueMember;
             this.IsActiveMember = IsActiveMember ?? "is_active";
             this.Entity = Entity;
             this.Dialog = dialog;
@@ -63,16 +63,19 @@ namespace DevToolPack
             TView.Columns.Clear();
             TView.ParentFieldName = ParentValueMember;
             TView.KeyFieldName = ValueMember;
-            int index = 0;
-            foreach (string col in cols)
-                TView.Columns.Add(new DevExpress.XtraTreeList.Columns.TreeListColumn
-                {
-                    FieldName = col,
-                    Name = $"col_{Entity.GetType().Name}_{ForeignType.Name}_{col}",
-                    Caption = new ResourceManager(columnsRM).GetString(col),
-                    Visible = true,
-                    VisibleIndex = index++
-                });
+            if (columnsRM != null)
+            {
+                int index = 0;
+                foreach (string col in cols)
+                    TView.Columns.Add(new DevExpress.XtraTreeList.Columns.TreeListColumn
+                    {
+                        FieldName = col,
+                        Name = $"col_{Entity.GetType().Name}_{ForeignType.Name}_{col}",
+                        Caption = new ResourceManager(columnsRM).GetString(col),
+                        Visible = true,
+                        VisibleIndex = index++
+                    });
+            }
             cmb.EditValue = EditValue = Entity.GetType().GetProperty(ForeignKey).GetValue(Entity);
             cmb.Properties.Buttons[1].Visible = cmb.EditValue != null;
         }
