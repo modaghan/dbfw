@@ -12,6 +12,7 @@ namespace MS.BLL
         public string AppVersion { get; set; }
         public string SetupDate { get; set; }
         public string RootUrl { get; set; }
+        public string ApiUrl { get; set; }
         public string Language { get; set; }
         public string Licence { get; set; }
     }

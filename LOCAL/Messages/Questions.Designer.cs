@@ -106,6 +106,15 @@ namespace LOCAL.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} değerine ait bir kayıt mevcut. Buna rağmen kaydetmek istiyor musunuz?.
+        /// </summary>
+        public static string PropertyExistInRecordsWannaSave {
+            get {
+                return ResourceManager.GetString("PropertyExistInRecordsWannaSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Formu temizlemek istiyor musunuz?.
         /// </summary>
         public static string SureToClearForm {

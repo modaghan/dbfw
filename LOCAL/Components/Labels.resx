@@ -120,6 +120,9 @@
   <data name="DarkMode" xml:space="preserve">
     <value>Koyu Tema</value>
   </data>
+  <data name="Deleting" xml:space="preserve">
+    <value>Siliniyor...</value>
+  </data>
   <data name="DisplaySettings" xml:space="preserve">
     <value>Görünüm Ayarları</value>
   </data>
@@ -128,6 +131,12 @@
   </data>
   <data name="EnterOrGetBarcode" xml:space="preserve">
     <value>Barkodu Girin/Okutun</value>
+  </data>
+  <data name="EnterQuantity" xml:space="preserve">
+    <value>Miktar Girin</value>
+  </data>
+  <data name="Exist" xml:space="preserve">
+    <value>Var</value>
   </data>
   <data name="ForgotCredentials" xml:space="preserve">
     <value>Giriş bilgilerimi unuttum</value>
@@ -140,6 +149,12 @@
   </data>
   <data name="Mail" xml:space="preserve">
     <value>E-Posta</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Dakika</value>
+  </data>
+  <data name="NotExist" xml:space="preserve">
+    <value>Yok</value>
   </data>
   <data name="PleaseChoose" xml:space="preserve">
     <value>Lütfen Seçiniz</value>
@@ -154,9 +169,6 @@
     <value>Sunucu</value>
   </data>
   <data name="ShowLoginScreen" xml:space="preserve">
-    <value>Giriş ekranını göster</value>
-  </data>
-  <data name="ShowLoginScreen1" xml:space="preserve">
     <value>Giriş ekranını göster</value>
   </data>
 </root>

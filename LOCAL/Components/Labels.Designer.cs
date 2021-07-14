@@ -70,6 +70,15 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Siliniyor....
+        /// </summary>
+        public static string Deleting {
+            get {
+                return ResourceManager.GetString("Deleting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Görünüm Ayarları.
         /// </summary>
         public static string DisplaySettings {
@@ -93,6 +102,24 @@ namespace LOCAL.Components {
         public static string EnterOrGetBarcode {
             get {
                 return ResourceManager.GetString("EnterOrGetBarcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Miktar Girin.
+        /// </summary>
+        public static string EnterQuantity {
+            get {
+                return ResourceManager.GetString("EnterQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Var.
+        /// </summary>
+        public static string Exist {
+            get {
+                return ResourceManager.GetString("Exist", resourceCulture);
             }
         }
         
@@ -129,6 +156,24 @@ namespace LOCAL.Components {
         public static string Mail {
             get {
                 return ResourceManager.GetString("Mail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dakika.
+        /// </summary>
+        public static string Minute {
+            get {
+                return ResourceManager.GetString("Minute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yok.
+        /// </summary>
+        public static string NotExist {
+            get {
+                return ResourceManager.GetString("NotExist", resourceCulture);
             }
         }
         
@@ -174,15 +219,6 @@ namespace LOCAL.Components {
         public static string ShowLoginScreen {
             get {
                 return ResourceManager.GetString("ShowLoginScreen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Giriş ekranını göster.
-        /// </summary>
-        public static string ShowLoginScreen1 {
-            get {
-                return ResourceManager.GetString("ShowLoginScreen1", resourceCulture);
             }
         }
     }
