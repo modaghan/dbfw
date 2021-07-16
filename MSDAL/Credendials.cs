@@ -80,7 +80,7 @@ namespace MS.BLL
             }
         }
         private static SystemCredentials systemCredentials { get; set; }
-        private static ServerCredentials serverCredentials { get; set; }
+        public static ServerCredentials serverCredentials { get; set; }
         private static CustomerCredentials customerCredentials { get; set; }
         private static MailCredentials mailCredentials { get; set; }
         public static string ToConnectionString(this ServerCredentials serverCredentials, string name = "")
@@ -131,45 +131,50 @@ namespace MS.BLL
             }
         }
 
-        public static SystemCredentials SystemCredentials()
+        public static SystemCredentials SystemCredentials
         {
-            if (systemCredentials != null)
-                return systemCredentials;
-            systemCredentials = new SystemCredentials();
-            try
+            get
             {
-                string section = "SystemCredentials";
-                var parser = new FileIniDataParser();
-                IniData data = parser.ReadFile(ConfigFile);
-                string crypto = data[section]["Crypto"];
-                systemCredentials.AppName = data[section]["AppName"];
-                systemCredentials.AppVersion = data[section]["AppVersion"];
-                systemCredentials.SetupDate = data[section]["SetupDate"];
-                systemCredentials.RootUrl = data[section]["RootUrl"];
-                systemCredentials.Language = data[section]["Language"];
-                systemCredentials.Licence = data[section]["Licence"];
-                if (crypto == "E")
+                systemCredentials = new SystemCredentials();
+                try
                 {
-                    HashCode hashCode = new HashCode();
-                    systemCredentials.AppName = hashCode.DecryptionConfig(systemCredentials.AppName);
-                    systemCredentials.AppVersion = hashCode.DecryptionConfig(systemCredentials.AppVersion);
-                    systemCredentials.SetupDate = hashCode.DecryptionConfig(systemCredentials.SetupDate);
-                    systemCredentials.RootUrl = hashCode.DecryptionConfig(systemCredentials.RootUrl);
-                    systemCredentials.Language = hashCode.DecryptionConfig(systemCredentials.Language);
-                    systemCredentials.Licence = hashCode.DecryptionConfig(systemCredentials.Licence);
+                    string section = "SystemCredentials";
+                    var parser = new FileIniDataParser();
+                    IniData data = parser.ReadFile(ConfigFile);
+                    string crypto = data[section]["Crypto"];
+                    systemCredentials.AppName = data[section]["AppName"];
+                    systemCredentials.AppVersion = data[section]["AppVersion"];
+                    systemCredentials.SetupDate = data[section]["SetupDate"];
+                    systemCredentials.RootUrl = data[section]["RootUrl"];
+                    systemCredentials.ApiUrl = data[section]["ApiUrl"];
+                    systemCredentials.Language = data[section]["Language"];
+                    systemCredentials.Licence = data[section]["Licence"];
+                    if (crypto == "E")
+                    {
+                        HashCode hashCode = new HashCode();
+                        systemCredentials.AppName = hashCode.DecryptionConfig(systemCredentials.AppName);
+                        systemCredentials.AppVersion = hashCode.DecryptionConfig(systemCredentials.AppVersion);
+                        systemCredentials.SetupDate = hashCode.DecryptionConfig(systemCredentials.SetupDate);
+                        systemCredentials.RootUrl = hashCode.DecryptionConfig(systemCredentials.RootUrl);
+                        systemCredentials.ApiUrl = hashCode.DecryptionConfig(systemCredentials.ApiUrl);
+                        systemCredentials.Language = hashCode.DecryptionConfig(systemCredentials.Language);
+                        systemCredentials.Licence = hashCode.DecryptionConfig(systemCredentials.Licence);
+                    }
                 }
+                catch (Exception e)
+                {
+                    return new SystemCredentials();
+                }
+                return systemCredentials;
             }
-            catch (Exception e)
-            {
-                return new SystemCredentials();
-            }
-            return systemCredentials;
         }
 
         public static ServerCredentials ServerCredentials(string section = "ServerCredentials")
         {
             try
             {
+                if (serverCredentials != null)
+                    return serverCredentials;
                 var parser = new FileIniDataParser();
                 IniData data = parser.ReadFile(ConfigFile);
                 string crypto = data[section]["Crypto"];

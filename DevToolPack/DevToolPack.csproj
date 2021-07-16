@@ -65,6 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateEventHandler.cs" />
+    <Compile Include="LookBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="TLook.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,12 +95,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MSDAL\MSDAL.csproj">
-      <Project>{9abdfa2e-3ca4-4628-b204-388a59ce1ed0}</Project>
-      <Name>MSDAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Handlers\" />

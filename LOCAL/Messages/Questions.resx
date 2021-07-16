@@ -132,6 +132,9 @@
   <data name="DialogTitle" xml:space="preserve">
     <value>Seçiniz</value>
   </data>
+  <data name="PropertyExistInRecordsWannaSave" xml:space="preserve">
+    <value>{0} değerine ait bir kayıt mevcut. Buna rağmen kaydetmek istiyor musunuz?</value>
+  </data>
   <data name="SureToClearForm" xml:space="preserve">
     <value>Formu temizlemek istiyor musunuz?</value>
   </data>

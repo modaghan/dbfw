@@ -603,6 +603,15 @@ namespace LOCAL.Messages {
         /// <summary>
         ///   Looks up a localized string similar to Lütfen {0} seçiniz..
         /// </summary>
+        public static string PleaseChooseX {
+            get {
+                return ResourceManager.GetString("PleaseChooseX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lütfen {0} seçiniz..
+        /// </summary>
         public static string PleaseSelect {
             get {
                 return ResourceManager.GetString("PleaseSelect", resourceCulture);

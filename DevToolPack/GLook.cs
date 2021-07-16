@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace DevToolPack
 {
-    public partial class GLook : DevExpress.XtraEditors.XtraUserControl
+    public partial class GLook : LookBase
     {
         public Type ForeignType { get; private set; }
         public object Entity { get; set; }
@@ -135,7 +135,7 @@ namespace DevToolPack
             EditValue = cmb.EditValue;
             SelectedId = cmb.EditValue.ToLong();
             if (ValueChanged != null)
-                this.ValueChanged(sender, e);
+                this.ValueChanged(this, e);
         }
 
         private void GView_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)

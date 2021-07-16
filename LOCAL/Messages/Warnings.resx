@@ -396,4 +396,7 @@
   <data name="PinDoesNotMatch" xml:space="preserve">
     <value>Girilen pin doğru değildir!</value>
   </data>
+  <data name="PleaseChooseX" xml:space="preserve">
+    <value>Lütfen {0} seçiniz.</value>
+  </data>
 </root>
