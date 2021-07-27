@@ -426,7 +426,25 @@ namespace MS.BLL
                 property.SetValue(entity, created_by);
             return entity.ModifiedBy(created_by);
         }
+        public static T CreatedBy<T>(this T entity, int created_by)
+        {
+            if (created_by == 0)
+                return entity;
+            PropertyInfo property = entity.GetType().GetProperty("created_by");
+            if (property != null)
+                property.SetValue(entity, created_by);
+            return entity.ModifiedBy(created_by);
+        }
         public static T ModifiedBy<T>(this T entity, long modified_by)
+        {
+            if (modified_by == 0)
+                return entity;
+            PropertyInfo property = entity.GetType().GetProperty("modified_by");
+            if (property != null)
+                property.SetValue(entity, modified_by);
+            return entity;
+        }
+        public static T ModifiedBy<T>(this T entity, int modified_by)
         {
             if (modified_by == 0)
                 return entity;

@@ -84,6 +84,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Helpers\Cipher.cs" />
     <Compile Include="Helpers\CustomAttributes.cs" />
+    <Compile Include="Enums\FormResult.cs" />
     <Compile Include="Helpers\Mailer.cs" />
     <Compile Include="Helpers\Setup.cs" />
     <Compile Include="Helpers\Utilities.cs" />
@@ -105,6 +106,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
