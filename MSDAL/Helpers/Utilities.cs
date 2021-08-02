@@ -56,6 +56,25 @@ namespace MS.BLL
             }
             return result;
         }
+        public static bool IsEqual(this object source, object target)
+        {
+            foreach (PropertyInfo property in source.GetType().GetProperties())
+            {
+                var valSource = property.GetValue(source);
+                var valTarget = property.GetValue(target);
+                if (valSource == null && valTarget == null)
+                    continue;
+                else if (valSource == null && valTarget != null)
+                    return false;
+                else if (valSource != null && valTarget == null)
+                    return false;
+                else if (valSource != valTarget)
+                    return false;
+                else
+                    continue;
+            }
+            return true;
+        }
         public static T Transfer<T>(this T source, T target)
         {
             if (target == null)
