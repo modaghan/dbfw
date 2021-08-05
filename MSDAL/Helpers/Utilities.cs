@@ -335,6 +335,35 @@ namespace MS.BLL
                 return 0;
             }
         }
+        public static IQueryable<t> OrderByDynamic<t>(this IQueryable<t> query, string sortColumn, bool descending)
+        {
+            // Dynamically creates a call like this: query.OrderBy(p =&gt; p.SortColumn)
+            var parameter = Expression.Parameter(typeof(t), "p");
+
+            string command = "OrderBy";
+
+            if (descending)
+            {
+                command = "OrderByDescending";
+            }
+
+            Expression resultExpression = null;
+
+            var property = typeof(t).GetProperty(sortColumn);
+            if (property == null)
+                return query;
+            // this is the part p.SortColumn
+            var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+
+            // this is the part p =&gt; p.SortColumn
+            var orderByExpression = Expression.Lambda(propertyAccess, parameter);
+
+            // finally, call the "OrderBy" / "OrderByDescending" method with the order by lamba expression
+            resultExpression = Expression.Call(typeof(Queryable), command, new Type[] { typeof(t), property.PropertyType },
+               query.Expression, Expression.Quote(orderByExpression));
+
+            return query.Provider.CreateQuery<t>(resultExpression);
+        }
         public static string CalculateTotal(decimal? price, decimal? profit, int? vat)
         {
             try
