@@ -244,6 +244,15 @@ namespace MS.BLL
                 list[n] = value;
             }
         }
+
+        public static IEnumerable<List<T>> SplitList<T>(List<T> locations, int nSize)
+        {
+            for (int i = 0; i < locations.Count; i += nSize)
+            {
+                yield return locations.GetRange(i, Math.Min(nSize, locations.Count - i));
+            }
+        }
+
         public static Expression<Func<TItem, bool>> PropertyEquals<TItem>(PropertyInfo property, object value)
         {
             var param = Expression.Parameter(typeof(TItem));
