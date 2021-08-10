@@ -135,5 +135,10 @@ namespace BLL
         {
             return IRepo.RunQuery(query, parameters);
         }
+
+        public int ExecuteSQL(string query)
+        {
+            return IRepo.ExecuteSQL(query);
+        }
     }
 }

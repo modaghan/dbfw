@@ -27,5 +27,6 @@ namespace MS.DAL
         BindingList<T> toQueryableBindingList(System.Linq.Expressions.Expression<Func<T, bool>> query);
         IEnumerable<T> RunQuery(string query);
         IEnumerable<T> RunQuery(string query, params object[] parameters);
+        int ExecuteSQL(string query);
     }
 }

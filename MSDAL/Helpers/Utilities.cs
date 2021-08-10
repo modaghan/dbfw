@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -226,8 +227,31 @@ namespace MS.BLL
             {
                 return "";
             }
-        }  
+        }
         #endregion
+
+
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            Random rng = new Random(Zaman.Simdi.Millisecond);
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+        public static IEnumerable<List<T>> SplitList<T>(this List<T> locations, int nSize)
+        {
+            for (int i = 0; i < locations.Count; i += nSize)
+            {
+                yield return locations.GetRange(i, Math.Min(nSize, locations.Count - i));
+            }
+        }
 
         public static Expression<Func<TItem, bool>> PropertyEquals<TItem>(PropertyInfo property, object value)
         {
@@ -398,15 +422,12 @@ namespace MS.BLL
             return GetAttributeDisplayName(metaProperty);
         }
 
-        static int colorIndex = 0;
         public static Color getRandomColor()
         {
             try
             {
-                KnownColor[] names = new KnownColor[] { KnownColor.DarkBlue, KnownColor.CadetBlue, KnownColor.BlueViolet, KnownColor.DeepSkyBlue, KnownColor.DodgerBlue, KnownColor.AliceBlue, KnownColor.CornflowerBlue, KnownColor.MediumPurple, KnownColor.Purple, KnownColor.Violet, KnownColor.DarkGray, KnownColor.DarkTurquoise, KnownColor.Turquoise };
-                KnownColor randomColorName = names[colorIndex];
-                colorIndex = colorIndex == names.Length - 1 ? 0 : ++colorIndex;
-                return Color.FromKnownColor(randomColorName);
+                Random rnd = new Random(Zaman.Simdi.Millisecond);
+                return Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256)); 
             }
             catch (Exception ex)
             {

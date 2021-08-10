@@ -144,5 +144,10 @@ namespace MS.BLL
         {
             return IRepo.GetOld(id);
         }
+
+        public int ExecuteSQL(string query)
+        {
+            return IRepo.ExecuteSQL(query);
+        }
     }
 }
