@@ -245,7 +245,7 @@ namespace MS.BLL
             }
         }
 
-        public static IEnumerable<List<T>> SplitList<T>(List<T> locations, int nSize)
+        public static IEnumerable<List<T>> SplitList<T>(this List<T> locations, int nSize)
         {
             for (int i = 0; i < locations.Count; i += nSize)
             {
