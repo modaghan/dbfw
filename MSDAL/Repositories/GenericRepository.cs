@@ -179,6 +179,10 @@ namespace MS.DAL
         {
             return _dbContext.Database.SqlQuery<T>(query, parameters);
         }
+        public int ExecuteSQL(string query)
+        {
+            return _dbContext.Database.ExecuteSqlCommand(query);
+        }
         #endregion
 
 
