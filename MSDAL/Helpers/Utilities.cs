@@ -413,23 +413,16 @@ namespace MS.BLL
             return GetAttributeDisplayName(metaProperty);
         }
 
-        static int colorIndex = 0;
-        public static KnownColor getRandomColor()
+        public static Color getRandomColor()
         {
             try
             {
-                //KnownColor[] names = new KnownColor[] { KnownColor.DarkBlue, KnownColor.CadetBlue, KnownColor.BlueViolet, KnownColor.DeepSkyBlue, KnownColor.DodgerBlue, KnownColor.AliceBlue, KnownColor.CornflowerBlue, KnownColor.MediumPurple, KnownColor.Purple, KnownColor.Violet, KnownColor.DarkGray, KnownColor.DarkTurquoise, KnownColor.Turquoise };
-                //KnownColor randomColorName = names[colorIndex];
-                //colorIndex = colorIndex == names.Length - 1 ? 0 : ++colorIndex;
-                //return Color.FromKnownColor(randomColorName);
-
-                var max = Enum.GetValues(typeof(KnownColor)).Length;
-                var value = (KnownColor)new Random().Next(0, max - 1);
-                return value;
+                Random rnd = new Random(Zaman.Simdi.Millisecond);
+                return Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256)); 
             }
             catch (Exception ex)
             {
-                return KnownColor.Black;
+                return Color.Black;
             }
         }
         public static String GetHexCode(this System.Drawing.Color c)
