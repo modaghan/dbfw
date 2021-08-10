@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -226,9 +227,23 @@ namespace MS.BLL
             {
                 return "";
             }
-        }  
+        }
         #endregion
 
+
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            Random rng = new Random(Zaman.Simdi.Millisecond);
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
         public static Expression<Func<TItem, bool>> PropertyEquals<TItem>(PropertyInfo property, object value)
         {
             var param = Expression.Parameter(typeof(TItem));
