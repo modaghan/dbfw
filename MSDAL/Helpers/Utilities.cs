@@ -230,6 +230,10 @@ namespace MS.BLL
         }
         #endregion
 
+        public static string ToStr(this object obj, string defaultVal = "")
+        {
+            return obj == null ? defaultVal : obj.ToString();
+        }
 
         public static void Shuffle<T>(this IList<T> list)
         {

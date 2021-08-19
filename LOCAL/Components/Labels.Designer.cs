@@ -124,6 +124,15 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dışa Aktarma Seçenekleri.
+        /// </summary>
+        public static string ExportOptions {
+            get {
+                return ResourceManager.GetString("ExportOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Giriş bilgilerimi unuttum.
         /// </summary>
         public static string ForgotCredentials {

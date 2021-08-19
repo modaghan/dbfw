@@ -138,6 +138,9 @@
   <data name="Exist" xml:space="preserve">
     <value>Var</value>
   </data>
+  <data name="ExportOptions" xml:space="preserve">
+    <value>Dışa Aktarma Seçenekleri</value>
+  </data>
   <data name="ForgotCredentials" xml:space="preserve">
     <value>Giriş bilgilerimi unuttum</value>
   </data>
