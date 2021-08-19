@@ -45,8 +45,6 @@ namespace MS.BLL
             if (entity.GetType().GetProperties().Count(p => p.Name == "is_active") > 0)
             {
                 entity.GetType().GetProperty("is_active").SetValue(entity, false);
-                if (entity.GetType().GetProperties().Count(p => p.Name == "modified_date") > 0)
-                    entity.GetType().GetProperty("modified_date").SetValue(entity, DateTime.Now);
                 Updating(entity);
             }
             else
