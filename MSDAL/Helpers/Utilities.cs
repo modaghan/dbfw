@@ -322,15 +322,17 @@ namespace MS.BLL
                 return 0;
             }
         }
-        public static double ToDouble(this object val)
+        public static double ToDouble(this object val, double default_value = 0)
         {
             try
             {
+                if (val == null)
+                    return default_value;
                 return Convert.ToDouble(val);
             }
             catch (Exception)
             {
-                return 0;
+                return default_value;
             }
         }
         public static int ToInteger(this object sayi)

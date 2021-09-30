@@ -142,7 +142,7 @@
     <value>Sütunları Dağıt</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>&amp;Vazgeç</value>
+    <value>Vazgeç</value>
   </data>
   <data name="ChangeStatusType" xml:space="preserve">
     <value>Durum Değiştir</value>
@@ -280,7 +280,7 @@
     <value>Yeni Sekme</value>
   </data>
   <data name="Next" xml:space="preserve">
-    <value>&amp;Sonraki</value>
+    <value>Sonraki</value>
   </data>
   <data name="NextPage" xml:space="preserve">
     <value>Sonraki Sayfa</value>

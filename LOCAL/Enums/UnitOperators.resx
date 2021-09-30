@@ -117,76 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BaseUnit" xml:space="preserve">
-    <value>adet</value>
+  <data name="Division" xml:space="preserve">
+    <value>Bölme (/)</value>
   </data>
-  <data name="BaseUnitAbbr" xml:space="preserve">
-    <value>ad.</value>
+  <data name="Equal" xml:space="preserve">
+    <value>Eşittir</value>
   </data>
-  <data name="Basics" xml:space="preserve">
-    <value>Temel Bilgiler</value>
-  </data>
-  <data name="DarkMode" xml:space="preserve">
-    <value>Koyu Tema</value>
-  </data>
-  <data name="Deleting" xml:space="preserve">
-    <value>Siliniyor...</value>
-  </data>
-  <data name="DisplaySettings" xml:space="preserve">
-    <value>Görünüm Ayarları</value>
-  </data>
-  <data name="DontHaveAnAccountRegister" xml:space="preserve">
-    <value>Hesabınız yoksa kayıt olmak için tıklayın.</value>
-  </data>
-  <data name="EnterOrGetBarcode" xml:space="preserve">
-    <value>Barkodu Girin/Okutun</value>
-  </data>
-  <data name="EnterQuantity" xml:space="preserve">
-    <value>Miktar Girin</value>
-  </data>
-  <data name="Exist" xml:space="preserve">
-    <value>Var</value>
-  </data>
-  <data name="ExportOptions" xml:space="preserve">
-    <value>Dışa Aktarma Seçenekleri</value>
-  </data>
-  <data name="ForgotCredentials" xml:space="preserve">
-    <value>Giriş bilgilerimi unuttum</value>
-  </data>
-  <data name="GeneralSettings" xml:space="preserve">
-    <value>Genel Ayarlar</value>
-  </data>
-  <data name="LoginTitle" xml:space="preserve">
-    <value>GİRİŞ EKRANI</value>
-  </data>
-  <data name="Mail" xml:space="preserve">
-    <value>E-Posta</value>
-  </data>
-  <data name="Minute" xml:space="preserve">
-    <value>Dakika</value>
-  </data>
-  <data name="NotExist" xml:space="preserve">
-    <value>Yok</value>
-  </data>
-  <data name="PleaseChoose" xml:space="preserve">
-    <value>Lütfen Seçiniz</value>
-  </data>
-  <data name="ProductionInfo" xml:space="preserve">
-    <value>Üretim Bilgileri</value>
-  </data>
-  <data name="RecordInformations" xml:space="preserve">
-    <value>Kayıt Bilgileri</value>
-  </data>
-  <data name="RegisterTitle" xml:space="preserve">
-    <value>KAYIT EKRANI</value>
-  </data>
-  <data name="SendCredentials" xml:space="preserve">
-    <value>Giriş Bilgilerimi Gönder</value>
-  </data>
-  <data name="Server" xml:space="preserve">
-    <value>Sunucu</value>
-  </data>
-  <data name="ShowLoginScreen" xml:space="preserve">
-    <value>Giriş ekranını göster</value>
+  <data name="Multiplication" xml:space="preserve">
+    <value>Çarpma (x)</value>
   </data>
 </root>

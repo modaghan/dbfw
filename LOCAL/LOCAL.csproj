@@ -62,6 +62,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataActionStatus.resx</DependentUpon>
     </Compile>
+    <Compile Include="Enums\UnitOperators.Designer.cs">
+      <DependentUpon>UnitOperators.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Enums\MathOperators.Designer.cs">
       <DependentUpon>MathOperators.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -416,6 +421,10 @@
     <EmbeddedResource Include="Enums\DataActionStatus.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DataActionStatus.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Enums\UnitOperators.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UnitOperators.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Enums\MathOperators.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

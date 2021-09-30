@@ -133,7 +133,7 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Vazgeç.
+        ///   Looks up a localized string similar to Vazgeç.
         /// </summary>
         public static string Cancel {
             get {
@@ -547,7 +547,7 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Sonraki.
+        ///   Looks up a localized string similar to Sonraki.
         /// </summary>
         public static string Next {
             get {

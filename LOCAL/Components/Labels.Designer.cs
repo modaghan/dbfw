@@ -61,6 +61,33 @@ namespace LOCAL.Components {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to adet.
+        /// </summary>
+        public static string BaseUnit {
+            get {
+                return ResourceManager.GetString("BaseUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ad..
+        /// </summary>
+        public static string BaseUnitAbbr {
+            get {
+                return ResourceManager.GetString("BaseUnitAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Temel Bilgiler.
+        /// </summary>
+        public static string Basics {
+            get {
+                return ResourceManager.GetString("Basics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Koyu Tema.
         /// </summary>
         public static string DarkMode {
@@ -192,6 +219,24 @@ namespace LOCAL.Components {
         public static string PleaseChoose {
             get {
                 return ResourceManager.GetString("PleaseChoose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Üretim Bilgileri.
+        /// </summary>
+        public static string ProductionInfo {
+            get {
+                return ResourceManager.GetString("ProductionInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kayıt Bilgileri.
+        /// </summary>
+        public static string RecordInformations {
+            get {
+                return ResourceManager.GetString("RecordInformations", resourceCulture);
             }
         }
         
