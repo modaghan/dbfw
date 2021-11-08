@@ -20,7 +20,7 @@ namespace MS.BLL.Helpers
         /// <param name="Subject">Subject of mail</param>
         /// <param name="Body">Body of mail</param>
         /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
-        /// <returns>Returns true if mail has been successfuly sent.</returns>
+        /// <returns>Returns true if mail has been successfully sent.</returns>
         public static async Task<bool> SendAsync(string To, string Subject, string Body, bool isHtml = false)
         {
             return await Task.Run(() =>
@@ -34,7 +34,7 @@ namespace MS.BLL.Helpers
         /// <param name="Subject">Subject of mail</param>
         /// <param name="Body">Body of mail</param>
         /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
-        /// <returns>Returns true if mail has been successfuly sent.</returns>
+        /// <returns>Returns true if mail has been successfully sent.</returns>
         public static async Task<bool> SendAsync(string Subject, string Body, bool isHtml = false)
         {
             return await Task.Run(() =>
@@ -53,7 +53,7 @@ namespace MS.BLL.Helpers
         /// <param name="To">Receiver. Put ',' for multiple receivers.</param>
         /// <param name="Subject">Subject of mail</param>
         /// <param name="Body">Body of mail</param>
-        /// <param name="result">Return 'BAŞARILI' for successfuly mailing.</param>
+        /// <param name="result">Return 'BAŞARILI' for successful mailing.</param>
         /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
         /// <returns></returns>
 
@@ -93,7 +93,7 @@ namespace MS.BLL.Helpers
         /// <param name="Subject">Subject of mail</param>
         /// <param name="Body">Body of mail</param>
         /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
-        /// <returns>Returns true if mail has been successfuly sent.</returns>
+        /// <returns>Returns true if mail has been successfully sent.</returns>
         public static bool Send(string To, string Subject, string Body, bool isHtml = false)
         {
             return SendMail(To, Subject, Body, isHtml);
@@ -105,7 +105,7 @@ namespace MS.BLL.Helpers
         /// <param name="Subject">Subject of mail</param>
         /// <param name="Body">Body of mail</param>
         /// <param name="isHtml">Make it true to send your mail in HTML form.</param>
-        /// <returns>Returns true if mail has been successfuly sent.</returns>
+        /// <returns>Returns true if mail has been successfully sent.</returns>
         public static bool Send(string Subject, string Body, bool isHtml = false)
         {
             return SendMail(Credentials.MailCredentials().DefaultAddress, Subject, Body, isHtml);

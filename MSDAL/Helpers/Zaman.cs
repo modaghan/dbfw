@@ -19,6 +19,13 @@ namespace MS.BLL
                 //return DateTime.Now;
             }
         }
+        public static string FeedDateStr(this DateTime date)
+        {
+            if (date.isToday())
+                return date.ToString("HH:mm");
+            else
+                return date.ToString("dd.MM.yyyy, HH:mm");
+        }
         public static bool isToday(this DateTime date)
         {
             DateTime simdi = Zaman.Simdi;

@@ -295,7 +295,7 @@ namespace LOCAL.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dosya beliritlen adreste bulunamadı..
+        ///   Looks up a localized string similar to Dosya belirtilen adreste bulunamadı..
         /// </summary>
         public static string FileNotFound {
             get {

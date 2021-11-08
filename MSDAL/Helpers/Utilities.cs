@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace MS.BLL
 {
@@ -24,7 +25,7 @@ namespace MS.BLL
         {
             get
             {
-                ServerCredentials sc = Credentials.ServerCredentials().Clone<ServerCredentials>();
+                ServerCredentials sc = Credentials.ServerCredentials().Clone();
                 sc.ConnectTimeout = 10;
                 if (string.IsNullOrEmpty(sc.DataSource) ||
                     string.IsNullOrEmpty(sc.InitialCatalog) ||
@@ -34,7 +35,7 @@ namespace MS.BLL
                 return IsConnectionStringValid(sc.ToConnectionString()) == null?ConnectionState.Open:ConnectionState.Closed;
             }
         }
-        public static T Clone<T>(this object source)
+        public static T Clone<T>(this T source)
         {
             T result = Activator.CreateInstance<T>();
             foreach (PropertyInfo property in source.GetType().GetProperties())
@@ -184,6 +185,8 @@ namespace MS.BLL
         {
             try
             {
+                if (base64 == null)
+                    return "";
                 return Encoding.UTF8.GetString(Convert.FromBase64String(base64));
             }
             catch (Exception ex)
@@ -561,6 +564,38 @@ namespace MS.BLL
                 string log = $"{Zaman.Simdi.ToString("yyyy-MM-dd HH:mm:ss,FFF")}\t{msg}";
                 sw.WriteLine(log);
             }
+        }
+
+
+        public static string XmlSerializeToString(this object objectInstance)
+        {
+            var serializer = new XmlSerializer(objectInstance.GetType());
+            var sb = new StringBuilder();
+
+            using (TextWriter writer = new StringWriter(sb))
+            {
+                serializer.Serialize(writer, objectInstance);
+            }
+
+            return sb.ToString();
+        }
+
+        public static T XmlDeserializeFromString<T>(this string objectData)
+        {
+            return (T)XmlDeserializeFromString(objectData, typeof(T));
+        }
+
+        public static object XmlDeserializeFromString(this string objectData, Type type)
+        {
+            var serializer = new XmlSerializer(type);
+            object result;
+
+            using (TextReader reader = new StringReader(objectData))
+            {
+                result = serializer.Deserialize(reader);
+            }
+
+            return result;
         }
     }
 }

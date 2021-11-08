@@ -34,6 +34,10 @@ namespace MS.BLL
             /// </summary>
             public static object CurrentUser { get; set; }
             /// <summary>
+            /// Login olmuş kullanıcı ID'si
+            /// </summary>
+            public static long CurrentUserId { get; set; }
+            /// <summary>
             /// Login olma zamanı
             /// </summary>
             public static DateTime LoginTime { get; set; }

@@ -385,7 +385,7 @@
     <value>Bu işlem gerçekleştirilemez.</value>
   </data>
   <data name="FileNotFound" xml:space="preserve">
-    <value>Dosya beliritlen adreste bulunamadı.</value>
+    <value>Dosya belirtilen adreste bulunamadı.</value>
   </data>
   <data name="LoginFailed" xml:space="preserve">
     <value>Giriş yapılamadı. Lütfen bilgileri ve internet bağlantınızı kontrol ediniz.</value>
