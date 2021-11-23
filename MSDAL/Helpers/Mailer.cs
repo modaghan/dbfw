@@ -62,10 +62,10 @@ namespace MS.BLL.Helpers
             try
             {
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress(username);
+                mail.From = new MailAddress(username, username);
                 SmtpClient client = new SmtpClient();
                 client.Port = port;
-                client.EnableSsl =port==465;
+                client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
                 client.Host = host;
@@ -136,6 +136,11 @@ namespace MS.BLL.Helpers
         {
             try
             {
+                Console.WriteLine(Credentials.MailCredentials().Host);
+                Console.WriteLine(Credentials.MailCredentials().Port);
+                Console.WriteLine(Credentials.MailCredentials().Username);
+                Console.WriteLine(Credentials.MailCredentials().Password);
+
                 To = To == "" ? Credentials.MailCredentials().DefaultAddress : To;
                 MailMessage mail = new MailMessage();
                 mail.From = new MailAddress(Credentials.MailCredentials().Username, Credentials.SystemCredentials.AppName);//new MailAddress(Credentials.CustomerCredentials().ShortName);
