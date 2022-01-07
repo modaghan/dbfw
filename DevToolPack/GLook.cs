@@ -8,17 +8,36 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DevToolPack
 {
-    public partial class GLook : LookBase
+    public partial class GLook : LookBase, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
         public Type ForeignType { get; private set; }
+
+        private object _EditValue { get; set; }
+        public object EditValue
+        {
+            get
+            {
+                return _EditValue;
+            }
+            set
+            {
+                _EditValue = value;
+                OnPropertyChanged(nameof(EditValue));
+            }
+        }
         public object Entity { get; set; }
-        public object EditValue { get; set; }
         public string ValueMember { get; set; }
         public string IsActiveMember { get; set; }
         public long SelectedId { get; set; }
@@ -29,7 +48,7 @@ namespace DevToolPack
         public string CantSaveReason { get; private set; }
         DbContext Context;
 
-        public event EventHandler OnClear, OnRefresh, OnAdd;
+        public event EventHandler OnClear, OnRefresh, OnAdd, OnUpdate;
 
         public event DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler OnCustomDisplay;
 
@@ -128,6 +147,16 @@ namespace DevToolPack
                 CantSaveReason += $"• {validationResult.ErrorMessage}\n";
             }
         }
+        public async Task<object> GetSelected()
+        {
+            if ((EditValue = cmb.EditValue) == null)
+                return null;
+            return await Task.Run(() =>
+            {
+                DbSet _dbSet = Context.Set(ForeignType);
+                return _dbSet.Find(EditValue);
+            });
+        }
 
         private void cmb_EditValueChanged(object sender, EventArgs e)
         {
@@ -158,6 +187,10 @@ namespace DevToolPack
                 case DevExpress.XtraEditors.Controls.ButtonPredefines.Clear:
                     cmb.EditValue = null;
                     OnClear?.Invoke(this, e);
+                    break;
+
+                case DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph:
+                    OnUpdate?.Invoke(this, e);
                     break;
 
                 default:

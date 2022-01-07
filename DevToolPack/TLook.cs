@@ -9,16 +9,33 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DevToolPack
 {
-    public partial class TLook : LookBase
+    public partial class TLook : LookBase,INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
         public Type ForeignType { get; private set; }
         public object Entity { get; set; }
-        public object EditValue { get; set; }
+        private object _EditValue { get; set; }
+        public object EditValue {
+            get
+            {
+                return _EditValue;
+            }
+            set
+            {
+                _EditValue = value;
+                OnPropertyChanged(nameof(EditValue));
+            }
+        }
         public string ValueMember { get; set; }
         public string ParentValueMember { get; set; }
         public string IsActiveMember { get; set; }
@@ -28,8 +45,19 @@ namespace DevToolPack
         public string ForeignKey { get; set; }
         public bool IsValidated { get; private set; }
         public string CantSaveReason { get; private set; }
+        public string NullText {
+            get
+            {
+                return cmb.Properties.NullText;
+            }
+            set
+            {
+                cmb.Properties.ShowNullValuePrompt = value != null ? ShowNullValuePromptOptions.NullValue:ShowNullValuePromptOptions.Default;
+                cmb.Properties.NullText = cmb.Properties.NullValuePrompt = value;
+            }
+        }
 
-        public event EventHandler OnClear, OnRefresh, OnAdd;
+        public event EventHandler OnClear, OnRefresh, OnAdd, OnUpdate;
 
         public event DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler OnCustomDisplay;
 
@@ -126,6 +154,16 @@ namespace DevToolPack
             }
         }
 
+        public async Task<object> GetSelected()
+        {
+            if ((EditValue = cmb.EditValue) == null)
+                return null;
+            return await Task.Run(() =>
+            {
+                DbSet _dbSet = Context.Set(ForeignType);
+                return _dbSet.Find(EditValue);
+            });
+        }
         private void cmb_EditValueChanged(object sender, EventArgs e)
         {
             cmb.Properties.Buttons[1].Visible = cmb.EditValue != null;
@@ -153,11 +191,12 @@ namespace DevToolPack
             OnCustomDisplay?.Invoke(sender, e);
         }
 
-        private void ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private async void ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             switch (e.Button.Kind)
             {
                 case DevExpress.XtraEditors.Controls.ButtonPredefines.Search:
+                    await LoadData();
                     OnRefresh?.Invoke(this, e);
                     break;
 
@@ -168,6 +207,10 @@ namespace DevToolPack
                 case DevExpress.XtraEditors.Controls.ButtonPredefines.Clear:
                     cmb.EditValue = null;
                     OnClear?.Invoke(this, e);
+                    break;
+
+                case DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph:
+                    OnUpdate?.Invoke(this, e);
                     break;
 
                 default:

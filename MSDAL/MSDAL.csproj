@@ -87,6 +87,7 @@
     <Compile Include="Enums\FormResult.cs" />
     <Compile Include="Helpers\Mailer.cs" />
     <Compile Include="Helpers\Setup.cs" />
+    <Compile Include="Helpers\StreamHelper.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Helpers\Zaman.cs" />
     <Compile Include="Models\CurrencyRate.cs" />

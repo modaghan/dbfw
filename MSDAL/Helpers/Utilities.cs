@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,7 +33,7 @@ namespace MS.BLL
                     string.IsNullOrEmpty(sc.UserID) ||
                     string.IsNullOrEmpty(sc.Password))
                     return ConnectionState.Broken;
-                return IsConnectionStringValid(sc.ToConnectionString()) == null?ConnectionState.Open:ConnectionState.Closed;
+                return IsConnectionStringValid(sc.ToConnectionString()) == null ? ConnectionState.Open : ConnectionState.Closed;
             }
         }
         public static T Clone<T>(this T source)
@@ -40,7 +41,7 @@ namespace MS.BLL
             T result = Activator.CreateInstance<T>();
             foreach (PropertyInfo property in source.GetType().GetProperties())
             {
-                if (property.GetCustomAttribute(typeof(NotMappedAttribute)) != null)
+                if (property.GetCustomAttribute(typeof(NotMappedAttribute)) != null || property.SetMethod == null)
                     continue;
                 property.SetValue(result, property.GetValue(source));
             }
@@ -436,7 +437,7 @@ namespace MS.BLL
             try
             {
                 Random rnd = new Random(Zaman.Simdi.Millisecond);
-                return Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256)); 
+                return Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
             }
             catch (Exception ex)
             {
@@ -587,15 +588,42 @@ namespace MS.BLL
 
         public static object XmlDeserializeFromString(this string objectData, Type type)
         {
-            var serializer = new XmlSerializer(type);
-            object result;
-
-            using (TextReader reader = new StringReader(objectData))
+            try
             {
-                result = serializer.Deserialize(reader);
-            }
+                if (objectData.ToStr() == "")
+                    return null;
+                var serializer = new XmlSerializer(type);
+                object result;
 
-            return result;
+                using (TextReader reader = new StringReader(objectData))
+                {
+                    result = serializer.Deserialize(reader);
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public static ObservableCollection<T> ToOC<T>(this IEnumerable<T> list)
+        {
+            ObservableCollection<T> OC = new ObservableCollection<T>();
+            try
+            {
+
+                foreach (var item in list)
+                {
+                    OC.Add(item);
+                }
+                return OC;
+            }
+            catch (Exception)
+            {
+
+            }
+            return OC;
         }
     }
 }

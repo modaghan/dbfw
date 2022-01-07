@@ -99,6 +99,20 @@ namespace MS.BLL.Helpers
             return SendMail(To, Subject, Body, isHtml);
         }
 
+
+        /// <summary>
+        /// Mail sender
+        /// </summary>
+        /// <param name="To">Receiver. Put ',' for multiple receivers.</param>
+        /// <param name="Subject">Subject of mail</param>
+        /// <param name="Body">Body of mail</param>
+        /// <param name="Attachments">Attachments</param>
+        /// <returns>Returns true if mail has been successfully sent.</returns>
+        public static bool Send(string To, string Subject, string Body, List<Attachment> Attachments)
+        {
+            return SendMail(To, Subject, Body, true, Attachments);
+        }
+
         /// <summary>
         /// Mail sender to default user
         /// </summary>
@@ -132,7 +146,7 @@ namespace MS.BLL.Helpers
                 return ex.Message;
             }
         }
-        private static bool SendMail(string To, string Subject, string Body, bool isHtml)
+        private static bool SendMail(string To, string Subject, string Body, bool isHtml, List<Attachment> Attachments = null)
         {
             try
             {
@@ -156,6 +170,9 @@ namespace MS.BLL.Helpers
                 foreach (string receiver in To.Split(','))
                     mail.To.Add(receiver.Trim());
                 mail.Body = Body;
+                if(Attachments != null)
+                    foreach (Attachment attachment in Attachments)
+                        mail.Attachments.Add(attachment);
                 client.Send(mail);
                 return true;
             }
