@@ -177,8 +177,6 @@ namespace MS.BLL
         {
             try
             {
-                if (serverCredentials != null)
-                    return serverCredentials;
                 var parser = new FileIniDataParser();
                 IniData data = parser.ReadFile(ConfigFile);
                 string crypto = data[section]["Crypto"];

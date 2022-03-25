@@ -62,6 +62,7 @@
             this.cmb.TabIndex = 0;
             this.cmb.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.ButtonClick);
             this.cmb.EditValueChanged += new System.EventHandler(this.cmb_EditValueChanged);
+            this.cmb.Properties.BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup;
             // 
             // TView
             // 

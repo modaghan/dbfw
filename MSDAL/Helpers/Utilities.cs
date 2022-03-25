@@ -7,12 +7,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -92,7 +94,7 @@ namespace MS.BLL
                     var value = property.GetValue(source);
                     property.SetValue(target, value);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }
@@ -146,7 +148,7 @@ namespace MS.BLL
             {
                 return JsonConvert.DeserializeObject<T>(json);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default(T);
             }
@@ -162,7 +164,7 @@ namespace MS.BLL
                 });
                 return v;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
             }
@@ -174,7 +176,7 @@ namespace MS.BLL
                 string str = string.Format("{0:N" + precision + "}", entity);
                 return str;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
             }
@@ -190,7 +192,7 @@ namespace MS.BLL
                     return "";
                 return Encoding.UTF8.GetString(Convert.FromBase64String(base64));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
             }
@@ -202,7 +204,7 @@ namespace MS.BLL
             {
                 return Convert.ToBase64String(Encoding.UTF8.GetBytes(str));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
             }
@@ -216,7 +218,7 @@ namespace MS.BLL
             {
                 return JsonConvert.DeserializeObject<T>(json.FromBase64());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default(T);
             }
@@ -227,7 +229,7 @@ namespace MS.BLL
             {
                 return entity.ToJson().ToBase64();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
             }
@@ -439,7 +441,7 @@ namespace MS.BLL
                 Random rnd = new Random(Zaman.Simdi.Millisecond);
                 return Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Color.Black;
             }
@@ -624,6 +626,22 @@ namespace MS.BLL
 
             }
             return OC;
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static string GetCurrentMethod()
+        {
+            try
+            {
+                var st = new StackTrace();
+                var sf = st.GetFrame(1);
+
+                return sf.GetMethod().Name;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
         }
     }
 }

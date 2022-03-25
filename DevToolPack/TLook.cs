@@ -75,7 +75,16 @@ namespace DevToolPack
                 this.cmb.Properties.PopupSizeable = false;
             }
         }
-
+        /// <summary>
+        /// TLook Bağlama
+        /// </summary>
+        /// <typeparam name="T">Taşınacak Tür</typeparam>
+        /// <param name="Entity">İlşkilenecek Entity</param>
+        /// <param name="dialog">Crud Editörü</param>
+        /// <param name="foreign_key">İlişkilenecek Entity'deki foreign key</param>
+        /// <param name="parentValueMember">Türdeki üst dizin propertysi</param>
+        /// <param name="columnsRM">Localization Resource</param>
+        /// <param name="cols">Gösterilecek sütunlar</param>
         public void BindData<T>(object Entity, IEntityView dialog, string foreign_key, string parentValueMember, Type columnsRM = null, params string[] cols)
         {
             ForeignType = typeof(T);
