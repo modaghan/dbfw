@@ -62,6 +62,7 @@ namespace DevToolPack
         public event DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler OnCustomDisplay;
 
         public event EventHandler ValueChanged;
+        public event EventHandler OnChanged;
         DbContext Context;
 
         public TLook()
@@ -73,7 +74,13 @@ namespace DevToolPack
                 cmb.Properties.DataSource = DataBindingSource;
                 this.cmb.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
                 this.cmb.Properties.PopupSizeable = false;
+                this.cmb.EditValueChanged += GLook_OnChanged;
             }
+        }
+
+        private void GLook_OnChanged(object sender, EventArgs e)
+        {
+            OnChanged?.Invoke(Entity, null);
         }
         /// <summary>
         /// TLook Bağlama
@@ -117,7 +124,7 @@ namespace DevToolPack
             cmb.Properties.Buttons[1].Visible = cmb.EditValue != null;
         }
 
-        public async Task LoadData(DbContext ctx = null)
+        public override async Task LoadData(DbContext ctx = null)
         {
             if (ctx != null)
                 this.Context = ctx;
@@ -138,7 +145,7 @@ namespace DevToolPack
             cmb.Refresh();
         }
 
-        public async Task<T> GetView<T>(T entity)
+        public override async Task<T> GetView<T>(T entity)
         {
             Dialog.ShowDialog();
             if (Dialog.Object != null)
@@ -163,7 +170,7 @@ namespace DevToolPack
             }
         }
 
-        public async Task<object> GetSelected()
+        public override async Task<object> GetSelected()
         {
             if ((EditValue = cmb.EditValue) == null)
                 return null;

@@ -22,7 +22,6 @@ namespace DevToolPack
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        public Type ForeignType { get; private set; }
 
         private object _EditValue { get; set; }
         public object EditValue
@@ -38,8 +37,8 @@ namespace DevToolPack
             }
         }
         public object Entity { get; set; }
-        public string ValueMember { get; set; }
-        public string IsActiveMember { get; set; }
+        public string ParentMember { get; set; }
+        public Type ForeignType { get; private set; }
         public long SelectedId { get; set; }
         public IEntityView Dialog { get; set; }
         public List<object> DataList { get; private set; }
@@ -48,79 +47,72 @@ namespace DevToolPack
         public string CantSaveReason { get; private set; }
         DbContext Context;
 
-        public event EventHandler OnClear, OnRefresh, OnAdd, OnUpdate;
+        public event EventHandler OnClear;
 
         public event DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler OnCustomDisplay;
 
         public event EventHandler ValueChanged;
+        public event EventHandler OnChanged;
 
         public GLook()
         {
             InitializeComponent();
-            if (LicenseManager.UsageMode == LicenseUsageMode.Runtime)
-            {
-                DataBindingSource = new System.Windows.Forms.BindingSource();
-                cmb.Properties.DataSource = DataBindingSource;
-                this.cmb.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
-                this.cmb.Properties.PopupSizeable = false;
-            }
+            this.cmb.EditValueChanged += GLook_OnChanged;
         }
 
-        public void BindData<T>(object Entity, IEntityView dialog, string foreign_key, Type columnsRM, params string[] cols)
+        private void GLook_OnChanged(object sender, EventArgs e)
         {
-            Bind<T>(Entity, dialog, foreign_key, columnsRM, cols);
+            OnChanged?.Invoke(this, null);
         }
-        public void BindData<T>(object Entity, IEntityView dialog, string foreign_key, Type columnsRM, string grouped, params string[] cols)
+        public void BindData<T>(object Entity, IEntityView dialog, string foreign_key, string parentValueMember = null)
         {
-            Bind<T>(Entity, dialog, foreign_key, columnsRM, cols, grouped);
+            ParentMember = parentValueMember;
+            Bind<T>(Entity, dialog, foreign_key);
         }
 
-        private void Bind<T>(object Entity, IEntityView dialog, string foreign_key, Type columnsRM, string[] cols, string grouped = null)
+        private void Bind<T>(object Entity, IEntityView dialog, string foreign_key)
         {
             ForeignType = typeof(T);
-            this.ValueMember = ValueMember ?? "id";
-            this.IsActiveMember = IsActiveMember ?? "is_active";
             this.Entity = Entity;
             this.Dialog = dialog;
             cmb.DataBindings.Clear();
             ForeignKey = foreign_key;
-            cmb.Properties.ValueMember = ValueMember;
-            cmb.DataBindings.Add(nameof(GridLookUpEdit.EditValue), Entity, ForeignKey, true, DataSourceUpdateMode.OnPropertyChanged).Parse += Validater;
-            GView.Columns.Clear();
-            int index = 0;
-            foreach (string col in cols)
-                GView.Columns.Add(new DevExpress.XtraGrid.Columns.GridColumn
-                {
-                    FieldName = col,
-                    Name = $"col_{Entity.GetType().Name}_{ForeignType.Name}_{col}",
-                    Caption = new ResourceManager(columnsRM).GetString(col),
-                    Visible = true,
-                    GroupIndex = col == grouped ? 1 : -1,
-                    VisibleIndex = index++
-                });
+            cmb.DataBindings.Add(nameof(ButtonEdit.EditValue), Entity, ForeignKey, true, DataSourceUpdateMode.OnPropertyChanged).Parse += Validater;
             cmb.EditValue = EditValue = Entity.GetType().GetProperty(ForeignKey).GetValue(Entity);
-            cmb.Properties.Buttons[1].Visible = cmb.EditValue != null;
+            cmb.Properties.Buttons[0].Visible = cmb.EditValue != null;
+        }
+        protected override void OnBindingContextChanged(EventArgs e)
+        {
+            base.OnBindingContextChanged(e);
         }
 
-        public async Task LoadData(DbContext ctx = null)
+        public override async Task LoadData(DbContext ctx = null)
         {
             if (ctx != null)
                 Context = ctx;
-            GView.ShowLoadingPanel();
-            DataList = await Task.Run(() =>
+        }
+
+        public async Task LoadEntity<T>(DbContext ctx = null)
+        {
+            try
             {
-                DbSet _dbSet = Context.Set(ForeignType);
-                var list = _dbSet.ToListAsync();
-                if (ForeignType.GetProperty(IsActiveMember) == null)
-                    list.Result.ToList();
-                return list.Result.Where(x => (bool)x.GetType().GetProperty(IsActiveMember).GetValue(x)).ToList();
-            });
-            DataBindingSource.DataSource = DataList;
-            GView.BestFitColumns();
-            if (Entity != null)
-                cmb.EditValue = EditValue = Entity.GetType().GetProperty(ForeignKey).GetValue(Entity);
-            GView.HideLoadingPanel();
-            cmb.Refresh();
+                if (ctx != null)
+                    Context = ctx;
+                await Task.Run(() =>
+                {
+                    DbSet _dbSet = this.Context.Set(ForeignType);
+                    var objEnt = _dbSet.Find(EditValue.ToLong());
+                    if (objEnt != null && objEnt.GetType().Equals(typeof(T)))
+                    {
+                        T foreignEntity = (T)objEnt;
+                        cmb.Text = foreignEntity.ToStr();
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                 
+            }
         }
 
         public async Task<T> GetView<T>(T entity)
@@ -147,20 +139,29 @@ namespace DevToolPack
                 CantSaveReason += $"• {validationResult.ErrorMessage}\n";
             }
         }
-        public async Task<object> GetSelected()
+        public override async Task<object> GetSelected()
         {
             if ((EditValue = cmb.EditValue) == null)
                 return null;
             return await Task.Run(() =>
             {
-                DbSet _dbSet = Context.Set(ForeignType);
-                return _dbSet.Find(EditValue);
+                try
+                {
+                    DbSet _dbSet = Context.Set(ForeignType);
+                    if (!EditValue.GetType().Equals(typeof(long)))
+                        return null;
+                    return _dbSet.Find(EditValue);
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
             });
         }
 
         private void cmb_EditValueChanged(object sender, EventArgs e)
         {
-            cmb.Properties.Buttons[1].Visible = cmb.EditValue != null;
+            cmb.Properties.Buttons[0].Visible = cmb.EditValue != null;
             EditValue = cmb.EditValue;
             SelectedId = cmb.EditValue.ToLong();
             if (ValueChanged != null)
@@ -176,21 +177,30 @@ namespace DevToolPack
         {
             switch (e.Button.Kind)
             {
-                case DevExpress.XtraEditors.Controls.ButtonPredefines.Search:
-                    OnRefresh?.Invoke(this, e);
-                    break;
-
-                case DevExpress.XtraEditors.Controls.ButtonPredefines.Plus:
-                    OnAdd?.Invoke(this, e);
-                    break;
 
                 case DevExpress.XtraEditors.Controls.ButtonPredefines.Clear:
                     cmb.EditValue = null;
                     OnClear?.Invoke(this, e);
                     break;
-
-                case DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph:
-                    OnUpdate?.Invoke(this, e);
+                case DevExpress.XtraEditors.Controls.ButtonPredefines.Search:
+                    if(ParentMember == null)
+                    {
+                        ForeignSelector foreignSelector = new ForeignSelector(Context, ForeignType);
+                        if (foreignSelector.ShowDialog() == DialogResult.OK)
+                        {
+                            cmb.EditValue = EditValue = foreignSelector.Entity.GetType().GetProperty("id").GetValue(foreignSelector.Entity);
+                            cmb.Text = foreignSelector.Entity.ToStr();
+                        }
+                    }
+                    else
+                    {
+                        ForeignTSelector foreignSelector = new ForeignTSelector(Context, ForeignType,ParentMember);
+                        if (foreignSelector.ShowDialog() == DialogResult.OK)
+                        {
+                            cmb.EditValue = EditValue = foreignSelector.Entity.GetType().GetProperty("id").GetValue(foreignSelector.Entity);
+                            cmb.Text = foreignSelector.Entity.ToStr();
+                        }
+                    }
                     break;
 
                 default:

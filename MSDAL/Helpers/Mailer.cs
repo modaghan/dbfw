@@ -157,7 +157,8 @@ namespace MS.BLL.Helpers
 
                 To = To == "" ? Credentials.MailCredentials().DefaultAddress : To;
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress(Credentials.MailCredentials().Username, Credentials.SystemCredentials.AppName);//new MailAddress(Credentials.CustomerCredentials().ShortName);
+                mail.From = new MailAddress(Credentials.MailCredentials().Username, Credentials.SystemCredentials.AppName);
+                
                 SmtpClient client = new SmtpClient();
                 client.Port = Credentials.MailCredentials().Port;
                 client.EnableSsl = true;

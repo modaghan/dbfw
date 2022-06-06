@@ -1,12 +1,22 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace DevToolPack
 {
     public class LookBase : DevExpress.XtraEditors.XtraUserControl
     {
-        public virtual async Task<T> GetView<T>(T entity)
+        public virtual Task LoadData(DbContext ctx = null)
         {
-            return entity;
+            return default;
+        }
+        public virtual Task<object> GetSelected()
+        {
+            return default;
+        }
+        public virtual Task<T> GetView<T>(T entity)
+        {
+            return default;
         }
     }
 }

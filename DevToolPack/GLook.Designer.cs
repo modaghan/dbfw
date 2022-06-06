@@ -29,17 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GLook));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
-            this.cmb = new DevExpress.XtraEditors.GridLookUpEdit();
-            this.GView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.cmb = new DevExpress.XtraEditors.ButtonEdit();
             this.DataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.cmb.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,29 +40,14 @@
             this.cmb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmb.Location = new System.Drawing.Point(0, 0);
             this.cmb.Name = "cmb";
-            editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
-            editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(15, 15);
             this.cmb.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Clear),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Plus),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search)});
-            this.cmb.Properties.PopupView = this.GView;
-            this.cmb.Size = new System.Drawing.Size(379, 23);
+            this.cmb.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cmb.Size = new System.Drawing.Size(379, 20);
             this.cmb.TabIndex = 0;
             this.cmb.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.ButtonClick);
             this.cmb.EditValueChanged += new System.EventHandler(this.cmb_EditValueChanged);
-            this.cmb.Properties.BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup;
-            // 
-            // GView
-            // 
-            this.GView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.GView.Name = "GView";
-            this.GView.OptionsBehavior.Editable = false;
-            this.GView.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.GView.OptionsView.ShowGroupPanel = false;
-            this.GView.CustomColumnDisplayText += new DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler(this.GView_CustomColumnDisplayText);
             // 
             // GLook
             // 
@@ -80,16 +57,13 @@
             this.Name = "GLook";
             this.Size = new System.Drawing.Size(379, 20);
             ((System.ComponentModel.ISupportInitialize)(this.cmb.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        public DevExpress.XtraEditors.GridLookUpEdit cmb;
-        private DevExpress.XtraGrid.Views.Grid.GridView GView;
         private System.Windows.Forms.BindingSource DataBindingSource;
+        public DevExpress.XtraEditors.ButtonEdit cmb;
     }
 }

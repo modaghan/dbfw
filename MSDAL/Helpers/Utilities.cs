@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MSDAL;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace MS.BLL
@@ -157,7 +160,7 @@ namespace MS.BLL
         {
             try
             {
-                var v = JsonConvert.SerializeObject(entity, Formatting.Indented, new JsonSerializerSettings
+                var v = JsonConvert.SerializeObject(entity, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
 
@@ -240,7 +243,23 @@ namespace MS.BLL
         {
             return obj == null ? defaultVal : obj.ToString();
         }
-
+        public static string GetParentedTitle<T>(this List<T> list, long id, string parent_key = "parent_id", string root = "")
+        {
+            T t = list.GetById(id);
+            if (t == null)
+                return root;
+            PropertyInfo parentProp = typeof(T).GetProperty(parent_key);
+            long parent_id = parentProp.GetValue(t).ToLong();
+            if (parent_id == 0)
+            {
+                string r = root == "" ? "" : $" > {root}";
+                return $"{t.ToStr()}{r}";
+            }
+            else
+            {
+                return GetParentedTitle(list, parent_id, parent_key, t.ToStr());
+            }
+        }
         public static void Shuffle<T>(this IList<T> list)
         {
             Random rng = new Random(Zaman.Simdi.Millisecond);
@@ -369,6 +388,25 @@ namespace MS.BLL
             catch (Exception)
             {
                 return 0;
+            }
+        }
+
+        public static XmlDocument ToXmlDocument(this XDocument xDocument)
+        {
+            var xmlDocument = new XmlDocument();
+            using (var xmlReader = xDocument.CreateReader())
+            {
+                xmlDocument.Load(xmlReader);
+            }
+            return xmlDocument;
+        }
+
+        public static XDocument ToXDocument(this XmlDocument xmlDocument)
+        {
+            using (var nodeReader = new XmlNodeReader(xmlDocument))
+            {
+                nodeReader.MoveToContent();
+                return XDocument.Load(nodeReader);
             }
         }
         public static IQueryable<t> OrderByDynamic<t>(this IQueryable<t> query, string sortColumn, bool descending)
