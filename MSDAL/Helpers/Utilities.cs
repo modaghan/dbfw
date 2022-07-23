@@ -18,6 +18,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace MS.BLL
@@ -157,7 +159,7 @@ namespace MS.BLL
         {
             try
             {
-                var v = JsonConvert.SerializeObject(entity, Formatting.Indented, new JsonSerializerSettings
+                var v = JsonConvert.SerializeObject(entity, Newtonsoft.Json.Formatting.Indented, new JsonSerializerSettings
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
 
@@ -254,7 +256,24 @@ namespace MS.BLL
                 list[n] = value;
             }
         }
+        public static XmlDocument ToXmlDocument(this XDocument xDocument)
+        {
+            var xmlDocument = new XmlDocument();
+            using (var xmlReader = xDocument.CreateReader())
+            {
+                xmlDocument.Load(xmlReader);
+            }
+            return xmlDocument;
+        }
 
+        public static XDocument ToXDocument(this XmlDocument xmlDocument)
+        {
+            using (var nodeReader = new XmlNodeReader(xmlDocument))
+            {
+                nodeReader.MoveToContent();
+                return XDocument.Load(nodeReader);
+            }
+        }
         public static IEnumerable<List<T>> SplitList<T>(this List<T> locations, int nSize)
         {
             for (int i = 0; i < locations.Count; i += nSize)

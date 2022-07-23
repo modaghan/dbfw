@@ -48,6 +48,7 @@
             this.cmb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmb.Location = new System.Drawing.Point(0, 0);
             this.cmb.Name = "cmb";
+            this.cmb.Properties.BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup;
             editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
             editorButtonImageOptions1.SvgImageSize = new System.Drawing.Size(15, 15);
             this.cmb.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -62,7 +63,6 @@
             this.cmb.TabIndex = 0;
             this.cmb.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.ButtonClick);
             this.cmb.EditValueChanged += new System.EventHandler(this.cmb_EditValueChanged);
-            this.cmb.Properties.BestFitMode = DevExpress.XtraEditors.Controls.BestFitMode.BestFitResizePopup;
             // 
             // TView
             // 

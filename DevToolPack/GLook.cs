@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
@@ -46,7 +47,9 @@ namespace DevToolPack
         public string ForeignKey { get; set; }
         public bool IsValidated { get; private set; }
         public string CantSaveReason { get; private set; }
-        DbContext Context;
+        public IStatic Static { get; set; }
+        public DbContext Context { get; set; }
+        private string Filename;
 
         public event EventHandler OnClear, OnRefresh, OnAdd, OnUpdate;
 
@@ -64,13 +67,15 @@ namespace DevToolPack
                 this.cmb.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
                 this.cmb.Properties.PopupSizeable = false;
             }
+
         }
 
-        public void BindData<T>(object Entity, IEntityView dialog, string foreign_key, Type columnsRM, params string[] cols)
+
+        public void BindData<T>(object Entity, IEntityView dialog, string foreign_key)
         {
-            Bind<T>(Entity, dialog, foreign_key, columnsRM, cols);
+            Bind<T>(Entity, dialog, foreign_key, null, null);
         }
-        public void BindData<T>(object Entity, IEntityView dialog, string foreign_key, Type columnsRM, string grouped, params string[] cols)
+        public void BindData<T>(object Entity, IEntityView dialog, string foreign_key, Type columnsRM, string grouped = null, params string[] cols)
         {
             Bind<T>(Entity, dialog, foreign_key, columnsRM, cols, grouped);
         }
@@ -88,34 +93,55 @@ namespace DevToolPack
             cmb.DataBindings.Add(nameof(GridLookUpEdit.EditValue), Entity, ForeignKey, true, DataSourceUpdateMode.OnPropertyChanged).Parse += Validater;
             GView.Columns.Clear();
             int index = 0;
-            foreach (string col in cols)
-                GView.Columns.Add(new DevExpress.XtraGrid.Columns.GridColumn
-                {
-                    FieldName = col,
-                    Name = $"col_{Entity.GetType().Name}_{ForeignType.Name}_{col}",
-                    Caption = new ResourceManager(columnsRM).GetString(col),
-                    Visible = true,
-                    GroupIndex = col == grouped ? 1 : -1,
-                    VisibleIndex = index++
-                });
+            if (columnsRM != null && cols != null)
+                foreach (string col in cols)
+                    GView.Columns.Add(new DevExpress.XtraGrid.Columns.GridColumn
+                    {
+                        FieldName = col,
+                        Name = $"col_{Entity.GetType().Name}_{ForeignType.Name}_{col}",
+                        Caption = new ResourceManager(columnsRM).GetString(col),
+                        Visible = true,
+                        GroupIndex = col == grouped ? 1 : -1,
+                        VisibleIndex = index++
+                    });
             cmb.EditValue = EditValue = Entity.GetType().GetProperty(ForeignKey).GetValue(Entity);
             cmb.Properties.Buttons[1].Visible = cmb.EditValue != null;
+
+
+            Filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Layouts", $"GLook_{ForeignType.Name}.xml");
+            if (File.Exists(Filename))
+                GView.RestoreLayoutFromXml(Filename);
+            GView.Layout += GView_Layout;
+        }
+        private void GView_Layout(object sender, EventArgs e)
+        {
+            if (Filename != null)
+                GView.SaveLayoutToXml(Filename);
+        }
+        public async Task LoadData(DbContext ctx, IStatic stc)
+        {
+            Context = ctx;
+            Static = stc;
+            if (Static.TypeExists(ForeignType))
+                await LoadData(Static.GetList(ForeignType));
+            else
+                await LoadData();
         }
 
-        public async Task LoadData(DbContext ctx = null)
+
+        public async Task LoadData(object dataList = null)
         {
-            if (ctx != null)
-                Context = ctx;
             GView.ShowLoadingPanel();
-            DataList = await Task.Run(() =>
-            {
-                DbSet _dbSet = Context.Set(ForeignType);
-                var list = _dbSet.ToListAsync();
-                if (ForeignType.GetProperty(IsActiveMember) == null)
-                    list.Result.ToList();
-                return list.Result.Where(x => (bool)x.GetType().GetProperty(IsActiveMember).GetValue(x)).ToList();
-            });
-            DataBindingSource.DataSource = DataList;
+            if (dataList == null)
+                DataList = await Task.Run(() =>
+                {
+                    DbSet _dbSet = Context.Set(ForeignType);
+                    var list = _dbSet.ToListAsync();
+                    if (ForeignType.GetProperty(IsActiveMember) == null)
+                        list.Result.ToList();
+                    return list.Result.Where(x => (bool)x.GetType().GetProperty(IsActiveMember).GetValue(x)).ToList();
+                });
+            DataBindingSource.DataSource = dataList != null ? dataList : DataList;
             GView.BestFitColumns();
             if (Entity != null)
                 cmb.EditValue = EditValue = Entity.GetType().GetProperty(ForeignKey).GetValue(Entity);
@@ -123,7 +149,7 @@ namespace DevToolPack
             cmb.Refresh();
         }
 
-        public async Task<T> GetView<T>(T entity)
+        public override async Task<T> GetView<T>(T entity)
         {
             Dialog.ShowDialog();
             if (Dialog.Object != null)
@@ -147,7 +173,7 @@ namespace DevToolPack
                 CantSaveReason += $"• {validationResult.ErrorMessage}\n";
             }
         }
-        public async Task<object> GetSelected()
+        public override async Task<object> GetSelected()
         {
             if ((EditValue = cmb.EditValue) == null)
                 return null;

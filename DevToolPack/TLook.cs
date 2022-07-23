@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
@@ -15,7 +16,7 @@ using System.Windows.Forms;
 
 namespace DevToolPack
 {
-    public partial class TLook : LookBase,INotifyPropertyChanged
+    public partial class TLook : LookBase, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
@@ -25,7 +26,8 @@ namespace DevToolPack
         public Type ForeignType { get; private set; }
         public object Entity { get; set; }
         private object _EditValue { get; set; }
-        public object EditValue {
+        public object EditValue
+        {
             get
             {
                 return _EditValue;
@@ -45,14 +47,15 @@ namespace DevToolPack
         public string ForeignKey { get; set; }
         public bool IsValidated { get; private set; }
         public string CantSaveReason { get; private set; }
-        public string NullText {
+        public string NullText
+        {
             get
             {
                 return cmb.Properties.NullText;
             }
             set
             {
-                cmb.Properties.ShowNullValuePrompt = value != null ? ShowNullValuePromptOptions.NullValue:ShowNullValuePromptOptions.Default;
+                cmb.Properties.ShowNullValuePrompt = value != null ? ShowNullValuePromptOptions.NullValue : ShowNullValuePromptOptions.Default;
                 cmb.Properties.NullText = cmb.Properties.NullValuePrompt = value;
             }
         }
@@ -62,7 +65,11 @@ namespace DevToolPack
         public event DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventHandler OnCustomDisplay;
 
         public event EventHandler ValueChanged;
-        DbContext Context;
+        public DbContext Context { get; set; }
+
+        public IStatic Static { get; set; }
+
+        private string Filename;
 
         public TLook()
         {
@@ -100,7 +107,7 @@ namespace DevToolPack
             TView.Columns.Clear();
             TView.ParentFieldName = ParentValueMember;
             TView.KeyFieldName = ValueMember;
-            if (columnsRM != null)
+            if (columnsRM != null && cols != null)
             {
                 int index = 0;
                 foreach (string col in cols)
@@ -115,14 +122,30 @@ namespace DevToolPack
             }
             cmb.EditValue = EditValue = Entity.GetType().GetProperty(ForeignKey).GetValue(Entity);
             cmb.Properties.Buttons[1].Visible = cmb.EditValue != null;
+            Filename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Layouts", $"TLook_{ForeignType.Name}.xml");
+            if (File.Exists(Filename))
+                TView.RestoreLayoutFromXml(Filename);
+            TView.Layout += TView_Layout;
         }
-
-        public async Task LoadData(DbContext ctx = null)
+        private void TView_Layout(object sender, EventArgs e)
         {
-            if (ctx != null)
-                this.Context = ctx;
+            if (Filename != null)
+                TView.SaveLayoutToXml(Filename);
+        }
+        public async Task LoadData(DbContext ctx, IStatic stc)
+        {
+            Context = ctx;
+            Static = stc;
+            if (Static.TypeExists(ForeignType))
+                await LoadData(Static.GetList(ForeignType));
+            else
+                await LoadData();
+        }
+        public async Task LoadData(object dataList = null)
+        {
             TView.ShowLoadingPanel();
-            DataList = await Task.Run(() =>
+            if (dataList != null)
+                DataList = await Task.Run(() =>
             {
                 DbSet _dbSet = this.Context.Set(ForeignType);
                 var list = _dbSet.ToListAsync();
@@ -130,7 +153,7 @@ namespace DevToolPack
                     list.Result.ToList();
                 return list.Result.Where(x => (bool)x.GetType().GetProperty(IsActiveMember).GetValue(x)).ToList();
             });
-            DataBindingSource.DataSource = DataList;
+            DataBindingSource.DataSource = dataList != null ? dataList: DataList;
             TView.BestFitColumns();
             if (Entity != null)
                 cmb.EditValue = EditValue = Entity.GetType().GetProperty(ForeignKey).GetValue(Entity);
@@ -138,7 +161,7 @@ namespace DevToolPack
             cmb.Refresh();
         }
 
-        public async Task<T> GetView<T>(T entity)
+        public override async Task<T> GetView<T>(T entity)
         {
             Dialog.ShowDialog();
             if (Dialog.Object != null)
@@ -163,7 +186,7 @@ namespace DevToolPack
             }
         }
 
-        public async Task<object> GetSelected()
+        public override async Task<object> GetSelected()
         {
             if ((EditValue = cmb.EditValue) == null)
                 return null;

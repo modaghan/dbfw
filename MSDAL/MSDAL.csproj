@@ -90,6 +90,7 @@
     <Compile Include="Helpers\StreamHelper.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Helpers\Zaman.cs" />
+    <Compile Include="Interfaces\IStatic.cs" />
     <Compile Include="Models\CurrencyRate.cs" />
     <Compile Include="Models\SystemCredentials.cs" />
     <Compile Include="Models\CustomerCredentials.cs" />
